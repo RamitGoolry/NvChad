@@ -21,7 +21,7 @@ local default_plugins = {
   {
     "NvChad/nvterm",
     init = function()
-      require("core.utils").load_mappings "nvterm"
+      require("core.utils").load_mappings("nvterm")
     end,
     config = function(_, opts)
       require "base46.term"
@@ -32,7 +32,7 @@ local default_plugins = {
   {
     "NvChad/nvim-colorizer.lua",
     init = function()
-      require("core.utils").lazy_load "nvim-colorizer.lua"
+      require("core.utils").lazy_load("nvim-colorizer.lua")
     end,
     config = function(_, opts)
       require("colorizer").setup(opts)
@@ -60,7 +60,7 @@ local default_plugins = {
     main = 'ibl',
     version = "2.20.7",
     init = function()
-      require("core.utils").lazy_load "indent-blankline.nvim"
+      require("core.utils").lazy_load("indent-blankline.nvim")
     end,
     opts = function()
       return require("plugins.configs.others").blankline
@@ -75,7 +75,7 @@ local default_plugins = {
   {
     "nvim-treesitter/nvim-treesitter",
     init = function()
-      require("core.utils").lazy_load "nvim-treesitter"
+      require("core.utils").lazy_load("nvim-treesitter")
     end,
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate",
@@ -146,7 +146,7 @@ local default_plugins = {
   {
     "neovim/nvim-lspconfig",
     init = function()
-      require("core.utils").lazy_load "nvim-lspconfig"
+      require("core.utils").lazy_load("nvim-lspconfig")
     end,
     config = function()
       require "plugins.configs.lspconfig"
@@ -194,7 +194,7 @@ local default_plugins = {
       },
     },
     opts = function()
-      return require "plugins.configs.cmp"
+      return require("plugins.configs.cmp")
     end,
     config = function(_, opts)
       require("cmp").setup(opts)
@@ -224,7 +224,7 @@ local default_plugins = {
     "nvim-tree/nvim-tree.lua",
     cmd = { "NvimTreeToggle", "NvimTreeFocus" },
     init = function()
-      require("core.utils").load_mappings "nvimtree"
+      require("core.utils").load_mappings("nvimtree")
     end,
     opts = function()
       return require "plugins.configs.nvimtree"
@@ -247,7 +247,7 @@ local default_plugins = {
     end,
     config = function(_, opts)
       dofile(vim.g.base46_cache .. "telescope")
-      local telescope = require "telescope"
+      local telescope = require("telescope")
       telescope.setup(opts)
 
       -- load extensions
@@ -270,6 +270,31 @@ local default_plugins = {
       require("which-key").setup(opts)
     end,
   },
+
+  -- Github Copilot: AI Assistant
+  {
+    "github/copilot.vim",
+    cmd = "Copilot",
+    config = function()
+      vim.g.copilot_no_tap_map = true
+      vim.g.copilot_assume_mapped = true
+      vim.g.tab_fallback = ''
+      vim.g.copilot_enabled = true
+    end,
+  },
+
+  {
+    "rmagatti/goto-preview",
+    init = function()
+      require("core.utils").load_mappings("goto_preview")
+    end,
+    config = function()
+      require("goto-preview").setup({
+        height = 20,
+        width = 80,
+      })
+    end,
+  }
 }
 
 local config = require("core.utils").load_config()

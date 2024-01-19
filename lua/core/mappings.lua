@@ -270,9 +270,9 @@ M.telescope = {
 
   n = {
     -- find
-    ["<leader>fa"] = { "<cmd> Telescope find_files <CR>", "Find files" },
+    ["<leader>ff"] = { "<cmd> Telescope find_files <CR>", "Find files" },
     ["<leader>fg"] = { "<cmd> Telescope live_grep <CR>", "Live Grep"},
-    ["<leader>ff"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "Find all" },
+    ["<leader>fa"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "Find all" },
     ["<leader>fb"] = { "<cmd> Telescope buffers <CR>", "Find buffers" },
     ["<leader>fh"] = { "<cmd> Telescope help_tags <CR>", "Help page" },
     ["<leader>fo"] = { "<cmd> Telescope oldfiles <CR>", "Find oldfiles" },
@@ -464,5 +464,49 @@ M.gitsigns = {
     },
   },
 }
+
+M.goto_preview = {
+  plugin = true,
+
+  -- Actions
+  n = {
+    -- Preview Definition
+    ["<leader>pd"] = {
+      "<cmd>lua require(\"goto-preview\").goto_preview_definition()<CR>",
+      "Preview Definition"
+    },
+    ["<leader>pt"] = {
+      "<cmd>lua require(\"goto-preview\").goto_preview_type_implementation()<CR>",
+      "Preview Type"
+    },
+    ["<leader>pi"] = {
+      "<cmd>lua require(\"goto-preview\").goto_preview_implementation()<CR>",
+      "Preview Implementation"
+    },
+    ["<leader>pr"] = {
+      "<cmd>lua require(\"goto-preview\").goto_preview_references()<CR>",
+      "Preview References"
+    },
+  }
+}
+
+M.floating_windows = {
+  n = {
+    ["<S-left>"] = {"<C-w><", "Decrease width"},
+    ["<S-right>"] = {"<C-w>>", "Increase width"},
+    ["<S-up>"] = {"<C-w>-", "Decrease height"},
+    ["<S-down>"] = {"<C-w>+", "Increase height"},
+  }
+}
+
+M.tabs = {
+  plugin = false,
+
+  n = {
+    ["tt"] = {"<cmd>tabnew<CR>", "Create new Tab"},
+    ["tn"] = {"<cmd>tabnext<CR>", "Next Tab"},
+    ["tp"] = {"<cmd>tabprevious<CR>", "Previous Tab"}
+  }
+} -- TODO
 
 return M
