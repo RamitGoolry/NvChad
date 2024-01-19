@@ -536,7 +536,7 @@ M.gitlinker = {
   plugin = true,
 
   n = {
-    ["<leader>gy"] = {"<cmd>lua require(\"gitlinker\").get_buf_range_url(\"n\")", "Copy Git Permalink"},
+    ["<leader>gy"] = {"<cmd>lua require(\"gitlinker\").get_buf_range_url(\"n\")<CR>", "Copy Git Permalink"},
   }
 }
 

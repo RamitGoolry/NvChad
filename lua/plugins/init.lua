@@ -306,6 +306,7 @@ local default_plugins = {
     keys = {"<leader>", "<C-n>", "<C-p>"},
     init = function()
       require("core.utils").load_mappings("harpoon")
+      -- TODO: Fix Harpoon Tab system. Maybe watch Primeagen's video on it?
       -- if vim.fn.argc() == 0 then
       --   local harpoon = require('harpoon.mark')
       --   local length = harpoon.get_length()
@@ -348,7 +349,26 @@ local default_plugins = {
     init = function()
       require("core.utils").load_mappings("gitlinker")
     end,
-  }
+  },
+
+  -- UFO: Code Folding
+  {
+    'kevinhwang91/nvim-ufo',
+    keys = {'za', 'zm', 'zM', 'zr', 'zR'},
+    dependencies = {
+      'kevinhwang91/promise-async',
+      'neovim/nvim-lspconfig'
+    },
+    lazy = false,
+    config = function()
+      vim.o.foldcolumn = '1' -- '0' is not bad
+      vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+      vim.o.foldlevelstart = 99
+      vim.o.foldenable = true
+
+      require('ufo').setup()
+    end,
+  },
 }
 
 local config = require("core.utils").load_config()
