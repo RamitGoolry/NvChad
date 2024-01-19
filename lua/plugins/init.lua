@@ -275,6 +275,7 @@ local default_plugins = {
   {
     "github/copilot.vim",
     cmd = "Copilot",
+    lazy = false,
     config = function()
       vim.g.copilot_no_tap_map = true
       vim.g.copilot_assume_mapped = true
