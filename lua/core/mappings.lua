@@ -517,7 +517,7 @@ M.buffers = {
     ["tn"] = {"<cmd>bn<CR>", "Next buffer"},
     ["tp"] = {"<cmd>bp<CR>", "Previous buffer"},
     ["td"] = {"<cmd>bd<CR>", "Delete buffer"},
-    ["tl"] = {"<cmd>ls<CR>", "List buffers"}
+    ["tl"] = {"<cmd>ls<CR>", "List buffers"},
   }
 }
 
@@ -528,7 +528,15 @@ M.harpoon = {
     ["<leader>;"] = {"<cmd>lua require(\"harpoon.mark\").add_file()<CR>", "Add File to Harpoon"},
     ["<leader>h"] = {"<cmd>lua require(\"harpoon.ui\").toggle_quick_menu()<CR>", "Harpoon Quick Menu"},
     ["<C-n>"] = {"<cmd>lua require(\"harpoon.ui\").nav_next()<CR>", "Harpoon to next file"},
-    ["<C-p>"] = {"<cmd>lua require(\"harpoon.ui\").nav_prev()<CR>", "Harpoon to previous file"}
+    ["<C-p>"] = {"<cmd>lua require(\"harpoon.ui\").nav_prev()<CR>", "Harpoon to previous file"},
+  }
+}
+
+M.gitlinker = {
+  plugin = true,
+
+  n = {
+    ["<leader>gy"] = {"<cmd>lua require(\"gitlinker\").get_buf_range_url(\"n\")", "Copy Git Permalink"},
   }
 }
 

@@ -7,6 +7,7 @@ local default_plugins = {
   {
     "NvChad/base46",
     branch = "v2.0",
+    lazy = false,
     build = function()
       require("base46").load_all_highlights()
     end,
@@ -287,6 +288,7 @@ local default_plugins = {
   -- Goto Preview: Preview Windows
   {
     "rmagatti/goto-preview",
+    keys = {"<leader>"},
     init = function()
       require("core.utils").load_mappings("goto_preview")
     end,
@@ -301,6 +303,7 @@ local default_plugins = {
   -- Harpoon: Fast File Navigation
   {
     "ThePrimeagen/harpoon",
+    keys = {"<leader>", "<C-n>", "<C-p>"},
     init = function()
       require("core.utils").load_mappings("harpoon")
       -- if vim.fn.argc() == 0 then
@@ -321,6 +324,31 @@ local default_plugins = {
       -- end
     end,
   },
+
+  -- Fugitive: Git Functions
+  {
+    "tpope/vim-fugitive",
+    cmd = { "Git" },
+    -- TODO Setup?
+  },
+
+  -- Git Blame in Virtual Text
+  {
+    "APZelos/blamer.nvim",
+    lazy = false,
+    config = function()
+      vim.g.blamer_enabled = 1
+    end,
+  },
+
+  -- Git Linker: Generate Git Permalinks
+  {
+    "ruifm/gitlinker.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    init = function()
+      require("core.utils").load_mappings("gitlinker")
+    end,
+  }
 }
 
 local config = require("core.utils").load_config()
