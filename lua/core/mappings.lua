@@ -503,10 +503,33 @@ M.tabs = {
   plugin = false,
 
   n = {
-    ["tt"] = {"<cmd>tabnew<CR>", "Create new Tab"},
-    ["tn"] = {"<cmd>tabnext<CR>", "Next Tab"},
-    ["tp"] = {"<cmd>tabprevious<CR>", "Previous Tab"}
+    [";tt"] = {"<cmd>tabnew<CR>", "Create new Tab"},
+    [";tn"] = {"<cmd>tabnext<CR>", "Next Tab"},
+    [";tp"] = {"<cmd>tabprevious<CR>", "Previous Tab"}
   }
-} -- TODO
+}
+
+M.buffers = {
+  plugin = false,
+
+  n = {
+    ["tt"] = {"<cmd>enew<CR>", "Create new buffer"},
+    ["tn"] = {"<cmd>bn<CR>", "Next buffer"},
+    ["tp"] = {"<cmd>bp<CR>", "Previous buffer"},
+    ["td"] = {"<cmd>bd<CR>", "Delete buffer"},
+    ["tl"] = {"<cmd>ls<CR>", "List buffers"}
+  }
+}
+
+M.harpoon = {
+  plugin = true,
+
+  n = {
+    ["<leader>;"] = {"<cmd>lua require(\"harpoon.mark\").add_file()<CR>", "Add File to Harpoon"},
+    ["<leader>h"] = {"<cmd>lua require(\"harpoon.ui\").toggle_quick_menu()<CR>", "Harpoon Quick Menu"},
+    ["<C-n>"] = {"<cmd>lua require(\"harpoon.ui\").nav_next()<CR>", "Harpoon to next file"},
+    ["<C-p>"] = {"<cmd>lua require(\"harpoon.ui\").nav_prev()<CR>", "Harpoon to previous file"}
+  }
+}
 
 return M

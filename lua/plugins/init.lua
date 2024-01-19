@@ -284,6 +284,7 @@ local default_plugins = {
     end,
   },
 
+  -- Goto Preview: Preview Windows
   {
     "rmagatti/goto-preview",
     init = function()
@@ -294,6 +295,30 @@ local default_plugins = {
         height = 20,
         width = 80,
       })
+    end,
+  },
+
+  -- Harpoon: Fast File Navigation
+  {
+    "ThePrimeagen/harpoon",
+    init = function()
+      require("core.utils").load_mappings("harpoon")
+      -- if vim.fn.argc() == 0 then
+      --   local harpoon = require('harpoon.mark')
+      --   local length = harpoon.get_length()
+      --
+      --   for i = 1, length do
+      --     local file_table = harpoon.get_marked_file(i)
+      --     -- filename, row, col
+      --     if i == 1 then
+      --       vim.cmd('e ' .. file_table.filename)
+      --       vim.fn.cursor(file_table.row, file_table.col)
+      --     else
+      --       vim.cmd('e ' .. file_table.filename)
+      --       vim.fn.cursor(file_table.row, file_table.col)
+      --     end
+      --   end
+      -- end
     end,
   }
 }
