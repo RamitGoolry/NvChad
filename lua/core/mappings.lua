@@ -540,4 +540,12 @@ M.gitlinker = {
   }
 }
 
+M.undotree = {
+  plugin = true,
+
+  n = {
+    ["<leader>u"] = {"<cmd>UndotreeToggle<CR>", "Toggle Undo Tree"},
+  }
+}
+
 return M

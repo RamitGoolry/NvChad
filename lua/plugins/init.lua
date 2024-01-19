@@ -385,7 +385,7 @@ local default_plugins = {
   -- Fidget: LSP Status indicator
   {
     "j-hui/fidget.nvim",
-    tag = 'legacy',
+    tag = 'legacy', -- TODO: Remove legacy once migrated
     lazy = false,
     config = function()
       require('fidget').setup({
@@ -398,7 +398,20 @@ local default_plugins = {
         }
       })
     end,
-  }
+  },
+
+  -- Undo Tree
+  {
+    'mbbill/undotree',
+    cmd = {'UndotreeToggle'},
+    init = function()
+      require("core.utils").load_mappings("undotree")
+    end,
+    config = function()
+      require('undotree').setup({})
+    end,
+  },
+
 }
 
 local config = require("core.utils").load_config()
