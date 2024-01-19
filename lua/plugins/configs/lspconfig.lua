@@ -38,7 +38,9 @@ M.capabilities.textDocument.completion.completionItem = {
   },
 }
 
-require("lspconfig").lua_ls.setup {
+local lspconfig = require('lspconfig')
+
+lspconfig.lua_ls.setup {
   on_attach = M.on_attach,
   capabilities = M.capabilities,
 
@@ -56,6 +58,60 @@ require("lspconfig").lua_ls.setup {
         },
         maxPreload = 100000,
         preloadFileSize = 10000,
+      },
+    },
+  },
+}
+
+lspconfig.rust_analyzer.setup {
+  on_attach = M.on_attach,
+  capabilities = M.capabilities,
+  settings = {
+    ["rust-analyzer"] = {
+      assist = {
+        importGranularity = "module",
+        importPrefix = "by_self",
+      },
+      cargo = {
+        loadOutDirsFromCheck = true,
+      },
+      procMacro = {
+        enable = true,
+      },
+    },
+  },
+}
+
+lspconfig.gopls.setup({
+	settings = {
+		gopls = {
+			analyses = {
+				unusedparams = true,
+				nilness = true,
+				unusedwrite = true,
+				useany = true,
+			},
+			experimentalPostfixCompletions = true,
+			staticcheck = true,
+			gofumpt = true,
+		},
+	},
+})
+
+lspconfig.tsserver.setup {
+  on_attach = function(client, bufnr)
+    -- require("twoslash-queries").attach(client, bufnr)
+  end
+}
+
+lspconfig.pyright.setup {
+  on_attach = M.on_attach,
+  capabilities = M.capabilities,
+  settings = {
+    python = {
+      analysis = {
+        autoSearchPaths = true,
+        useLibraryCodeForTypes = true,
       },
     },
   },

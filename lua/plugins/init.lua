@@ -320,7 +320,7 @@ local default_plugins = {
       --   end
       -- end
     end,
-  }
+  },
 }
 
 local config = require("core.utils").load_config()
