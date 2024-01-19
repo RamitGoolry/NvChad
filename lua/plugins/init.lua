@@ -369,6 +369,18 @@ local default_plugins = {
       require('ufo').setup()
     end,
   },
+
+  -- Todo Comments: Highlight and Anchor Todos
+  {
+    "folke/todo-comments.nvim",
+    event = "BufRead", -- Highlight on BufRead
+    lazy = false,
+    -- TODO: Look into todo-comments options from NvPink, I'm pretty sure it was 
+    -- just defaults, but maybe we can add new things
+    config = function()
+      require("todo-comments").setup()
+    end,
+  }
 }
 
 local config = require("core.utils").load_config()
