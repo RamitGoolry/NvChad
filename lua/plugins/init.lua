@@ -359,7 +359,7 @@ local default_plugins = {
       'kevinhwang91/promise-async',
       'neovim/nvim-lspconfig'
     },
-    lazy = false,
+    -- lazy = false,
     config = function()
       vim.o.foldcolumn = '1' -- '0' is not bad
       vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
@@ -379,6 +379,24 @@ local default_plugins = {
     -- just defaults, but maybe we can add new things
     config = function()
       require("todo-comments").setup()
+    end,
+  },
+
+  -- Fidget: LSP Status indicator
+  {
+    "j-hui/fidget.nvim",
+    tag = 'legacy',
+    lazy = false,
+    config = function()
+      require('fidget').setup({
+        text = {
+          spinner = 'dots',
+        },
+        align = {
+          bottom = true,
+          right = true,
+        }
+      })
     end,
   }
 }
