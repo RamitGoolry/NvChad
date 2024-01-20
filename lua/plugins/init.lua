@@ -344,6 +344,7 @@ local default_plugins = {
   {
     'ruifm/gitlinker.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
+    keys = { '<leader>gy' },
     init = function()
       require('core.utils').load_mappings 'gitlinker'
     end,
@@ -457,7 +458,29 @@ local default_plugins = {
     end,
   },
 
-  -- None LS : LSP Integration - TODO: install
+  -- Mason Null LS: Bridge Mason and Null LS
+  {
+    'jay-babu/mason-null-ls.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
+    dependencies = {
+      'williamboman/mason.nvim',
+      'nvimtools/none-ls.nvim',
+    },
+    config = function()
+      local masons_null_ls = require 'mason-null-ls'
+      masons_null_ls.setup {
+        ensure_installed = {
+          'stylua',
+          'prettier',
+          'alex',
+          'gofmt',
+          'rustfmt',
+          'gofumpt',
+        },
+      }
+    end,
+  },
+
   -- mason-null-ls : LSP Integration - TODO: install
   -- mason-lspconfig : LSP Integration - TODO: install
   -- ray-x/lsp_signature.nvim : LSP Integration - TODO: install
