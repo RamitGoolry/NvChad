@@ -481,8 +481,32 @@ local default_plugins = {
     end,
   },
 
-  -- mason-null-ls : LSP Integration - TODO: install
-  -- mason-lspconfig : LSP Integration - TODO: install
+  -- Mason LSPConfig : Bridge Mason and LSPConfig
+  {
+    'williamboman/mason-lspconfig.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
+    dependencies = {
+      'williamboman/mason.nvim',
+      'neovim/nvim-lspconfig',
+    },
+    config = function()
+      local mason_lspconfig = require 'mason-lspconfig'
+      mason_lspconfig.setup {
+        ensure_installed = {
+          'bashls',
+          'dockerls',
+          'gopls',
+          'html',
+          'jsonls',
+          'pyright',
+          'rust_analyzer',
+          'tsserver',
+          'vimls',
+        },
+      }
+    end,
+  },
+
   -- ray-x/lsp_signature.nvim : LSP Integration - TODO: install
   -- Trouble : TODO: install
   -- Helm : LSP Integration - TODO: install
