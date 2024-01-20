@@ -304,23 +304,6 @@ local default_plugins = {
     keys = { '<leader>', '<C-n>', '<C-p>' },
     init = function()
       require('core.utils').load_mappings 'harpoon'
-      -- TODO: Fix Harpoon Tab system. Maybe watch Primeagen's video on it?
-      -- if vim.fn.argc() == 0 then
-      --   local harpoon = require('harpoon.mark')
-      --   local length = harpoon.get_length()
-      --
-      --   for i = 1, length do
-      --     local file_table = harpoon.get_marked_file(i)
-      --     -- filename, row, col
-      --     if i == 1 then
-      --       vim.cmd('e ' .. file_table.filename)
-      --       vim.fn.cursor(file_table.row, file_table.col)
-      --     else
-      --       vim.cmd('e ' .. file_table.filename)
-      --       vim.fn.cursor(file_table.row, file_table.col)
-      --     end
-      --   end
-      -- end
     end,
   },
 
@@ -568,6 +551,7 @@ local default_plugins = {
     end,
   },
 
+  --  TODO: Add Winddows to things like code actions and rename
   --  TODO: Install vim-helm LSP Integration for helm
   --  TODO: Install RapidReturn
   --  TODO: Install nvim-treesitter-context to get sticky headers, and add keybindings to disable
