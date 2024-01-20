@@ -576,7 +576,6 @@ local default_plugins = {
   --  TODO: Fix Tabs and Buffers, they are wonky right now
   --  TODO: Fix Theme picker erroring out
   --  TODO: Fix whatever the hell is wrong with base46
-  --  TODO: Fix Harpoon Window
 }
 
 local config = require('core.utils').load_config()
