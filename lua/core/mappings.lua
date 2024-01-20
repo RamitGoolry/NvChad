@@ -50,6 +50,9 @@ M.general = {
     ['<leader>b'] = { '<cmd> enew <CR>', 'New buffer' },
     ['<leader>ch'] = { '<cmd> NvCheatsheet <CR>', 'Mapping cheatsheet' },
 
+    -- LSP Methods
+    ['<leader>rn'] = { vim.lsp.buf.rename, 'Rename Symbol' },
+
     ['<leader>fm'] = {
       function()
         vim.lsp.buf.format { async = true }
