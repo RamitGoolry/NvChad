@@ -1,19 +1,22 @@
-dofile(vim.g.base46_cache .. "lsp")
-require "nvchad.lsp"
+dofile(vim.g.base46_cache .. 'lsp')
+require 'nvchad.lsp'
 
 local M = {}
-local utils = require "core.utils"
+local utils = require 'core.utils'
 
 -- export on_attach & capabilities for custom lspconfigs
 
 M.on_attach = function(client, bufnr)
-  utils.load_mappings("lspconfig", { buffer = bufnr })
+  utils.load_mappings('lspconfig', { buffer = bufnr })
 
   if client.server_capabilities.signatureHelpProvider then
-    require("nvchad.signature").setup(client)
+    require('nvchad.signature').setup(client)
   end
 
-  if not utils.load_config().ui.lsp_semantic_tokens and client.supports_method "textDocument/semanticTokens" then
+  if
+      not utils.load_config().ui.lsp_semantic_tokens
+      and client.supports_method 'textDocument/semanticTokens'
+  then
     client.server_capabilities.semanticTokensProvider = nil
   end
 end
@@ -21,7 +24,7 @@ end
 M.capabilities = vim.lsp.protocol.make_client_capabilities()
 
 M.capabilities.textDocument.completion.completionItem = {
-  documentationFormat = { "markdown", "plaintext" },
+  documentationFormat = { 'markdown', 'plaintext' },
   snippetSupport = true,
   preselectSupport = true,
   insertReplaceSupport = true,
@@ -31,14 +34,14 @@ M.capabilities.textDocument.completion.completionItem = {
   tagSupport = { valueSet = { 1 } },
   resolveSupport = {
     properties = {
-      "documentation",
-      "detail",
-      "additionalTextEdits",
+      'documentation',
+      'detail',
+      'additionalTextEdits',
     },
   },
 }
 
-local lspconfig = require('lspconfig')
+local lspconfig = require 'lspconfig'
 
 lspconfig.lua_ls.setup {
   on_attach = M.on_attach,
@@ -47,14 +50,14 @@ lspconfig.lua_ls.setup {
   settings = {
     Lua = {
       diagnostics = {
-        globals = { "vim" },
+        globals = { 'vim' },
       },
       workspace = {
         library = {
-          [vim.fn.expand "$VIMRUNTIME/lua"] = true,
-          [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
-          [vim.fn.stdpath "data" .. "/lazy/ui/nvchad_types"] = true,
-          [vim.fn.stdpath "data" .. "/lazy/lazy.nvim/lua/lazy"] = true,
+          [vim.fn.expand '$VIMRUNTIME/lua'] = true,
+          [vim.fn.expand '$VIMRUNTIME/lua/vim/lsp'] = true,
+          [vim.fn.stdpath 'data' .. '/lazy/ui/nvchad_types'] = true,
+          [vim.fn.stdpath 'data' .. '/lazy/lazy.nvim/lua/lazy'] = true,
         },
         maxPreload = 100000,
         preloadFileSize = 10000,
@@ -67,10 +70,10 @@ lspconfig.rust_analyzer.setup {
   on_attach = M.on_attach,
   capabilities = M.capabilities,
   settings = {
-    ["rust-analyzer"] = {
+    ['rust-analyzer'] = {
       assist = {
-        importGranularity = "module",
-        importPrefix = "by_self",
+        importGranularity = 'module',
+        importPrefix = 'by_self',
       },
       cargo = {
         loadOutDirsFromCheck = true,
@@ -82,26 +85,26 @@ lspconfig.rust_analyzer.setup {
   },
 }
 
-lspconfig.gopls.setup({
-	settings = {
-		gopls = {
-			analyses = {
-				unusedparams = true,
-				nilness = true,
-				unusedwrite = true,
-				useany = true,
-			},
-			experimentalPostfixCompletions = true,
-			staticcheck = true,
-			gofumpt = true,
-		},
-	},
-})
+lspconfig.gopls.setup {
+  settings = {
+    gopls = {
+      analyses = {
+        unusedparams = true,
+        nilness = true,
+        unusedwrite = true,
+        useany = true,
+      },
+      experimentalPostfixCompletions = true,
+      staticcheck = true,
+      gofumpt = true,
+    },
+  },
+}
 
 lspconfig.tsserver.setup {
-  on_attach = function(client, bufnr)
+  on_attach = function(_, _)
     -- require("twoslash-queries").attach(client, bufnr)
-  end
+  end,
 }
 
 lspconfig.pyright.setup {

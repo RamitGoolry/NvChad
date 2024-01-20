@@ -415,7 +415,7 @@ local default_plugins = {
     config = function()
       local null_ls = require 'null-ls'
       local formatting = null_ls.builtins.formatting
-      local diagnostics = null_ls.builtins.diagnostics
+      -- local diagnostics = null_ls.builtins.diagnostics
       local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
 
       null_ls.setup {
@@ -552,12 +552,30 @@ local default_plugins = {
     end,
   },
 
-  -- Trouble : TODO: install
-  -- nvim-bqf : TODO: install
-  -- Helm : LSP Integration - TODO: install
-  -- RapidReturn : Stack Based Jumps - TODO: install
-  -- Sticky Headers :  nvim-treesitter-context - TODO: install + keys to disable
-  -- vim-be-good : Vim Tutor - TODO: install
+  -- BQF: Better Quick Fix Tray
+  {
+    'kevinhwang91/nvim-bqf',
+    lazy = false, -- TODO: Needed?
+    config = function()
+      require('bqf').setup {
+        auto_enable = true,
+        func_map = {
+          tab = 't',
+          split = 'i',
+          vsplit = 's',
+        },
+      }
+    end,
+  },
+
+  --  TODO: Install vim-helm LSP Integration for helm
+  --  TODO: Install RapidReturn
+  --  TODO: Install nvim-treesitter-context to get sticky headers, and add keybindings to disable
+  --  TODO: Install vim-be-good vim tutor
+  --  TODO: Install ChatGPT for AI Chatbot
+  --  TODO: Fix Tabs and Buffers, they are wonky right now
+  --  TODO: Fix Theme picker erroring out
+  --  TODO: Fix whatever the hell is wrong with base46
 }
 
 local config = require('core.utils').load_config()
