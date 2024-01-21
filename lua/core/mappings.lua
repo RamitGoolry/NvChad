@@ -579,4 +579,12 @@ M.trouble = {
   },
 }
 
+M.treesitter_context = {
+  plugin = true,
+
+  n = {
+    ['<leader>ss'] = { '<cmd>TreesitterContextToggle<CR>', 'Toggle Treesitter Context' },
+  },
+}
+
 return M

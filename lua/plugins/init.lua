@@ -551,6 +551,19 @@ local default_plugins = {
     end,
   },
 
+  -- nvim treessitter context : Sticky Scroll
+  {
+    'nvim-treesitter/nvim-treesitter-context',
+    lazy = false,
+    init = function()
+      require('core.utils').lazy_load 'treesitter-context'
+    end,
+    config = function()
+      require('treesitter-context').setup {}
+      vim.cmd [[TSContextEnable]]
+    end,
+  },
+
   --  TODO: Add Winddows to things like code actions and rename
   --  TODO: Install vim-helm LSP Integration for helm
   --  TODO: Install RapidReturn
@@ -560,6 +573,7 @@ local default_plugins = {
   --  TODO: Fix Tabs and Buffers, they are wonky right now
   --  TODO: Fix Theme picker erroring out
   --  TODO: Fix whatever the hell is wrong with base46
+  --  TODO: LSP Saga
 }
 
 local config = require('core.utils').load_config()
