@@ -594,6 +594,9 @@ local default_plugins = {
   {
     'jackMort/ChatGPT.nvim',
     lazy = false,
+    init = function()
+      require('core.utils').load_mappings 'chatgpt'
+    end,
     config = function()
       require('chatgpt').setup {
         openai_params = {

@@ -600,4 +600,12 @@ M.lspsaga = {
   },
 }
 
+M.chatgpt = {
+  plugin = true,
+
+  n = {
+    ['<space><space>'] = { '<cmd>ChatGPT<CR>', 'Talk to ChatGPT' },
+  },
+}
+
 return M
