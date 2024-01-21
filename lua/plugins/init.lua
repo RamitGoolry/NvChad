@@ -574,14 +574,27 @@ local default_plugins = {
     end,
   },
 
+  -- LSP Saga: LSP UI
+  {
+    'nvimdev/lspsaga.nvim',
+    lazy = false,
+    init = function()
+      require('core.utils').load_mappings 'lspsaga'
+    end,
+    config = function()
+      require('lspsaga').setup {}
+    end,
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+      'nvim-tree/nvim-web-devicons',
+    },
+  },
+
   --  TODO: Install vim-helm LSP Integration for helm
-  --  TODO: Install RapidReturn
-  --  TODO: Install vim-be-good vim tutor
   --  TODO: Install ChatGPT for AI Chatbot
   --  TODO: Fix Tabs and Buffers, they are wonky right now
   --  TODO: Fix Theme picker erroring out
   --  TODO: Fix whatever the hell is wrong with base46
-  --  TODO: LSP Saga
 }
 
 local config = require('core.utils').load_config()

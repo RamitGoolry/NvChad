@@ -50,9 +50,6 @@ M.general = {
     ['<leader>b'] = { '<cmd> enew <CR>', 'New buffer' },
     ['<leader>ch'] = { '<cmd> NvCheatsheet <CR>', 'Mapping cheatsheet' },
 
-    -- LSP Methods
-    ['<leader>rn'] = { vim.lsp.buf.rename, 'Rename Symbol' },
-
     ['<leader>fm'] = {
       function()
         vim.lsp.buf.format { async = true }
@@ -191,13 +188,6 @@ M.lspconfig = {
         require('nvchad.renamer').open()
       end,
       'LSP rename',
-    },
-
-    ['<leader>ca'] = {
-      function()
-        vim.lsp.buf.code_action()
-      end,
-      'LSP code action',
     },
 
     ['gr'] = {
@@ -597,6 +587,16 @@ M.rapidreturn = {
     ['rf'] = { '<cmd>lua require("rapid_return").cmd.forward()<CR>', 'Forward Cursor' },
     ['rc'] = { '<cmd>lua require("rapid_return").cmd.clear()<CR>', 'Clear History' },
     ['ruh'] = { '<cmd>lua require("rapid_return").ui.history()<CR>', 'Show History' },
+  },
+}
+
+M.lspsaga = {
+  plugin = true,
+
+  n = {
+    ['<leader>ca'] = { '<cmd>Lspsaga code_action<CR>', 'Code Action' },
+    ['<leader>rn'] = { '<cmd>Lspsaga rename<CR>', 'Rename Symbol' },
+    ['<leader>so'] = { '<cmd>Lspsaga outline<CR>', 'Symbol Outline' },
   },
 }
 
