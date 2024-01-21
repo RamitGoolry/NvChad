@@ -590,11 +590,43 @@ local default_plugins = {
     },
   },
 
+  -- ChatGPT
+  {
+    'jackMort/ChatGPT.nvim',
+    lazy = false,
+    config = function()
+      require('chatgpt').setup {
+        openai_params = {
+          model = 'gpt-4',
+          frequency_penalty = 0.0,
+          presence_penalty = 0.0,
+          max_tokens = 750,
+          temperature = 0.1,
+          top_p = 1.0,
+          n = 1,
+        },
+        openai_edit_params = {
+          model = 'gpt-4',
+          frequency_penalty = 0.0,
+          presence_penalty = 0.0,
+          temperature = 0.01,
+          top_p = 1.0,
+          n = 1,
+        },
+      }
+    end,
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+    },
+  },
+
   --  TODO: Install vim-helm LSP Integration for helm
-  --  TODO: Install ChatGPT for AI Chatbot
   --  TODO: Fix Tabs and Buffers, they are wonky right now
   --  TODO: Fix Theme picker erroring out
   --  TODO: Fix whatever the hell is wrong with base46
+  --  TODO: Fix: warning: multiple different client offset_encodings detected for this buffer, this is not supported yet
 }
 
 local config = require('core.utils').load_config()
