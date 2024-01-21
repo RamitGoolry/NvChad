@@ -551,12 +551,12 @@ local default_plugins = {
     end,
   },
 
-  -- nvim treessitter context : Sticky Scroll
+  -- nvim-treessitter-context : Sticky Scroll
   {
     'nvim-treesitter/nvim-treesitter-context',
     lazy = false,
     init = function()
-      require('core.utils').lazy_load 'treesitter-context'
+      require('core.utils').load_mappings 'treesitter_context'
     end,
     config = function()
       require('treesitter-context').setup {}
@@ -564,10 +564,18 @@ local default_plugins = {
     end,
   },
 
-  --  TODO: Add Winddows to things like code actions and rename
+  -- RapidReturn: Stack Based Jumps
+  {
+    'RamitGoolry/RapidReturn',
+    depends = { 'nvim-telescope/telescope.nvim' },
+    lazy = false,
+    init = function()
+      require('core.utils').load_mappings 'rapidreturn'
+    end,
+  },
+
   --  TODO: Install vim-helm LSP Integration for helm
   --  TODO: Install RapidReturn
-  --  TODO: Install nvim-treesitter-context to get sticky headers, and add keybindings to disable
   --  TODO: Install vim-be-good vim tutor
   --  TODO: Install ChatGPT for AI Chatbot
   --  TODO: Fix Tabs and Buffers, they are wonky right now
