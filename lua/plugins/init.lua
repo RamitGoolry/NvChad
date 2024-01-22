@@ -625,6 +625,11 @@ local default_plugins = {
     },
   },
 
+  {
+    'towolf/vim-helm',
+    ft = 'helm',
+  },
+
   --  TODO: Install vim-helm LSP Integration for helm
   --  TODO: Fix Tabs and Buffers, they are wonky right now
   --  TODO: Fix Theme picker erroring out

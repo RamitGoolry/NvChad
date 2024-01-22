@@ -120,4 +120,24 @@ lspconfig.pyright.setup {
   },
 }
 
+lspconfig.terraformls.setup {
+  on_attach = M.on_attach,
+  capabilities = M.capabilities,
+}
+
+lspconfig.yamlls.setup {
+  on_attach = M.on_attach,
+  capabilities = M.capabilities,
+}
+
+lspconfig.helm_ls.setup {
+  settings = {
+    ['helm-ls'] = {
+      yamlls = {
+        path = 'yaml-language-server',
+      },
+    },
+  },
+}
+
 return M
