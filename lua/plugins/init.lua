@@ -630,11 +630,21 @@ local default_plugins = {
     ft = 'helm',
   },
 
-  --  TODO: Install vim-helm LSP Integration for helm
+  -- git conflict: Resolve Git Conflicts easily
+  {
+    'akinsho/git-conflict.nvim',
+    version = '*',
+    config = true,
+    lazy = false,
+  },
+
+  -- vim graphql
+  {
+    'jparise/vim-graphql',
+    event = 'BufRead',
+  },
+
   --  TODO: Fix Tabs and Buffers, they are wonky right now
-  --  TODO: Fix Theme picker erroring out
-  --  TODO: Fix whatever the hell is wrong with base46
-  --  TODO: Fix: warning: multiple different client offset_encodings detected for this buffer, this is not supported yet
 }
 
 local config = require('core.utils').load_config()

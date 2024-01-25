@@ -56,6 +56,11 @@ M.general = {
       end,
       'LSP formatting',
     },
+
+    ['<leader>ee'] = {
+      'oif err != nil {<CR>}<Esc>Oreturn err<Esc>',
+      'Go if-err',
+    },
   },
 
   t = {
