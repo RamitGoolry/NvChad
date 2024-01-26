@@ -328,6 +328,7 @@ local default_plugins = {
     'ruifm/gitlinker.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
     keys = { '<leader>gy' },
+    lazy = false,
     init = function()
       require('core.utils').load_mappings 'gitlinker'
     end,
@@ -630,18 +631,21 @@ local default_plugins = {
     ft = 'helm',
   },
 
-  -- git conflict: Resolve Git Conflicts easily
+  -- vim graphql
+  {
+    'jparise/vim-graphql',
+    event = 'BufRead',
+  },
+
+  -- Conflict
   {
     'akinsho/git-conflict.nvim',
     version = '*',
     config = true,
     lazy = false,
-  },
-
-  -- vim graphql
-  {
-    'jparise/vim-graphql',
-    event = 'BufRead',
+    dependencies = {
+      'https://gitlab.com/yorickpeterse/nvim-pqf.git',
+    },
   },
 
   --  TODO: Fix Tabs and Buffers, they are wonky right now
