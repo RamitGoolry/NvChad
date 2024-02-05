@@ -327,10 +327,11 @@ local default_plugins = {
   {
     'ruifm/gitlinker.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
-    keys = { '<leader>gy' },
     lazy = false,
-    init = function()
-      require('core.utils').load_mappings 'gitlinker'
+    config = function()
+      -- FIXME: Because of the way we set up the mapping in gitlinker, it will not
+      -- show up within the whichkey menu (which is fine by me for now)
+      require('gitlinker').setup {}
     end,
   },
 
