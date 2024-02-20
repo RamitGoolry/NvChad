@@ -104,9 +104,8 @@ lspconfig.gopls.setup {
 }
 
 lspconfig.tsserver.setup {
-  on_attach = function(_, _)
-    -- require("twoslash-queries").attach(client, bufnr)
-  end,
+  on_attach = M.on_attach,
+  capabilities = M.capabilities,
 }
 
 lspconfig.pyright.setup {
