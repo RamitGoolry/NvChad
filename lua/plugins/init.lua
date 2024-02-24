@@ -422,7 +422,7 @@ local default_plugins = {
         },
 
         on_init = function(new_client, _)
-          -- new_client.offset_encoding = 'utf-8'
+          -- new_client.offset_encoding = 'utf-8' -- FIXME: This messed a lot of shit up
         end,
         on_attach = function(client, bufnr)
           if client.supports_method 'textDocument/formatting' then
@@ -647,6 +647,15 @@ local default_plugins = {
     dependencies = {
       'https://gitlab.com/yorickpeterse/nvim-pqf.git',
     },
+  },
+
+  -- Notify
+  {
+    'rcarriga/nvim-notify',
+    lazy = false,
+    config = function()
+      vim.notify = require 'notify'
+    end,
   },
 
   --  TODO: Fix Tabs and Buffers, they are wonky right now
