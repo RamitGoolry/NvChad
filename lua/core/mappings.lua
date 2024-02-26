@@ -301,6 +301,9 @@ M.telescope = {
     ['<leader>th'] = { '<cmd> Telescope themes <CR>', 'Nvchad themes' },
 
     ['<leader>ma'] = { '<cmd> Telescope marks <CR>', 'telescope bookmarks' },
+
+    -- References
+    ['<leader>tr'] = { '<cmd> Telescope lsp_references <CR>', 'LSP references' },
   },
 }
 
