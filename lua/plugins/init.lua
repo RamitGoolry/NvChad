@@ -203,12 +203,12 @@ local default_plugins = {
   {
     'numToStr/Comment.nvim',
     keys = {
-      { 'gcc', mode = 'n',          desc = 'Comment toggle current line' },
-      { 'gc',  mode = { 'n', 'o' }, desc = 'Comment toggle linewise' },
-      { 'gc',  mode = 'x',          desc = 'Comment toggle linewise (visual)' },
-      { 'gbc', mode = 'n',          desc = 'Comment toggle current block' },
-      { 'gb',  mode = { 'n', 'o' }, desc = 'Comment toggle blockwise' },
-      { 'gb',  mode = 'x',          desc = 'Comment toggle blockwise (visual)' },
+      { 'gcc', mode = 'n', desc = 'Comment toggle current line' },
+      { 'gc', mode = { 'n', 'o' }, desc = 'Comment toggle linewise' },
+      { 'gc', mode = 'x', desc = 'Comment toggle linewise (visual)' },
+      { 'gbc', mode = 'n', desc = 'Comment toggle current block' },
+      { 'gb', mode = { 'n', 'o' }, desc = 'Comment toggle blockwise' },
+      { 'gb', mode = 'x', desc = 'Comment toggle blockwise (visual)' },
     },
     init = function()
       require('core.utils').load_mappings 'comment'
@@ -304,6 +304,17 @@ local default_plugins = {
     keys = { '<leader>', '<C-n>', '<C-p>' },
     init = function()
       require('core.utils').load_mappings 'harpoon'
+      if vim.fn.argc() == 0 then
+        local harpoon = require 'harpoon.mark'
+        local length = harpoon.get_length()
+
+        for i = 1, length do
+          local file_table = harpoon.get_marked_file(i)
+          -- filename, row, col
+          vim.cmd('e ' .. file_table.filename)
+          vim.fn.cursor(file_table.row, file_table.col)
+        end
+      end
     end,
   },
 
@@ -346,7 +357,7 @@ local default_plugins = {
     -- lazy = false,
     config = function()
       vim.o.foldcolumn = '1' -- '0' is not bad
-      vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
+      vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
       vim.o.foldlevelstart = 99
       vim.o.foldenable = true
 
@@ -514,23 +525,23 @@ local default_plugins = {
         position = 'bottom',
         icons = true,
         action_keys = {
-          close = 'q',                  -- close the list
-          cancel = '<esc>',             -- cancel the preview and get back to your last window / buffer / cursor
-          refresh = 'r',                -- manually refresh
-          jump = '<cr>',                -- jump to the diagnostic or open / close fold's
-          open_split = { 'i' },         -- open buffer in new split
-          open_vsplit = { 's' },        -- open buffer in new vsplit
-          open_tab = { 't' },           -- open buffer in new tab
-          jump_close = { 'o' },         -- jump to the diagnostic and close the list
-          toggle_mode = 'm',            -- toggle between 'workspace' and 'document' diagnostics mode
-          toggle_preview = 'P',         -- toggle auto_preview
-          hover = 'K',                  -- opens a small popup with the full multiline message
-          preview = 'p',                -- preview the diagnostic location
+          close = 'q', -- close the list
+          cancel = '<esc>', -- cancel the preview and get back to your last window / buffer / cursor
+          refresh = 'r', -- manually refresh
+          jump = '<cr>', -- jump to the diagnostic or open / close fold's
+          open_split = { 'i' }, -- open buffer in new split
+          open_vsplit = { 's' }, -- open buffer in new vsplit
+          open_tab = { 't' }, -- open buffer in new tab
+          jump_close = { 'o' }, -- jump to the diagnostic and close the list
+          toggle_mode = 'm', -- toggle between 'workspace' and 'document' diagnostics mode
+          toggle_preview = 'P', -- toggle auto_preview
+          hover = 'K', -- opens a small popup with the full multiline message
+          preview = 'p', -- preview the diagnostic location
           close_folds = { 'zM', 'zm' }, -- close all folds
-          open_folds = { 'zR', 'zr' },  -- open all folds
+          open_folds = { 'zR', 'zr' }, -- open all folds
           toggle_fold = { 'zA', 'za' }, -- toggle fold of current file
-          previous = 'k',               -- preview item
-          next = 'j',                   -- next item
+          previous = 'k', -- preview item
+          next = 'j', -- next item
         },
         use_diagnostic_signs = true,
       }
