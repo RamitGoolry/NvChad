@@ -603,41 +603,6 @@ local default_plugins = {
     },
   },
 
-  -- ChatGPT
-  {
-    'jackMort/ChatGPT.nvim',
-    lazy = false,
-    init = function()
-      require('core.utils').load_mappings 'chatgpt'
-    end,
-    config = function()
-      require('chatgpt').setup {
-        openai_params = {
-          model = 'gpt-4',
-          frequency_penalty = 0.0,
-          presence_penalty = 0.0,
-          max_tokens = 750,
-          temperature = 0.1,
-          top_p = 1.0,
-          n = 1,
-        },
-        openai_edit_params = {
-          model = 'gpt-4',
-          frequency_penalty = 0.0,
-          presence_penalty = 0.0,
-          temperature = 0.01,
-          top_p = 1.0,
-          n = 1,
-        },
-      }
-    end,
-    dependencies = {
-      'MunifTanjim/nui.nvim',
-      'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope.nvim',
-    },
-  },
-
   {
     'towolf/vim-helm',
     ft = 'helm',
