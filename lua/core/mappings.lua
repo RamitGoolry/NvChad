@@ -610,7 +610,7 @@ M.dap = {
 		['<leader>bb'] = { '<cmd>lua require("dap").toggle_breakpoint()<CR>' },
 		['<leader>bc'] = { '<cmd>lua require("dap").continue()<CR>' },
 		['<leader>bi'] = { '<cmd>lua require("dap").step_into()<CR>' },
-		['<leader>bn'] = { '<cmd>lua require("dap").step_over()<CR>' },
+		['<leader>.'] = { '<cmd>lua require("dap").step_over()<CR>' },
 	},
 }
 
