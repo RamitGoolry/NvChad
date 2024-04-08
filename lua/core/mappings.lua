@@ -607,10 +607,12 @@ M.chatgpt = {
 
 M.dap = {
 	n = {
-		['<leader>bb'] = { '<cmd>lua require("dap").toggle_breakpoint()<CR>' },
-		['<leader>bc'] = { '<cmd>lua require("dap").continue()<CR>' },
-		['<leader>bi'] = { '<cmd>lua require("dap").step_into()<CR>' },
-		['<leader>.'] = { '<cmd>lua require("dap").step_over()<CR>' },
+		['<leader>bb'] = { '<cmd>lua require("dap").toggle_breakpoint()<CR>', 'Toggle Breakpoint' },
+		['<leader>bc'] = { '<cmd>lua require("dap").continue()<CR>', 'Continue' },
+		['<leader>bso'] = { '<cmd>lua require("dap").step_over()<CR>', 'Step Over' },
+		['<leader>bsO'] = { '<cmd>lua require("dap").step_out()<CR>', 'Step Out' },
+		['<leader>bsi'] = { '<cmd>lua require("dap").step_into()<CR>', 'Step Into' },
+		['..'] = { '<cmd>lua require("dap").step_over()<CR>', 'Step Over (shortcut)' },
 	},
 }
 

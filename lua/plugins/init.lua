@@ -646,8 +646,8 @@ local default_plugins = {
     end,
   },
 
+  -- DAP
   {
-    -- DAP
     'mfussenegger/nvim-dap',
     lazy = false,
     dependencies = {
@@ -676,6 +676,18 @@ local default_plugins = {
       dap.listeners.before.event_exited.dapui_config = function()
         dapui.close()
       end
+    end,
+  },
+
+  -- NVIM DAP Virtual Text
+  {
+    'theHamsta/nvim-dap-virtual-text',
+    lazy = false,
+    dependencies = {
+      'mfussenegger/nvim-dap',
+    },
+    config = function()
+      require('nvim-dap-virtual-text').setup()
     end,
   },
 
