@@ -634,6 +634,51 @@ local default_plugins = {
     end,
   },
 
+  -- Telescope Select UI
+  {
+    'nvim-telescope/telescope-ui-select.nvim',
+    lazy = false,
+    dependencies = {
+      'nvim-telescope/telescope.nvim',
+    },
+    config = function()
+      require('telescope').load_extension 'ui-select'
+    end,
+  },
+
+  {
+    -- DAP
+    'mfussenegger/nvim-dap',
+    lazy = false,
+    dependencies = {
+      'rcarriga/nvim-dap-ui',
+      'nvim-neotest/nvim-nio',
+      'leoluz/nvim-dap-go',
+    },
+    config = function()
+      local dap = require 'dap'
+      local dapui = require 'dapui'
+      local dap_go = require 'dap-go'
+
+      dapui.setup()
+      dap_go.setup()
+
+      -- DAP UI Hooks: Open and Close on appropriate DAP Events
+      dap.listeners.before.attach.dapui_config = function()
+        dapui.open()
+      end
+      dap.listeners.before.launch.dapui_config = function()
+        dapui.open()
+      end
+      dap.listeners.before.event_terminated.dapui_config = function()
+        dapui.close()
+      end
+      dap.listeners.before.event_exited.dapui_config = function()
+        dapui.close()
+      end
+    end,
+  },
+
   --  TODO: Fix Tabs and Buffers, they are wonky right now
 }
 
