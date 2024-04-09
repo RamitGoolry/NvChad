@@ -426,7 +426,7 @@ local default_plugins = {
 					},
 					formatting.gofmt,
 					formatting.goimports,
-					formatting.rustfmt,
+					-- formatting.rustfmt,
 					-- formatting.golangci_lint,
 					-- diagnostics.flake8,
 					null_ls.builtins.completion.spell,
@@ -470,7 +470,7 @@ local default_plugins = {
 					'prettier',
 					'alex',
 					'gofmt',
-					'rustfmt',
+					-- 'rustfmt',
 					'gofumpt',
 				},
 			}
