@@ -306,18 +306,28 @@ local default_plugins = {
 	-- Harpoon: Fast File Navigation
 	{
 		'ThePrimeagen/harpoon',
+		branch = 'harpoon2',
+		dependencies = { 'nvim-lua/plenary.nvim' },
 		keys = { '<leader>', '<C-n>', '<C-p>' },
+		lazy = false,
 		init = function()
-			require('core.utils').load_mappings 'harpoon'
-			if vim.fn.argc() == 0 then
-				local harpoon = require 'harpoon.mark'
-				local length = harpoon.get_length()
+			local harpoon = require 'harpoon'
+			harpoon:setup {
+				settings = {
+					save_on_toggle = true,
+					sync_on_ui_close = true,
+				},
+			}
 
-				for i = 1, length do
-					local file_table = harpoon.get_marked_file(i)
-					-- filename, row, col
-					vim.cmd('e ' .. file_table.filename)
-					vim.fn.cursor(file_table.row, file_table.col)
+			require('core.utils').load_mappings 'harpoon'
+
+			-- Open files marked with harpoon on startup
+			if vim.fn.argc() == 0 then
+				local files = harpoon:list()
+
+				for _, file in ipairs(files.items) do
+					vim.cmd('e ' .. file.value) -- I prefer the old "filename" but ok
+					vim.fn.cursor(file.context.row, file.context.col)
 				end
 			end
 		end,

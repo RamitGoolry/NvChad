@@ -14,8 +14,8 @@ M.on_attach = function(client, bufnr)
   end
 
   if
-      not utils.load_config().ui.lsp_semantic_tokens
-      and client.supports_method 'textDocument/semanticTokens'
+    not utils.load_config().ui.lsp_semantic_tokens
+    and client.supports_method 'textDocument/semanticTokens'
   then
     client.server_capabilities.semanticTokensProvider = nil
   end
@@ -49,6 +49,9 @@ lspconfig.lua_ls.setup {
 
   settings = {
     Lua = {
+      hint = {
+        enable = true,
+      },
       diagnostics = {
         globals = { 'vim' },
       },
@@ -86,10 +89,24 @@ lspconfig.rust_analyzer.setup {
 }
 
 lspconfig.gopls.setup {
-  on_attach = M.on_attach,
+  on_attach = function(client, bufnr)
+    M.on_attach(client, bufnr)
+
+    -- Enable Inlay Hints
+    vim.lsp.inlay_hint(bufnr, true)
+  end,
   capabilities = M.capabilities,
   settings = {
     gopls = {
+      hints = {
+        assignVariableTypes = true,
+        compositeLiteralFields = true,
+        compositeLiteralTypes = true,
+        constantValues = true,
+        functionTypeParameters = true,
+        parameterNames = true,
+        rangeVariableTypes = true,
+      },
       analyses = {
         unusedparams = true,
         nilness = true,
