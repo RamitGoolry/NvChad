@@ -597,14 +597,6 @@ M.lspsaga = {
 	},
 }
 
-M.chatgpt = {
-	plugin = true,
-
-	n = {
-		['<space><space>'] = { '<cmd>ChatGPT<CR>', 'Talk to ChatGPT' },
-	},
-}
-
 M.dap = {
 	n = {
 		['<leader>bb'] = { '<cmd>lua require("dap").toggle_breakpoint()<CR>', 'Toggle Breakpoint' },
