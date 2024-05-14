@@ -276,10 +276,15 @@ local default_plugins = {
 		cmd = 'Copilot',
 		lazy = false,
 		config = function()
-			vim.g.copilot_no_tap_map = true
+			vim.g.copilot_no_tab_map = true
 			vim.g.copilot_assume_mapped = true
 			vim.g.tab_fallback = ''
 			vim.g.copilot_enabled = true
+			vim.g.copilot_filetypes = {
+				yaml = true,
+				json = true,
+				yml = true,
+			}
 		end,
 	},
 
