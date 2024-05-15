@@ -388,8 +388,6 @@ local default_plugins = {
     'folke/todo-comments.nvim',
     event = 'BufRead', -- Highlight on BufRead
     lazy = false,
-    -- TODO: Look into todo-comments options from NvPunk, I'm pretty sure it was
-    -- just defaults, but maybe we can add new things
     config = function()
       local opts = {
         signs = true, -- show icons in the signs column
