@@ -776,7 +776,17 @@ local default_plugins = {
     dependencies = {
       'kristijanhusak/vim-dadbod-ui',
       'kristijanhusak/vim-dadbod-completion',
+      'hrsh7th/nvim-cmp',
     },
+    config = function()
+      local cmp = require 'cmp'
+      cmp.setup.filetype({ 'sql' }, {
+        sources = {
+          { name = 'vim-dadbod-completion' },
+          { name = 'buffer' },
+        },
+      })
+    end,
   },
 }
 
