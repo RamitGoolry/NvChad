@@ -780,7 +780,7 @@ local default_plugins = {
     },
     config = function()
       local cmp = require 'cmp'
-      cmp.setup.filetype({ 'sql' }, {
+      cmp.setup.filetype({ 'mysql' }, {
         sources = {
           { name = 'vim-dadbod-completion' },
           { name = 'buffer' },
