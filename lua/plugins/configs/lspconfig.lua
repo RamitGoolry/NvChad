@@ -91,8 +91,6 @@ lspconfig.rust_analyzer.setup {
 lspconfig.gopls.setup {
 	on_attach = function(client, bufnr)
 		M.on_attach(client, bufnr)
-
-		-- Enable Inlay Hints
 		vim.lsp.inlay_hint.enable(true)
 	end,
 	capabilities = M.capabilities,
@@ -125,14 +123,69 @@ lspconfig.tsserver.setup {
 	capabilities = M.capabilities,
 }
 
-lspconfig.pyright.setup {
-	on_attach = M.on_attach,
+-- lspconfig.pyright.setup {
+--   on_attach = M.on_attach,
+--   capabilities = M.capabilities,
+--   settings = {
+--     python = {
+--       analysis = {
+--         autoSearchPaths = true,
+--         useLibraryCodeForTypes = true,
+--       },
+--     },
+--   },
+-- }
+
+lspconfig.basedpyright.setup {
+	on_attach = function(client, bufnr)
+		M.on_attach(client, bufnr)
+		vim.lsp.inlay_hint.enable(true)
+	end,
+
 	capabilities = M.capabilities,
 	settings = {
-		python = {
+		basedpyright = {
+			hints = {
+				assignVariableTypes = true,
+				compositeLiteralFields = true,
+				compositeLiteralTypes = true,
+				constantValues = true,
+				functionTypeParameters = true,
+				parameterNames = true,
+				rangeVariableTypes = true,
+			},
 			analysis = {
 				autoSearchPaths = true,
 				useLibraryCodeForTypes = true,
+				diagnosticSeverityOverrides = {
+					reportDeprecated = false,
+					reportAssignmentType = false,
+					reportAny = false,
+					reportMissingModuleSource = false,
+					reportMissingTypeArgument = false,
+					reportMissingParameterType = false,
+					reportUnknownVariableType = false,
+					reportPrivateLocalImportUsage = false,
+					reportPrivateUsage = false,
+					reportUnreachable = false,
+					reportUnknownArgumentType = false,
+					reportUnknownLambdaType = false,
+					reportUnknownMemberType = false,
+					reportUnknownParameterType = false,
+					reportAttributeAccessIssue = false,
+					reportIgnoreCommentWithoutRule = false,
+					reportUninitializedInstanceVariable = false,
+					reportUnusedCallResult = false,
+					reportImplicitOverride = false,
+					reportUntypedFunctionDecorator = false,
+					reportArgumentType = false,
+					reportImplicitStringConcatenation = false,
+					reportUnnecessaryTypeIgnoreComment = false,
+					reportUnnecessaryComparison = false,
+					reportUnnecessaryIsInstance = false,
+					-- reportUnnecessaryComparison = 'warning',
+					-- reportUnnecessaryIsInstance = 'warning',
+				},
 			},
 		},
 	},
