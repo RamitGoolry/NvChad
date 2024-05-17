@@ -231,6 +231,7 @@ function load_custom_snippets(luasnip) -- TODO: Break each language out into its
 
       -- Exit early if we couldn't find a function node
       if node == nil then
+        vim.notify('Could not find function node', vim.log.levels.ERROR)
         return text_node ''
       end
 
@@ -254,6 +255,58 @@ function load_custom_snippets(luasnip) -- TODO: Break each language out into its
         func_name = args[2][1],
       }
     )
+  end
+
+  local go_function_name = function()
+    local function_node_types = {
+      function_declaration = true,
+      method_declaration = true,
+      func_literal = true,
+    }
+    local node = vim.treesitter.get_node()
+    while node ~= nil do
+      if function_node_types[node:type()] then
+        vim.notify(node:type(), vim.log.levels.INFO)
+        break
+      end
+
+      node = node:parent()
+    end
+
+    if node == nil then
+      vim.notify('Could not find function node', vim.log.levels.ERROR)
+      return '<nil>'
+    end
+
+    local result = ''
+    local name = node:field('name')[1]
+    if name then
+      result = result .. vim.treesitter.get_node_text(name, 0)
+    end
+
+    if node:type() == 'method_declaration' then
+      local reciever = node:field('receiver')[1]
+      if reciever then
+        local reciever_name = vim.treesitter.get_node_text(reciever, 0)
+        if reciever_name ~= '' then
+          local parts = vim.split(reciever_name, ' ', {
+            plain = true,
+            trimempty = true,
+          })
+          local struct_name = parts[#parts]
+          struct_name = struct_name:gsub('[()]', '')
+
+          result = struct_name .. '.' .. result
+        end
+      end
+    end
+
+    if result == '' then
+      vim.notify('No function name', vim.log.levels.ERROR)
+      return '<nil>'
+    end
+
+    return result
   end
 
   luasnip.add_snippets('go', {
@@ -280,7 +333,7 @@ if <err_rep> != nil {
 	return <result>
 }
 <finish>
-			]],
+		]],
         {
           val = insert(1, '_'),
           err = insert(2, 'err'),
@@ -291,6 +344,33 @@ if <err_rep> != nil {
           finish = insert(0),
         }
       )
+    ),
+    snippet(
+      'iferr-inline',
+      format_args(
+        [[
+if <val>, <err> := <f>(<args>); <err> != nil {
+	return <result>
+}
+<finish>
+		]],
+        {
+          val = insert(1, '_'),
+          err = insert(2, 'err'),
+          f = insert(3),
+          args = insert(4),
+          result = dynamic(5, go_return_values, { 2, 3 }),
+          finish = insert(0),
+        }
+      )
+    ),
+    snippet(
+      'dbg',
+      format_args('fmt.Printf("[<fn_name>]: <msg>\\n", <args>)', {
+        fn_name = func(go_function_name),
+        msg = insert(1, 'Debugging'),
+        args = insert(0),
+      })
     ),
   })
 end
