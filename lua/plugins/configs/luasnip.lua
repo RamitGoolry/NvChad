@@ -9,9 +9,12 @@ function load_custom_snippets(luasnip)
 	local repeated = require('luasnip.extras').rep
 	local format_args = require('luasnip.extras.fmt').fmta
 
+	local snippet_collection = require 'luasnip.session.snippet_collection'
+
 	-------------------------------
 	--------- Lua snippets --------
 	-------------------------------
+	snippet_collection.clear_snippets 'lua'
 
 	local function resolve_variable_name(import_name)
 		local name = import_name[1][1]
@@ -59,6 +62,28 @@ function load_custom_snippets(luasnip)
 				name = insert(1),
 				args = insert(2),
 				body = insert(3),
+			})
+		),
+	})
+
+	-------------------------------
+	--------- Go Snippets ---------
+	-------------------------------
+	snippet_collection.clear_snippets 'go'
+
+	luasnip.add_snippets('go', {
+		snippet(
+			'test',
+			format_args('func Test<name>(t *testing.T) {\n\t<body>\n}', {
+				name = insert(1),
+				body = insert(2),
+			})
+		),
+		snippet(
+			'benchmark',
+			format_args('func Benchmark<name>(b *testing.B) {\n\t<body>\n}', {
+				name = insert(1),
+				body = insert(2),
 			})
 		),
 	})
