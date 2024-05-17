@@ -924,6 +924,19 @@ local default_plugins = {
 			})
 		end,
 	},
+
+	-- Oil: Directory Viewer / Manager
+	{
+		'stevearc/oil.nvim',
+		cmd = { 'Oil' },
+		config = function()
+			local oil = require 'oil'
+			oil.setup {
+				delete_to_trash = true, -- to be safe for now
+				skip_confirm_for_simple_edits = true,
+			}
+		end,
+	},
 }
 
 local config = require('core.utils').load_config()
