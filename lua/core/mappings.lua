@@ -1,8 +1,8 @@
 -- n, v, i, t = mode names
 
-local M = {}
+local exports = {}
 
-M.general = {
+exports.general = {
 	i = {
 		-- go to  beginning and end
 		['<C-b>'] = { '<ESC>^i', 'Beginning of line' },
@@ -88,7 +88,7 @@ M.general = {
 	},
 }
 
-M.tabufline = {
+exports.tabufline = {
 	plugin = true,
 
 	n = {
@@ -117,7 +117,7 @@ M.tabufline = {
 	},
 }
 
-M.comment = {
+exports.comment = {
 	plugin = true,
 
 	-- toggle comment in both modes
@@ -138,7 +138,7 @@ M.comment = {
 	},
 }
 
-M.lspconfig = {
+exports.lspconfig = {
 	plugin = true,
 
 	-- See `<cmd> :help vim.lsp.*` for documentation on any of the below functions
@@ -274,7 +274,7 @@ M.lspconfig = {
 	},
 }
 
-M.nvimtree = {
+exports.nvimtree = {
 	plugin = true,
 
 	n = {
@@ -286,7 +286,7 @@ M.nvimtree = {
 	},
 }
 
-M.telescope = {
+exports.telescope = {
 	plugin = true,
 
 	n = {
@@ -319,7 +319,7 @@ M.telescope = {
 	},
 }
 
-M.nvterm = {
+exports.nvterm = {
 	plugin = true,
 
 	t = {
@@ -386,7 +386,7 @@ M.nvterm = {
 	},
 }
 
-M.whichkey = {
+exports.whichkey = {
 	plugin = true,
 
 	n = {
@@ -406,7 +406,7 @@ M.whichkey = {
 	},
 }
 
-M.blankline = {
+exports.blankline = {
 	plugin = true,
 
 	n = {
@@ -428,7 +428,7 @@ M.blankline = {
 	},
 }
 
-M.gitsigns = {
+exports.gitsigns = {
 	plugin = true,
 
 	n = {
@@ -492,7 +492,7 @@ M.gitsigns = {
 	},
 }
 
-M.goto_preview = {
+exports.goto_preview = {
 	plugin = true,
 
 	-- Actions
@@ -517,7 +517,7 @@ M.goto_preview = {
 	},
 }
 
-M.floating_windows = {
+exports.floating_windows = {
 	n = {
 		['<S-left>'] = { '<C-w><', 'Decrease width' },
 		['<S-right>'] = { '<C-w>>', 'Increase width' },
@@ -526,7 +526,7 @@ M.floating_windows = {
 	},
 }
 
-M.tabs = {
+exports.tabs = {
 	plugin = false,
 
 	n = {
@@ -536,7 +536,7 @@ M.tabs = {
 	},
 }
 
-M.buffers = {
+exports.buffers = {
 	plugin = false,
 
 	n = {
@@ -548,7 +548,7 @@ M.buffers = {
 	},
 }
 
-M.harpoon = {
+exports.harpoon = {
 	plugin = true,
 
 	n = {
@@ -583,7 +583,7 @@ M.harpoon = {
 	},
 }
 
-M.undotree = {
+exports.undotree = {
 	plugin = true,
 
 	n = {
@@ -591,7 +591,7 @@ M.undotree = {
 	},
 }
 
-M.trouble = {
+exports.trouble = {
 	plugin = true,
 
 	n = {
@@ -599,7 +599,7 @@ M.trouble = {
 	},
 }
 
-M.treesitter_context = {
+exports.treesitter_context = {
 	plugin = true,
 
 	n = {
@@ -607,7 +607,7 @@ M.treesitter_context = {
 	},
 }
 
-M.rapidreturn = {
+exports.rapidreturn = {
 	plugin = true,
 
 	n = {
@@ -620,7 +620,7 @@ M.rapidreturn = {
 	},
 }
 
-M.lspsaga = {
+exports.lspsaga = {
 	plugin = true,
 
 	n = {
@@ -630,7 +630,7 @@ M.lspsaga = {
 	},
 }
 
-M.dap = {
+exports.dap = {
 	n = {
 		['<leader>bb'] = { '<cmd>lua require("dap").toggle_breakpoint()<CR>', 'Toggle Breakpoint' },
 		['<leader>bc'] = { '<cmd>lua require("dap").continue()<CR>', 'Continue' },
@@ -641,10 +641,10 @@ M.dap = {
 	},
 }
 
-M.dap_python = {
+exports.dap_python = {
 	n = {
 		['<leader>bt'] = { '<cmd>lua require("dap-python").test_method()<cr>', 'Test Method (Python)' },
 	},
 }
 
-return M
+return exports

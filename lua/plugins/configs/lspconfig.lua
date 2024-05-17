@@ -1,12 +1,12 @@
 dofile(vim.g.base46_cache .. 'lsp')
 require 'nvchad.lsp'
 
-local M = {}
+local exports = {}
 local utils = require 'core.utils'
 
 -- export on_attach & capabilities for custom lspconfigs
 
-M.on_attach = function(client, bufnr)
+exports.on_attach = function(client, bufnr)
 	utils.load_mappings('lspconfig', { buffer = bufnr })
 
 	if client.server_capabilities.signatureHelpProvider then
@@ -21,9 +21,9 @@ M.on_attach = function(client, bufnr)
 	end
 end
 
-M.capabilities = vim.lsp.protocol.make_client_capabilities()
+exports.capabilities = vim.lsp.protocol.make_client_capabilities()
 
-M.capabilities.textDocument.completion.completionItem = {
+exports.capabilities.textDocument.completion.completionItem = {
 	documentationFormat = { 'markdown', 'plaintext' },
 	snippetSupport = true,
 	preselectSupport = true,
@@ -45,10 +45,10 @@ local lspconfig = require 'lspconfig'
 
 lspconfig.lua_ls.setup {
 	on_attach = function(client, bufnr)
-		M.on_attach(client, bufnr)
+		exports.on_attach(client, bufnr)
 		vim.lsp.inlay_hint.enable(true)
 	end,
-	capabilities = M.capabilities,
+	capabilities = exports.capabilities,
 
 	settings = {
 		Lua = {
@@ -73,8 +73,8 @@ lspconfig.lua_ls.setup {
 }
 
 lspconfig.rust_analyzer.setup {
-	on_attach = M.on_attach,
-	capabilities = M.capabilities,
+	on_attach = exports.on_attach,
+	capabilities = exports.capabilities,
 	settings = {
 		['rust-analyzer'] = {
 			assist = {
@@ -93,10 +93,10 @@ lspconfig.rust_analyzer.setup {
 
 lspconfig.gopls.setup {
 	on_attach = function(client, bufnr)
-		M.on_attach(client, bufnr)
+		exports.on_attach(client, bufnr)
 		vim.lsp.inlay_hint.enable(true)
 	end,
-	capabilities = M.capabilities,
+	capabilities = exports.capabilities,
 	settings = {
 		gopls = {
 			hints = {
@@ -122,8 +122,8 @@ lspconfig.gopls.setup {
 }
 
 lspconfig.tsserver.setup {
-	on_attach = M.on_attach,
-	capabilities = M.capabilities,
+	on_attach = exports.on_attach,
+	capabilities = exports.capabilities,
 }
 
 -- lspconfig.pyright.setup {
@@ -141,11 +141,11 @@ lspconfig.tsserver.setup {
 
 lspconfig.basedpyright.setup {
 	on_attach = function(client, bufnr)
-		M.on_attach(client, bufnr)
+		exports.on_attach(client, bufnr)
 		vim.lsp.inlay_hint.enable(true)
 	end,
 
-	capabilities = M.capabilities,
+	capabilities = exports.capabilities,
 	settings = {
 		basedpyright = {
 			hints = {
@@ -193,13 +193,13 @@ lspconfig.basedpyright.setup {
 }
 
 lspconfig.terraformls.setup {
-	on_attach = M.on_attach,
-	capabilities = M.capabilities,
+	on_attach = exports.on_attach,
+	capabilities = exports.capabilities,
 }
 
 lspconfig.yamlls.setup {
-	on_attach = M.on_attach,
-	capabilities = M.capabilities,
+	on_attach = exports.on_attach,
+	capabilities = exports.capabilities,
 }
 
 lspconfig.helm_ls.setup {
@@ -212,4 +212,4 @@ lspconfig.helm_ls.setup {
 	},
 }
 
-return M
+return exports
