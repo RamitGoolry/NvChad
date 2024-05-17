@@ -21,25 +21,29 @@ local default_plugins = {
 	{
 		'NvChad/nvterm',
 		init = function()
-			require('core.utils').load_mappings 'nvterm'
+			local utils = require 'core.utils'
+			utils.load_mappings 'nvterm'
 		end,
 		config = function(_, opts)
-			require 'base46.term'
-			require('nvterm').setup(opts)
+			local term = require 'base46.term'
+			local nvterm = require 'nvterm'
+			nvterm.setup(opts)
 		end,
 	},
 
 	{
 		'NvChad/nvim-colorizer.lua',
 		init = function()
-			require('core.utils').lazy_load 'nvim-colorizer.lua'
+			local utils = require 'core.utils'
+			utils.lazy_load 'nvim-colorizer.lua'
 		end,
 		config = function(_, opts)
-			require('colorizer').setup(opts)
+			local colorizer = require 'colorizer'
+			colorizer.setup(opts)
 
 			-- execute colorizer as soon as possible
 			vim.defer_fn(function()
-				require('colorizer').attach_to_buffer(0)
+				colorizer.attach_to_buffer(0)
 			end, 0)
 		end,
 	},
@@ -47,11 +51,14 @@ local default_plugins = {
 	{
 		'nvim-tree/nvim-web-devicons',
 		opts = function()
-			return { override = require 'nvchad.icons.devicons' }
+			local devicons = require 'nvchad.icons.devicons'
+			return { override = devicons }
 		end,
 		config = function(_, opts)
 			dofile(vim.g.base46_cache .. 'devicons')
-			require('nvim-web-devicons').setup(opts)
+
+			local nvim_web_devicons = require 'nvim-web-devicons'
+			nvim_web_devicons.setup(opts)
 		end,
 	},
 
@@ -60,31 +67,39 @@ local default_plugins = {
 		main = 'ibl',
 		version = '2.20.7',
 		init = function()
-			require('core.utils').lazy_load 'indent-blankline.nvim'
+			local utils = require 'core.utils'
+			utils.lazy_load 'indent-blankline.nvim'
 		end,
 		opts = function()
-			return require('plugins.configs.others').blankline
+			local others = require 'plugins.configs.others'
+			return others.blankline
 		end,
 		config = function(_, opts)
-			require('core.utils').load_mappings 'blankline'
+			local utils = require 'core.utils'
+			local indent_blankline = require 'indent_blankline'
+
+			utils.load_mappings 'blankline'
 			dofile(vim.g.base46_cache .. 'blankline')
-			require('indent_blankline').setup(opts)
+			indent_blankline.setup(opts)
 		end,
 	},
 
 	{
 		'nvim-treesitter/nvim-treesitter',
 		init = function()
-			require('core.utils').lazy_load 'nvim-treesitter'
+			local utils = require 'core.utils'
+			utils.lazy_load 'nvim-treesitter'
 		end,
 		cmd = { 'TSInstall', 'TSBufEnable', 'TSBufDisable', 'TSModuleInfo' },
 		build = ':TSUpdate',
 		opts = function()
-			return require 'plugins.configs.treesitter'
+			local treesitter = require 'plugins.configs.treesitter'
+			return treesitter
 		end,
 		config = function(_, opts)
+			local configs = require 'nvim-treesitter.configs'
 			dofile(vim.g.base46_cache .. 'syntax')
-			require('nvim-treesitter.configs').setup(opts)
+			configs.setup(opts)
 		end,
 	},
 
@@ -102,7 +117,8 @@ local default_plugins = {
 							if return_code == 0 then
 								vim.api.nvim_del_augroup_by_name 'GitSignsLazyLoad'
 								vim.schedule(function()
-									require('lazy').load { plugins = { 'gitsigns.nvim' } }
+									local lazy = require 'lazy'
+									lazy.load { plugins = { 'gitsigns.nvim' } }
 								end)
 							end
 						end,
@@ -111,11 +127,13 @@ local default_plugins = {
 			})
 		end,
 		opts = function()
-			return require('plugins.configs.others').gitsigns
+			local others = require 'plugins.configs.others'
+			return others.gitsigns
 		end,
 		config = function(_, opts)
+			local gitsigns = require 'gitsigns'
 			dofile(vim.g.base46_cache .. 'git')
-			require('gitsigns').setup(opts)
+			gitsigns.setup(opts)
 		end,
 	},
 
@@ -124,11 +142,13 @@ local default_plugins = {
 		'williamboman/mason.nvim',
 		cmd = { 'Mason', 'MasonInstall', 'MasonInstallAll', 'MasonUpdate' },
 		opts = function()
-			return require 'plugins.configs.mason'
+			local mason = require 'plugins.configs.mason'
+			return mason
 		end,
 		config = function(_, opts)
+			local mason = require 'mason'
 			dofile(vim.g.base46_cache .. 'mason')
-			require('mason').setup(opts)
+			mason.setup(opts)
 
 			-- custom nvchad cmd to install all mason binaries listed
 			vim.api.nvim_create_user_command('MasonInstallAll', function()
@@ -144,7 +164,8 @@ local default_plugins = {
 	{
 		'neovim/nvim-lspconfig',
 		init = function()
-			require('core.utils').lazy_load 'nvim-lspconfig'
+			local utils = require 'core.utils'
+			utils.lazy_load 'nvim-lspconfig'
 		end,
 		config = function()
 			require 'plugins.configs.lspconfig'
@@ -162,7 +183,8 @@ local default_plugins = {
 				dependencies = 'rafamadriz/friendly-snippets',
 				opts = { history = true, updateevents = 'TextChanged,TextChangedI' },
 				config = function(_, opts)
-					require('plugins.configs.luasnip').load(opts)
+					local luasnip = require 'plugins.configs.luasnip'
+					luasnip.load(opts)
 				end,
 			},
 
@@ -174,11 +196,13 @@ local default_plugins = {
 					disable_filetype = { 'TelescopePrompt', 'vim' },
 				},
 				config = function(_, opts)
-					require('nvim-autopairs').setup(opts)
+					local nvim_autopairs = require 'nvim-autopairs' -- TODO:(ramit) Fix the 'require' luasnip snippet. This should have been 'autopairs', not 'nvim_autopairs'
+					nvim_autopairs.setup(opts)
 
 					-- setup cmp for autopairs
+					local cmp = require 'cmp'
 					local cmp_autopairs = require 'nvim-autopairs.completion.cmp'
-					require('cmp').event:on('confirm_done', cmp_autopairs.on_confirm_done())
+					cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
 				end,
 			},
 
@@ -192,10 +216,12 @@ local default_plugins = {
 			},
 		},
 		opts = function()
-			return require 'plugins.configs.cmp'
+			local cmp = require 'plugins.configs.cmp'
+			return cmp
 		end,
 		config = function(_, opts)
-			require('cmp').setup(opts)
+			local cmp = require 'cmp'
+			cmp.setup(opts)
 		end,
 	},
 
@@ -210,10 +236,12 @@ local default_plugins = {
 			{ 'gb',  mode = 'x',          desc = 'Comment toggle blockwise (visual)' },
 		},
 		init = function()
-			require('core.utils').load_mappings 'comment'
+			local utils = require 'core.utils'
+			utils.load_mappings 'comment'
 		end,
 		config = function(_, opts)
-			require('Comment').setup(opts)
+			local comment = require 'Comment'
+			comment.setup(opts)
 		end,
 	},
 
@@ -222,14 +250,17 @@ local default_plugins = {
 		'nvim-tree/nvim-tree.lua',
 		cmd = { 'NvimTreeToggle', 'NvimTreeFocus' },
 		init = function()
-			require('core.utils').load_mappings 'nvimtree'
+			local utils = require 'core.utils'
+			utils.load_mappings 'nvimtree'
 		end,
 		opts = function()
-			return require 'plugins.configs.nvimtree'
+			local nvimtree = require 'plugins.configs.nvimtree' -- TODO:(ramit) Fix the 'require' luasnip snippet. This should have been 'autopairs', not 'nvim_autopairs'
+			return nvimtree
 		end,
 		config = function(_, opts)
+			local nvim_tree = require 'nvim-tree'
 			dofile(vim.g.base46_cache .. 'nvimtree')
-			require('nvim-tree').setup(opts)
+			nvim_tree.setup(opts)
 		end,
 	},
 
@@ -238,10 +269,12 @@ local default_plugins = {
 		dependencies = { 'nvim-treesitter/nvim-treesitter' },
 		cmd = 'Telescope',
 		init = function()
-			require('core.utils').load_mappings 'telescope'
+			local utils = require 'core.utils'
+			utils.load_mappings 'telescope'
 		end,
 		opts = function()
-			return require 'plugins.configs.telescope'
+			local telescope = require 'plugins.configs.telescope'
+			return telescope
 		end,
 		config = function(_, opts)
 			dofile(vim.g.base46_cache .. 'telescope')
@@ -260,18 +293,20 @@ local default_plugins = {
 		'folke/which-key.nvim',
 		keys = { '<leader>', '<c-r>', '<c-w>', '"', '\'', '`', 'c', 'v', 'g' },
 		init = function()
-			require('core.utils').load_mappings 'whichkey'
+			local utils = require 'core.utils'
+			utils.load_mappings 'whichkey'
 		end,
 		cmd = 'WhichKey',
 		config = function(_, opts)
+			local which_key = require 'which-key'
 			dofile(vim.g.base46_cache .. 'whichkey')
-			require('which-key').setup(opts)
+			which_key.setup(opts)
 		end,
 	},
 
 	-- Github Copilot: AI Assistant
 	{
-		'github/copilot.vim',
+		'github/copilot.vim', -- TODO:(ramit) Change to copilot.lua
 		cmd = 'Copilot',
 		lazy = false,
 		config = function()
@@ -292,10 +327,12 @@ local default_plugins = {
 		'rmagatti/goto-preview',
 		keys = { '<leader>' },
 		init = function()
-			require('core.utils').load_mappings 'goto_preview'
+			local utils = require 'core.utils'
+			utils.load_mappings 'goto_preview'
 		end,
 		config = function()
-			require('goto-preview').setup {
+			local goto_preview = require 'goto-preview'
+			goto_preview.setup {
 				height = 20,
 				width = 80,
 			}
@@ -318,7 +355,8 @@ local default_plugins = {
 				},
 			}
 
-			require('core.utils').load_mappings 'harpoon'
+			local utils = require 'core.utils'
+			utils.load_mappings 'harpoon'
 
 			-- Open files marked with harpoon on startup
 			if vim.fn.argc() == 0 then
@@ -355,7 +393,8 @@ local default_plugins = {
 		config = function()
 			-- NOTE: Because of the way we set up the mapping in gitlinker, it will not
 			-- show up within the whichkey menu (which is fine by me for now)
-			require('gitlinker').setup {}
+			local gitlinker = require 'gitlinker'
+			gitlinker.setup {}
 		end,
 	},
 
@@ -374,7 +413,9 @@ local default_plugins = {
 			vim.o.foldlevelstart = 99
 			vim.o.foldenable = true
 
-			require('ufo').setup {
+			local ufo = require 'ufo'
+
+			ufo.setup {
 				provider_selector = function(bufnr, filetype, buftype)
 					return { 'treesitter', 'indent' }
 				end,
@@ -453,7 +494,8 @@ local default_plugins = {
 				},
 			}
 
-			require('todo-comments').setup { opts }
+			local todo_comments = require 'todo-comments'
+			todo_comments.setup { opts }
 		end,
 	},
 
@@ -462,7 +504,8 @@ local default_plugins = {
 		'j-hui/fidget.nvim',
 		lazy = false,
 		config = function()
-			require('fidget').setup {
+			local fidget = require 'fidget'
+			fidget.setup {
 				progress = {
 					lsp = {
 						progress_ringbuf_size = 2048,
@@ -489,7 +532,8 @@ local default_plugins = {
 		'mbbill/undotree',
 		cmd = { 'UndotreeToggle' },
 		init = function()
-			require('core.utils').load_mappings 'undotree'
+			local utils = require 'core.utils'
+			utils.load_mappings 'undotree'
 		end,
 	},
 
@@ -559,7 +603,7 @@ local default_plugins = {
 					'prettier',
 					'alex',
 					'gofmt',
-					-- 'rustfmt',
+					-- 'rustfmt', -- rustfmt has been deprecated from Mason
 					'gofumpt',
 				},
 			}
@@ -586,7 +630,7 @@ local default_plugins = {
 					'pyright',
 					'rust_analyzer',
 					'tsserver',
-					'vimls',
+					'basedpyright',
 				},
 			}
 		end,
@@ -598,7 +642,8 @@ local default_plugins = {
 		event = 'BufRead',
 		lazy = false,
 		config = function()
-			require('lsp_signature').setup()
+			local lsp_signature = require 'lsp_signature'
+			lsp_signature.setup()
 		end,
 	},
 
@@ -607,10 +652,12 @@ local default_plugins = {
 		'folke/trouble.nvim',
 		cmd = { 'TroubleToggle', 'Trouble' },
 		init = function()
-			require('core.utils').load_mappings 'trouble'
+			local utils = require 'core.utils'
+			utils.load_mappings 'trouble'
 		end,
 		config = function()
-			require('trouble').setup {
+			local trouble = require 'trouble'
+			trouble.setup {
 				position = 'bottom',
 				icons = true,
 				action_keys = {
@@ -642,7 +689,8 @@ local default_plugins = {
 		'kevinhwang91/nvim-bqf',
 		lazy = false,
 		config = function()
-			require('bqf').setup {
+			local bqf = require 'bqf'
+			bqf.setup {
 				auto_enable = true,
 				func_map = {
 					tab = 't',
@@ -661,7 +709,8 @@ local default_plugins = {
 			require('core.utils').load_mappings 'treesitter_context'
 		end,
 		config = function()
-			require('treesitter-context').setup {}
+			local treesitter_context = require 'treesitter-context'
+			treesitter_context.setup {}
 			vim.cmd [[TSContextEnable]]
 		end,
 	},
@@ -672,24 +721,27 @@ local default_plugins = {
 		depends = { 'nvim-telescope/telescope.nvim' },
 		lazy = false,
 		init = function()
-			require('core.utils').load_mappings 'rapidreturn'
+			local utils = require 'core.utils'
+			utils.load_mappings 'rapidreturn'
 		end,
 	},
 
 	-- LSP Saga: LSP UI
 	{
 		'nvimdev/lspsaga.nvim',
-		lazy = false,
-		init = function()
-			require('core.utils').load_mappings 'lspsaga'
-		end,
-		config = function()
-			require('lspsaga').setup {}
-		end,
 		dependencies = {
 			'nvim-treesitter/nvim-treesitter',
 			'nvim-tree/nvim-web-devicons',
 		},
+		lazy = false,
+		init = function()
+			local utils = require 'core.utils'
+			utils.load_mappings 'lspsaga'
+		end,
+		config = function()
+			local lspsaga = require 'lspsaga'
+			lspsaga.setup {}
+		end,
 	},
 
 	{
@@ -719,7 +771,8 @@ local default_plugins = {
 		'rcarriga/nvim-notify',
 		lazy = false,
 		config = function()
-			vim.notify = require 'notify'
+			local notify = require 'notify'
+			vim.notify = notify
 		end,
 	},
 
@@ -731,7 +784,8 @@ local default_plugins = {
 			'nvim-telescope/telescope.nvim',
 		},
 		config = function()
-			require('telescope').load_extension 'ui-select'
+			local telescope = require 'telescope'
+			telescope.load_extension 'ui-select'
 		end,
 	},
 
@@ -745,7 +799,7 @@ local default_plugins = {
 			'leoluz/nvim-dap-go',
 			'mfussenegger/nvim-dap-python',
 		},
-		config = function()
+		config = function() -- TODO:(ramit) this needs to go in its own file
 			local dap = require 'dap'
 			local dapui = require 'dapui'
 			local dap_go = require 'dap-go'
@@ -812,7 +866,8 @@ local default_plugins = {
 			'mfussenegger/nvim-dap',
 		},
 		config = function()
-			require('nvim-dap-virtual-text').setup()
+			local nvim_dap_virtual_text = require 'nvim-dap-virtual-text'
+			nvim_dap_virtual_text.setup()
 		end,
 	},
 
@@ -872,7 +927,6 @@ local default_plugins = {
 }
 
 local config = require('core.utils').load_config()
-
 if #config.plugins > 0 then
 	table.insert(default_plugins, { import = config.plugins })
 end

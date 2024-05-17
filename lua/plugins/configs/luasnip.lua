@@ -51,19 +51,19 @@ exports.load = function(opts)
   luasnip.config.set_config(opts)
 
   -- vscode format
-  local luasnip_vscode_loader = require 'luasnip.loaders.from_vscode'
-  luasnip_vscode_loader.lazy_load()
-  luasnip_vscode_loader.lazy_load { paths = vim.g.vscode_snippets_path or '' }
+  local from_vscode = require 'luasnip.loaders.from_vscode'
+  from_vscode.lazy_load()
+  from_vscode.lazy_load { paths = vim.g.vscode_snippets_path or '' }
 
   -- snipmate format
-  local luasnip_snipmate_loader = require 'luasnip.loaders.from_snipmate'
-  luasnip_snipmate_loader.load()
-  luasnip_snipmate_loader.lazy_load { paths = vim.g.snipmate_snippets_path or '' }
+  local from_snipmate = require 'luasnip.loaders.from_snipmate'
+  from_snipmate.load()
+  from_snipmate.lazy_load { paths = vim.g.snipmate_snippets_path or '' }
 
   -- lua format
-  local luasnip_lua_loader = require 'luasnip.loaders.from_lua'
-  luasnip_lua_loader.load()
-  luasnip_lua_loader.lazy_load { paths = vim.g.lua_snippets_path or '' }
+  local from_lua = require 'luasnip.loaders.from_lua'
+  from_lua.load()
+  from_lua.lazy_load { paths = vim.g.lua_snippets_path or '' }
 
   load_custom_snippets(luasnip)
 
@@ -77,7 +77,6 @@ exports.load = function(opts)
       end
     end,
   })
-  print 'Luasnip loaded!'
 end
 
 return exports
