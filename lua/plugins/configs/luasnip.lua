@@ -266,7 +266,6 @@ function load_custom_snippets(luasnip) -- TODO: Break each language out into its
     local node = vim.treesitter.get_node()
     while node ~= nil do
       if function_node_types[node:type()] then
-        vim.notify(node:type(), vim.log.levels.INFO)
         break
       end
 
@@ -275,7 +274,11 @@ function load_custom_snippets(luasnip) -- TODO: Break each language out into its
 
     if node == nil then
       vim.notify('Could not find function node', vim.log.levels.ERROR)
-      return '<nil>'
+      return '<ERROR>'
+    end
+
+    if node:type() == 'func_literal' then
+      return ''
     end
 
     local result = ''
@@ -303,7 +306,7 @@ function load_custom_snippets(luasnip) -- TODO: Break each language out into its
 
     if result == '' then
       vim.notify('No function name', vim.log.levels.ERROR)
-      return '<nil>'
+      return '<ERROR>'
     end
 
     return result
@@ -366,10 +369,13 @@ if <val>, <err> := <f>(<args>); <err> != nil {
     ),
     snippet(
       'dbg',
-      format_args('fmt.Printf("[<fn_name>]: <msg>\\n", <args>)', {
-        fn_name = func(go_function_name),
-        msg = insert(1, 'Debugging'),
-        args = insert(0),
+      format_args('fmt.Printf("[<file>:<line> <fn>]: <msg>\\n", <args>)<finish>', {
+        file = text_node(vim.fn.expand '%:t'),
+        line = text_node(tostring(vim.fn.line '.')), -- TODO: This is not working
+        fn = func(go_function_name),
+        msg = insert(1, 'dbg'),
+        args = insert(2),
+        finish = insert(0),
       })
     ),
   })
