@@ -1,6 +1,7 @@
 -- This is going to be the meat of the plugin.
-function load_custom_snippets(luasnip)
+function load_custom_snippets(luasnip) -- TODO: Break each language out into its own file
 	local snippet = luasnip.snippet
+	local snippet_node = luasnip.snippet_node
 	local insert = luasnip.insert_node
 	local choice = luasnip.choice_node
 	local dynamic = luasnip.dynamic_node
@@ -53,7 +54,7 @@ function load_custom_snippets(luasnip)
 			'exp_tbl',
 			format_args('exports.<name> = {\n<body>\n}', {
 				name = insert(1),
-				body = insert(2),
+				body = insert(0),
 			})
 		),
 		snippet(
@@ -61,7 +62,7 @@ function load_custom_snippets(luasnip)
 			format_args('exports.<name> = function(<args>)\n\t<body>\nend', {
 				name = insert(1),
 				args = insert(2),
-				body = insert(3),
+				body = insert(0),
 			})
 		),
 	})
@@ -71,20 +72,55 @@ function load_custom_snippets(luasnip)
 	-------------------------------
 	snippet_collection.clear_snippets 'go'
 
+	local go_return_values = function(args)
+		local function go_result_type(info)
+			-- TODO:
+		end
+		return snippet_node(
+			nil,
+			go_result_type {
+				index = 0,
+				err_name = args[1][1],
+				func_name = args[2][1],
+			}
+		)
+	end
+
 	luasnip.add_snippets('go', {
 		snippet(
 			'test',
 			format_args('func Test<name>(t *testing.T) {\n\t<body>\n}', {
 				name = insert(1),
-				body = insert(2),
+				body = insert(0),
 			})
 		),
 		snippet(
 			'benchmark',
 			format_args('func Benchmark<name>(b *testing.B) {\n\t<body>\n}', {
 				name = insert(1),
-				body = insert(2),
+				body = insert(0),
 			})
+		),
+		snippet(
+			'iferr',
+			format_args(
+				[[
+<val>, <err> := <f>(<args>)
+if <err_rep> != nil {
+	return <result>
+}
+<finish>
+			]],
+				{
+					val = insert(1),
+					err = insert(2, 'err'),
+					f = insert(3),
+					args = insert(4),
+					err_rep = repeated(2),
+					result = dynamic(5, go_return_values, { 2, 3 }),
+					finish = insert(0),
+				}
+			)
 		),
 	})
 end
