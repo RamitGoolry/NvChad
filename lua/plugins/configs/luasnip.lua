@@ -374,8 +374,8 @@ if <val>, <err> := <f>(<args>); <err> != nil {
 				file = text_node(vim.fn.expand '%:t'),
 				line = text_node(tostring(vim.fn.line '.')),
 				fn = func(go_function_name),
-				msg = insert(1, 'dbg'),
-				args = repeated(1),
+				msg = repeated(1),
+				args = insert(1, 'var'),
 				finish = insert(0),
 			})
 		),
@@ -385,7 +385,7 @@ if <val>, <err> := <f>(<args>); <err> != nil {
 				file = text_node(vim.fn.expand '%:t'),
 				line = text_node(tostring(vim.fn.line '.')),
 				fn = func(go_function_name),
-				msg = insert(1, 'dbg'),
+				msg = insert(1, 'message'),
 				finish = insert(0),
 			})
 		),
