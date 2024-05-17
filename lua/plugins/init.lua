@@ -306,7 +306,7 @@ local default_plugins = {
 
 	-- Github Copilot: AI Assistant
 	{
-		'github/copilot.vim', -- TODO:(ramit) Change to copilot.lua
+		'github/copilot.vim',
 		cmd = 'Copilot',
 		lazy = false,
 		config = function()
