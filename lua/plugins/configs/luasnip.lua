@@ -187,6 +187,29 @@ function load_custom_snippets(luasnip) -- TODO: Break each language out into its
         local text = vim.treesitter.get_node_text(node, 0)
         return { transform(text, info) }
       end,
+
+      qualified_type = function(node, info)
+        local type_node = nil
+        local package_node = nil
+
+        for child in node:iter_children() do
+          if child:type() == 'type_identifier' then
+            type_node = child
+          elseif child:type() == 'package_identifier' then
+            package_node = child
+          end
+        end
+
+        assert(type_node, 'Could not find type node in qualified_type capture')
+        local type_text = vim.treesitter.get_node_text(type_node, 0)
+
+        if package_node then
+          local package_text = vim.treesitter.get_node_text(package_node, 0)
+          type_text = package_text .. '.' .. type_text
+        end
+
+        return { transform(type_text, info) }
+      end,
     }
 
     local go_result_type = function(info)
@@ -208,7 +231,6 @@ function load_custom_snippets(luasnip) -- TODO: Break each language out into its
 
       -- Exit early if we couldn't find a function node
       if node == nil then
-        vim.notify 'Not inside of a function'
         return text_node ''
       end
 
