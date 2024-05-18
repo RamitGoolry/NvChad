@@ -73,7 +73,10 @@ lspconfig.lua_ls.setup {
 }
 
 lspconfig.rust_analyzer.setup {
-	on_attach = exports.on_attach,
+	on_attach = function(client, bufnr)
+		exports.on_attach(client, bufnr)
+		vim.lsp.inlay_hint.enable(true)
+	end,
 	capabilities = exports.capabilities,
 	settings = {
 		['rust-analyzer'] = {
@@ -83,9 +86,45 @@ lspconfig.rust_analyzer.setup {
 			},
 			cargo = {
 				loadOutDirsFromCheck = true,
+				autoReload = true,
+			},
+			completion = {
+				autoimport = {
+					enable = true,
+				},
+				fullFunctionSignatures = {
+					enable = true,
+				},
 			},
 			procMacro = {
 				enable = true,
+			},
+			inlayHints = {
+				bindingModeHints = {
+					enable = true,
+				},
+				chainingHints = {
+					enable = true,
+				},
+				closingBraceHints = {
+					enable = true,
+				},
+				discriminantHints = {
+					enable = true,
+				},
+				implicitDrops = {
+					enable = true,
+				},
+				lifetimeElisionHints = {
+					enable = true,
+					useParameterNames = true,
+				},
+				rangeExclusiveHints = {
+					enable = true,
+				},
+				reborrowHints = {
+					enable = true,
+				},
 			},
 		},
 	},
