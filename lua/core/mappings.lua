@@ -292,10 +292,11 @@ exports.telescope = {
 			'<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>',
 			'Find all',
 		},
-		['<leader>fb'] = { '<cmd> Telescope buffers <CR>', 'Find buffers' },
+		['<leader>fb'] = { '<cmd> Telescope  <CR>', 'Find breakpoints' }, -- TODO: This don't work
 		['<leader>fh'] = { '<cmd> Telescope help_tags <CR>', 'Help page' },
 		['<leader>fo'] = { '<cmd> Telescope oldfiles <CR>', 'Find oldfiles' },
 		['<leader>fz'] = { '<cmd> Telescope current_buffer_fuzzy_find <CR>', 'Find in current buffer' },
+		['<leader>fr'] = { '<cmd> Telescope lsp_references <CR>', 'LSP references' },
 
 		-- git
 		['<leader>cm'] = { '<cmd> Telescope git_commits <CR>', 'Git commits' },
@@ -308,9 +309,6 @@ exports.telescope = {
 		['<leader>th'] = { '<cmd> Telescope themes <CR>', 'Nvchad themes' },
 
 		['<leader>ma'] = { '<cmd> Telescope marks <CR>', 'telescope bookmarks' },
-
-		-- References
-		['<leader>tr'] = { '<cmd> Telescope lsp_references <CR>', 'LSP references' },
 	},
 }
 
@@ -627,14 +625,15 @@ exports.lspsaga = {
 
 exports.dap = {
 	n = {
+		['..'] = { '<cmd>lua require("dap").step_over()<CR>', 'Step Over (shortcut)' },
 		['<leader>bb'] = { '<cmd>lua require("dap").toggle_breakpoint()<CR>', 'Toggle Breakpoint' },
 		['<leader>bc'] = { '<cmd>lua require("dap").continue()<CR>', 'Continue' },
 		['<leader>bso'] = { '<cmd>lua require("dap").step_over()<CR>', 'Step Over' },
 		['<leader>bsO'] = { '<cmd>lua require("dap").step_out()<CR>', 'Step Out' },
 		['<leader>bsi'] = { '<cmd>lua require("dap").step_into()<CR>', 'Step Into' },
-		['..'] = { '<cmd>lua require("dap").step_over()<CR>', 'Step Over (shortcut)' },
 		['<leader>br'] = { '<cmd>lua require("dap").repl.toggle()<CR>', 'Toggle DAP Replay' },
-		['<leader>gb'] = { '<cmd>lua require("dap").run_to_cursor()<CR>', 'Run to Cursor' },
+		['<leader>bg'] = { '<cmd>lua require("dap").run_to_cursor()<CR>', 'Run to Cursor' },
+		['<leader>blb'] = { '<cmd>Telescope dap list_breakpoints<CR>', 'List Breakpoints' },
 	},
 }
 
@@ -645,9 +644,17 @@ exports.dapui = {
 	},
 }
 
-exports.dap_python = {
+-- exports.dap_python = {
+-- TODO: Figure out file type specific mappings
+--   n = {
+--     ['<leader>bt'] = { '<cmd>lua require("dap-python").test_method()<cr>', 'Test Method (Python)' },
+--   },
+-- }
+
+exports.dap_go = {
 	n = {
-		['<leader>bt'] = { '<cmd>lua require("dap-python").test_method()<cr>', 'Test Method (Python)' },
+		['<leader>bt'] = { '<cmd>lua require("dap-go").debug_test()<cr>', 'Debug Test (Go)' },
+		['<leader>blt'] = { '<cmd>lua require("dap-go").debug_last_test()<cr>', 'Debug Last Test (Go)' },
 	},
 }
 
