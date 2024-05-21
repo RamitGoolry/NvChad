@@ -359,14 +359,14 @@ local default_plugins = {
 			utils.load_mappings 'harpoon'
 
 			-- Open files marked with harpoon on startup
-			if vim.fn.argc() == 0 then
-				local files = harpoon:list()
-
-				for _, file in ipairs(files.items) do
-					vim.cmd('edit ' .. file.value)
-					vim.fn.cursor(file.context.row, file.context.col)
-				end
-			end
+			-- if vim.fn.argc() == 0 then
+			-- 	local files = harpoon:list()
+			--
+			-- 	for _, file in ipairs(files.items) do
+			-- 		vim.cmd('edit ' .. file.value)
+			-- 		vim.fn.cursor(file.context.row, file.context.col)
+			-- 	end
+			-- end
 		end,
 	},
 
@@ -792,12 +792,13 @@ local default_plugins = {
 	-- DAP
 	{
 		'mfussenegger/nvim-dap',
-		lazy = false,
 		dependencies = {
 			'rcarriga/nvim-dap-ui',
 			'nvim-neotest/nvim-nio',
 			'leoluz/nvim-dap-go',
 			'mfussenegger/nvim-dap-python',
+			'nvim-telescope/telescope.nvim',
+			'nvim-telescope/telescope-dap.nvim',
 		},
 		config = function() -- TODO:(ramit) this needs to go in its own file
 			local dap = require 'dap'
@@ -836,10 +837,11 @@ local default_plugins = {
 					},
 				},
 			}
+			vim.fn.sign_define('DapBreakpoint', { text = '●', texthl = 'red', linehl = '', numhl = '' })
 			dap_go.setup()
 
 			-- DAP Python
-			dap_python.setup '/Users/ramit/.pyenv/shims/python3'
+			dap_python.setup '/Users/ramit/.pyenv/shims/python'
 			dap_python.test_runner = 'pytest'
 
 			-- DAP UI Hooks: Open and Close on appropriate DAP Events
@@ -855,6 +857,8 @@ local default_plugins = {
 			dap.listeners.before.event_exited.dapui_config = function()
 				dapui.close()
 			end
+			local telescope = require 'telescope'
+			telescope.load_extension 'dap'
 		end,
 	},
 
@@ -935,6 +939,27 @@ local default_plugins = {
 				delete_to_trash = true, -- to be safe for now
 				skip_confirm_for_simple_edits = true,
 			}
+		end,
+	},
+
+	-- Autosession : Session Management
+	{
+		'rmagatti/auto-session',
+		lazy = false,
+		config = function()
+			local opts = {
+				log_level = 'error', -- I don't want to see the logs if I dont need to
+				auto_session_enable_last_session = false,
+				auto_session_root_dir = vim.fn.stdpath 'data' .. '/sessions/',
+				auto_session_enabled = true,
+				auto_save_enabled = true,
+				auto_restore_enabled = nil,
+				auto_session_suppress_dirs = nil,
+				auto_session_use_git_branch = nil,
+				bypass_session_save_file_types = nil,
+			}
+			local auto_session = require 'auto-session'
+			auto_session.setup(opts)
 		end,
 	},
 }
