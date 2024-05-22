@@ -3,645 +3,647 @@
 local exports = {}
 
 exports.general = {
-	i = {
-		-- go to  beginning and end
-		['<C-b>'] = { '<ESC>^i', 'Beginning of line' },
-		['<C-e>'] = { '<End>', 'End of line' },
+  i = {
+    -- go to  beginning and end
+    ['<C-b>'] = { '<ESC>^i', 'Beginning of line' },
+    ['<C-e>'] = { '<End>', 'End of line' },
 
-		-- navigate within insert mode
-		['<C-h>'] = { '<Left>', 'Move left' },
-		['<C-l>'] = { '<Right>', 'Move right' },
-		['<C-j>'] = { '<Down>', 'Move down' },
-		['<C-k>'] = { '<Up>', 'Move up' },
-	},
+    -- navigate within insert mode
+    ['<C-h>'] = { '<Left>', 'Move left' },
+    ['<C-l>'] = { '<Right>', 'Move right' },
+    ['<C-j>'] = { '<Down>', 'Move down' },
+    ['<C-k>'] = { '<Up>', 'Move up' },
+  },
 
-	n = {
-		['<Esc>'] = { '<cmd> noh <CR>', 'Clear highlights' },
-		-- switch between windows
-		['<C-h>'] = { '<C-w>h', 'Window left' },
-		['<C-l>'] = { '<C-w>l', 'Window right' },
-		['<C-j>'] = { '<C-w>j', 'Window down' },
-		['<C-k>'] = { '<C-w>k', 'Window up' },
+  n = {
+    ['<Esc>'] = { '<cmd> noh <CR>', 'Clear highlights' },
+    -- switch between windows
+    ['<C-h>'] = { '<C-w>h', 'Window left' },
+    ['<C-l>'] = { '<C-w>l', 'Window right' },
+    ['<C-j>'] = { '<C-w>j', 'Window down' },
+    ['<C-k>'] = { '<C-w>k', 'Window up' },
 
-		-- splitting windows
-		['<leader>%'] = { '<cmd>vsplit<CR>', 'Split Window Vertically' },
-		['<leader>"'] = { '<cmd>split<CR>', 'Split Window Horizontally' },
+    -- splitting windows
+    ['<leader>%'] = { '<cmd>vsplit<CR>', 'Split Window Vertically' },
+    ['<leader>"'] = { '<cmd>split<CR>', 'Split Window Horizontally' },
 
-		-- save
-		['<C-s>'] = { '<cmd> w <CR>', 'Save file' },
+    -- save
+    ['<C-s>'] = { '<cmd> w <CR>', 'Save file' },
 
-		-- Copy all
-		['<C-c>'] = { '<cmd> %y+ <CR>', 'Copy whole file' },
+    -- Copy all
+    ['<C-c>'] = { '<cmd> %y+ <CR>', 'Copy whole file' },
 
-		-- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>
-		-- http://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
-		-- empty mode is same as using <cmd> :map
-		-- also don't use g[j|k] when in operator pending mode, so it doesn't alter d, y or c behaviour
-		['j'] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', 'Move down', opts = { expr = true } },
-		['k'] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', 'Move up', opts = { expr = true } },
-		['<Up>'] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', 'Move up', opts = { expr = true } },
-		['<Down>'] = {
-			'v:count || mode(1)[0:1] == "no" ? "j" : "gj"',
-			'Move down',
-			opts = { expr = true },
-		},
+    -- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>
+    -- http://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
+    -- empty mode is same as using <cmd> :map
+    -- also don't use g[j|k] when in operator pending mode, so it doesn't alter d, y or c behaviour
+    ['j'] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', 'Move down', opts = { expr = true } },
+    ['k'] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', 'Move up', opts = { expr = true } },
+    ['<Up>'] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', 'Move up', opts = { expr = true } },
+    ['<Down>'] = {
+      'v:count || mode(1)[0:1] == "no" ? "j" : "gj"',
+      'Move down',
+      opts = { expr = true },
+    },
 
-		['<leader>ch'] = { '<cmd> NvCheatsheet <CR>', 'Mapping cheatsheet' },
+    ['<leader>ch'] = { '<cmd> NvCheatsheet <CR>', 'Mapping cheatsheet' },
 
-		['<leader>fm'] = {
-			function()
-				vim.lsp.buf.format { async = true }
-			end,
-			'LSP formatting',
-		},
-	},
+    ['<leader>fm'] = {
+      function()
+        vim.lsp.buf.format { async = true }
+      end,
+      'LSP formatting',
+    },
+  },
 
-	t = {
-		['<C-x>'] = {
-			vim.api.nvim_replace_termcodes('<C-\\><C-N>', true, true, true),
-			'Escape terminal mode',
-		},
-	},
+  t = {
+    ['<C-x>'] = {
+      vim.api.nvim_replace_termcodes('<C-\\><C-N>', true, true, true),
+      'Escape terminal mode',
+    },
+  },
 
-	v = {
-		['<Up>'] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', 'Move up', opts = { expr = true } },
-		['<Down>'] = {
-			'v:count || mode(1)[0:1] == "no" ? "j" : "gj"',
-			'Move down',
-			opts = { expr = true },
-		},
-		['<'] = { '<gv', 'Indent line' },
-		['>'] = { '>gv', 'Indent line' },
-	},
+  v = {
+    ['<Up>'] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', 'Move up', opts = { expr = true } },
+    ['<Down>'] = {
+      'v:count || mode(1)[0:1] == "no" ? "j" : "gj"',
+      'Move down',
+      opts = { expr = true },
+    },
+    ['<'] = { '<gv', 'Indent line' },
+    ['>'] = { '>gv', 'Indent line' },
+  },
 
-	x = {
-		['j'] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', 'Move down', opts = { expr = true } },
-		['k'] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', 'Move up', opts = { expr = true } },
-		-- Don't copy the replaced text after pasting in visual mode
-		-- https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text#Alternative_mapping_for_paste
-		['p'] = { 'p:let @+=@0<CR>:let @"=@0<CR>', 'Dont copy replaced text', opts = { silent = true } },
-	},
+  x = {
+    ['j'] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', 'Move down', opts = { expr = true } },
+    ['k'] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', 'Move up', opts = { expr = true } },
+    -- Don't copy the replaced text after pasting in visual mode
+    -- https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text#Alternative_mapping_for_paste
+    ['p'] = { 'p:let @+=@0<CR>:let @"=@0<CR>', 'Dont copy replaced text', opts = { silent = true } },
+  },
 }
 
 exports.tabufline = {
-	plugin = true,
+  plugin = true,
 
-	n = {
-		-- cycle through buffers
-		['<tab>'] = {
-			function()
-				require('nvchad.tabufline').tabuflineNext()
-			end,
-			'Goto next buffer',
-		},
-
-		['<S-tab>'] = {
-			function()
-				require('nvchad.tabufline').tabuflinePrev()
-			end,
-			'Goto prev buffer',
-		},
-
-		-- close buffer + hide terminal buffer
-		['<leader>x'] = {
-			function()
-				require('nvchad.tabufline').close_buffer()
-			end,
-			'Close buffer',
-		},
-	},
+  -- n = {
+  -- 	-- cycle through buffers
+  -- 	['<tab>'] = {
+  -- 		function()
+  -- 			require('nvchad.tabufline').tabuflineNext()
+  -- 		end,
+  -- 		'Goto next buffer',
+  -- 	},
+  --
+  -- 	['<S-tab>'] = {
+  -- 		function()
+  -- 			require('nvchad.tabufline').tabuflinePrev()
+  -- 		end,
+  -- 		'Goto prev buffer',
+  -- 	},
+  --
+  -- 	-- close buffer + hide terminal buffer
+  -- 	['<leader>x'] = {
+  -- 		function()
+  -- 			require('nvchad.tabufline').close_buffer()
+  -- 		end,
+  -- 		'Close buffer',
+  -- 	},
+  -- },
 }
 
 exports.comment = {
-	plugin = true,
+  plugin = true,
 
-	-- toggle comment in both modes
-	n = {
-		['<leader>/'] = {
-			function()
-				require('Comment.api').toggle.linewise.current()
-			end,
-			'Toggle comment',
-		},
-	},
+  -- toggle comment in both modes
+  n = {
+    ['<leader>/'] = {
+      function()
+        require('Comment.api').toggle.linewise.current()
+      end,
+      'Toggle comment',
+    },
+  },
 
-	v = {
-		['<leader>/'] = {
-			'<ESC><cmd>lua require(\'Comment.api\').toggle.linewise(vim.fn.visualmode())<CR>',
-			'Toggle comment',
-		},
-	},
+  v = {
+    ['<leader>/'] = {
+      '<ESC><cmd>lua require(\'Comment.api\').toggle.linewise(vim.fn.visualmode())<CR>',
+      'Toggle comment',
+    },
+  },
 }
 
 exports.lspconfig = {
-	plugin = true,
+  plugin = true,
 
-	-- See `<cmd> :help vim.lsp.*` for documentation on any of the below functions
+  -- See `<cmd> :help vim.lsp.*` for documentation on any of the below functions
 
-	n = {
-		['gD'] = {
-			function()
-				vim.lsp.buf.declaration()
-			end,
-			'LSP declaration',
-		},
+  n = {
+    ['gD'] = {
+      function()
+        vim.lsp.buf.declaration()
+      end,
+      'LSP declaration',
+    },
 
-		['gd'] = {
-			function()
-				vim.lsp.buf.definition()
-			end,
-			'LSP definition',
-		},
+    ['gd'] = {
+      function()
+        vim.lsp.buf.definition()
+      end,
+      'LSP definition',
+    },
 
-		['K'] = {
-			function()
-				vim.lsp.buf.hover()
-			end,
-			'LSP hover',
-		},
+    ['K'] = {
+      function()
+        vim.lsp.buf.hover()
+      end,
+      'LSP hover',
+    },
 
-		['gi'] = {
-			function()
-				vim.lsp.buf.implementation()
-			end,
-			'LSP implementation',
-		},
+    ['gi'] = {
+      function()
+        vim.lsp.buf.implementation()
+      end,
+      'LSP implementation',
+    },
 
-		['<leader>ls'] = {
-			function()
-				vim.lsp.buf.signature_help()
-			end,
-			'LSP signature help',
-		},
+    ['<leader>ls'] = {
+      function()
+        vim.lsp.buf.signature_help()
+      end,
+      'LSP signature help',
+    },
 
-		['<leader>D'] = {
-			function()
-				vim.lsp.buf.type_definition()
-			end,
-			'LSP definition type',
-		},
+    ['<leader>D'] = {
+      function()
+        vim.lsp.buf.type_definition()
+      end,
+      'LSP definition type',
+    },
 
-		['<leader>ra'] = {
-			function()
-				require('nvchad.renamer').open()
-			end,
-			'LSP rename',
-		},
+    ['<leader>ra'] = {
+      function()
+        require('nvchad.renamer').open()
+      end,
+      'LSP rename',
+    },
 
-		['gr'] = {
-			function()
-				vim.lsp.buf.references()
-			end,
-			'LSP references',
-		},
+    ['gr'] = {
+      function()
+        vim.lsp.buf.references()
+      end,
+      'LSP references',
+    },
 
-		['<leader>lf'] = {
-			function()
-				vim.diagnostic.open_float { border = 'rounded' }
-			end,
-			'Floating diagnostic',
-		},
+    ['<leader>lf'] = {
+      function()
+        vim.diagnostic.open_float { border = 'rounded' }
+      end,
+      'Floating diagnostic',
+    },
 
-		['[d'] = {
-			function()
-				vim.diagnostic.goto_prev { float = { border = 'rounded' } }
-			end,
-			'Goto prev',
-		},
+    ['[d'] = {
+      function()
+        vim.diagnostic.goto_prev { float = { border = 'rounded' } }
+      end,
+      'Goto prev',
+    },
 
-		[']d'] = {
-			function()
-				vim.diagnostic.goto_next { float = { border = 'rounded' } }
-			end,
-			'Goto next',
-		},
+    [']d'] = {
+      function()
+        vim.diagnostic.goto_next { float = { border = 'rounded' } }
+      end,
+      'Goto next',
+    },
 
-		['<leader>q'] = {
-			function()
-				vim.diagnostic.setloclist()
-			end,
-			'Diagnostic setloclist',
-		},
+    ['<leader>q'] = {
+      function()
+        vim.diagnostic.setloclist()
+      end,
+      'Diagnostic setloclist',
+    },
 
-		['<leader>wa'] = {
-			function()
-				vim.lsp.buf.add_workspace_folder()
-			end,
-			'Add workspace folder',
-		},
+    ['<leader>wa'] = {
+      function()
+        vim.lsp.buf.add_workspace_folder()
+      end,
+      'Add workspace folder',
+    },
 
-		['<leader>wr'] = {
-			function()
-				vim.lsp.buf.remove_workspace_folder()
-			end,
-			'Remove workspace folder',
-		},
+    ['<leader>wr'] = {
+      function()
+        vim.lsp.buf.remove_workspace_folder()
+      end,
+      'Remove workspace folder',
+    },
 
-		['<leader>wl'] = {
-			function()
-				print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-			end,
-			'List workspace folders',
-		},
+    ['<leader>wl'] = {
+      function()
+        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+      end,
+      'List workspace folders',
+    },
 
-		['<leader>['] = {
-			function()
-				vim.diagnostic.goto_prev()
-			end,
-			'Go to previous diagnostic',
-		},
+    ['<leader>['] = {
+      function()
+        vim.diagnostic.goto_prev()
+      end,
+      'Go to previous diagnostic',
+    },
 
-		['<leader>]'] = {
-			function()
-				vim.diagnostic.goto_next()
-			end,
-			'Go to next diagnostic',
-		},
-	},
+    ['<leader>]'] = {
+      function()
+        vim.diagnostic.goto_next()
+      end,
+      'Go to next diagnostic',
+    },
+  },
 
-	v = {
-		['<leader>ca'] = {
-			function()
-				vim.lsp.buf.code_action()
-			end,
-			'LSP code action',
-		},
-	},
+  v = {
+    ['<leader>ca'] = {
+      function()
+        vim.lsp.buf.code_action()
+      end,
+      'LSP code action',
+    },
+  },
 }
 
 exports.nvimtree = {
-	plugin = true,
+  plugin = true,
 
-	n = {
-		-- toggle
-		['<leader>n'] = { '<cmd> NvimTreeToggle <CR>', 'Toggle nvimtree' },
+  n = {
+    -- toggle
+    ['<leader>n'] = { '<cmd> NvimTreeToggle <CR>', 'Toggle nvimtree' },
 
-		-- focus
-		['<leader>e'] = { '<cmd> NvimTreeFocus <CR>', 'Focus nvimtree' },
-	},
+    -- focus
+    ['<leader>e'] = { '<cmd> NvimTreeFocus <CR>', 'Focus nvimtree' },
+  },
 }
 
 exports.telescope = {
-	plugin = true,
+  plugin = true,
 
-	n = {
-		-- find
-		['<leader>ff'] = { '<cmd> Telescope find_files <CR>', 'Find files' },
-		['<leader>fg'] = { '<cmd> Telescope live_grep <CR>', 'Live Grep' },
-		['<leader>fa'] = {
-			'<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>',
-			'Find all',
-		},
-		['<leader>fb'] = { '<cmd> Telescope  <CR>', 'Find breakpoints' }, -- TODO: This don't work
-		['<leader>fh'] = { '<cmd> Telescope help_tags <CR>', 'Help page' },
-		['<leader>fo'] = { '<cmd> Telescope oldfiles <CR>', 'Find oldfiles' },
-		['<leader>fz'] = { '<cmd> Telescope current_buffer_fuzzy_find <CR>', 'Find in current buffer' },
-		['<leader>fr'] = { '<cmd> Telescope lsp_references <CR>', 'LSP references' },
+  n = {
+    -- find
+    ['<leader>ff'] = { '<cmd> Telescope find_files <CR>', 'Find files' },
+    ['<leader>fg'] = { '<cmd> Telescope live_grep <CR>', 'Live Grep' },
+    ['<leader>fa'] = {
+      '<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>',
+      'Find all',
+    },
+    ['<leader>fb'] = { '<cmd> Telescope buffers <CR>', 'Find buffers' },
+    ['<leader>fh'] = { '<cmd> Telescope help_tags <CR>', 'Help page' },
+    ['<leader>fo'] = { '<cmd> Telescope oldfiles <CR>', 'Find oldfiles' },
+    ['<leader>fz'] = { '<cmd> Telescope current_buffer_fuzzy_find <CR>', 'Find in current buffer' },
 
-		-- git
-		['<leader>cm'] = { '<cmd> Telescope git_commits <CR>', 'Git commits' },
-		['<leader>gt'] = { '<cmd> Telescope git_status <CR>', 'Git status' },
+    -- git
+    ['<leader>cm'] = { '<cmd> Telescope git_commits <CR>', 'Git commits' },
+    ['<leader>gt'] = { '<cmd> Telescope git_status <CR>', 'Git status' },
 
-		-- pick a hidden term
-		['<leader>pt'] = { '<cmd> Telescope terms <CR>', 'Pick hidden term' },
+    -- pick a hidden term
+    ['<leader>pt'] = { '<cmd> Telescope terms <CR>', 'Pick hidden term' },
 
-		-- theme switcher
-		['<leader>th'] = { '<cmd> Telescope themes <CR>', 'Nvchad themes' },
+    -- theme switcher
+    ['<leader>th'] = { '<cmd> Telescope themes <CR>', 'Nvchad themes' },
 
-		['<leader>ma'] = { '<cmd> Telescope marks <CR>', 'telescope bookmarks' },
-	},
+    ['<leader>ma'] = { '<cmd> Telescope marks <CR>', 'telescope bookmarks' },
+
+    -- References
+    ['<leader>tr'] = { '<cmd> Telescope lsp_references <CR>', 'LSP references' },
+  },
 }
 
 exports.nvterm = {
-	plugin = true,
+  plugin = true,
 
-	t = {
-		-- toggle in terminal mode
-		['<A-i>'] = {
-			function()
-				require('nvterm.terminal').toggle 'float'
-			end,
-			'Toggle floating term',
-		},
+  t = {
+    -- toggle in terminal mode
+    ['<A-i>'] = {
+      function()
+        require('nvterm.terminal').toggle 'float'
+      end,
+      'Toggle floating term',
+    },
 
-		['<A-h>'] = {
-			function()
-				require('nvterm.terminal').toggle 'horizontal'
-			end,
-			'Toggle horizontal term',
-		},
+    ['<A-h>'] = {
+      function()
+        require('nvterm.terminal').toggle 'horizontal'
+      end,
+      'Toggle horizontal term',
+    },
 
-		['<A-v>'] = {
-			function()
-				require('nvterm.terminal').toggle 'vertical'
-			end,
-			'Toggle vertical term',
-		},
-	},
+    ['<A-v>'] = {
+      function()
+        require('nvterm.terminal').toggle 'vertical'
+      end,
+      'Toggle vertical term',
+    },
+  },
 
-	n = {
-		-- toggle in normal mode
-		['<A-i>'] = {
-			function()
-				require('nvterm.terminal').toggle 'float'
-			end,
-			'Toggle floating term',
-		},
+  n = {
+    -- toggle in normal mode
+    ['<A-i>'] = {
+      function()
+        require('nvterm.terminal').toggle 'float'
+      end,
+      'Toggle floating term',
+    },
 
-		['<A-h>'] = {
-			function()
-				require('nvterm.terminal').toggle 'horizontal'
-			end,
-			'Toggle horizontal term',
-		},
+    ['<A-h>'] = {
+      function()
+        require('nvterm.terminal').toggle 'horizontal'
+      end,
+      'Toggle horizontal term',
+    },
 
-		['<A-v>'] = {
-			function()
-				require('nvterm.terminal').toggle 'vertical'
-			end,
-			'Toggle vertical term',
-		},
+    ['<A-v>'] = {
+      function()
+        require('nvterm.terminal').toggle 'vertical'
+      end,
+      'Toggle vertical term',
+    },
 
-		-- new
-		--   ['<leader>h'] = {
-		--     function()
-		--       require('nvterm.terminal').new 'horizontal'
-		--     end,
-		--     'New horizontal term',
-		--   },
-		--
-		--   ['<leader>v'] = {
-		--     function()
-		--       require('nvterm.terminal').new 'vertical'
-		--     end,
-		--     'New vertical term',
-		--   },
-	},
+    -- new
+    --   ['<leader>h'] = {
+    --     function()
+    --       require('nvterm.terminal').new 'horizontal'
+    --     end,
+    --     'New horizontal term',
+    --   },
+    --
+    --   ['<leader>v'] = {
+    --     function()
+    --       require('nvterm.terminal').new 'vertical'
+    --     end,
+    --     'New vertical term',
+    --   },
+  },
 }
 
 exports.whichkey = {
-	plugin = true,
+  plugin = true,
 
-	n = {
-		['<leader>wK'] = {
-			function()
-				vim.cmd 'WhichKey'
-			end,
-			'Which-key all keymaps',
-		},
-		['<leader>wk'] = {
-			function()
-				local input = vim.fn.input 'WhichKey: '
-				vim.cmd('WhichKey ' .. input)
-			end,
-			'Which-key query lookup',
-		},
-	},
+  n = {
+    ['<leader>wK'] = {
+      function()
+        vim.cmd 'WhichKey'
+      end,
+      'Which-key all keymaps',
+    },
+    ['<leader>wk'] = {
+      function()
+        local input = vim.fn.input 'WhichKey: '
+        vim.cmd('WhichKey ' .. input)
+      end,
+      'Which-key query lookup',
+    },
+  },
 }
 
 exports.blankline = {
-	plugin = true,
+  plugin = true,
 
-	n = {
-		['<leader>cc'] = {
-			function()
-				local ok, start = require('indent_blankline.utils').get_current_context(
-					vim.g.indent_blankline_context_patterns,
-					vim.g.indent_blankline_use_treesitter_scope
-				)
+  n = {
+    ['<leader>cc'] = {
+      function()
+        local ok, start = require('indent_blankline.utils').get_current_context(
+          vim.g.indent_blankline_context_patterns,
+          vim.g.indent_blankline_use_treesitter_scope
+        )
 
-				if ok then
-					vim.api.nvim_win_set_cursor(vim.api.nvim_get_current_win(), { start, 0 })
-					vim.cmd [[normal! _]]
-				end
-			end,
+        if ok then
+          vim.api.nvim_win_set_cursor(vim.api.nvim_get_current_win(), { start, 0 })
+          vim.cmd [[normal! _]]
+        end
+      end,
 
-			'Jump to current context',
-		},
-	},
+      'Jump to current context',
+    },
+  },
 }
 
 exports.gitsigns = {
-	plugin = true,
+  plugin = true,
 
-	n = {
-		-- Navigation through hunks
-		[']c'] = {
-			function()
-				if vim.wo.diff then
-					return ']c'
-				end
-				vim.schedule(function()
-					require('gitsigns').next_hunk()
-				end)
-				return '<Ignore>'
-			end,
-			'Jump to next hunk',
-			opts = { expr = true },
-		},
+  n = {
+    -- Navigation through hunks
+    [']c'] = {
+      function()
+        if vim.wo.diff then
+          return ']c'
+        end
+        vim.schedule(function()
+          require('gitsigns').next_hunk()
+        end)
+        return '<Ignore>'
+      end,
+      'Jump to next hunk',
+      opts = { expr = true },
+    },
 
-		['[c'] = {
-			function()
-				if vim.wo.diff then
-					return '[c'
-				end
-				vim.schedule(function()
-					require('gitsigns').prev_hunk()
-				end)
-				return '<Ignore>'
-			end,
-			'Jump to prev hunk',
-			opts = { expr = true },
-		},
+    ['[c'] = {
+      function()
+        if vim.wo.diff then
+          return '[c'
+        end
+        vim.schedule(function()
+          require('gitsigns').prev_hunk()
+        end)
+        return '<Ignore>'
+      end,
+      'Jump to prev hunk',
+      opts = { expr = true },
+    },
 
-		-- Actions
-		['<leader>rh'] = {
-			function()
-				require('gitsigns').reset_hunk()
-			end,
-			'Reset hunk',
-		},
+    -- Actions
+    ['<leader>rh'] = {
+      function()
+        require('gitsigns').reset_hunk()
+      end,
+      'Reset hunk',
+    },
 
-		['<leader>ph'] = {
-			function()
-				require('gitsigns').preview_hunk()
-			end,
-			'Preview hunk',
-		},
+    ['<leader>ph'] = {
+      function()
+        require('gitsigns').preview_hunk()
+      end,
+      'Preview hunk',
+    },
 
-		['<leader>gb'] = {
-			function()
-				package.loaded.gitsigns.blame_line()
-			end,
-			'Blame line',
-		},
+    ['<leader>gb'] = {
+      function()
+        package.loaded.gitsigns.blame_line()
+      end,
+      'Blame line',
+    },
 
-		['<leader>td'] = {
-			function()
-				require('gitsigns').toggle_deleted()
-			end,
-			'Toggle deleted',
-		},
-	},
+    ['<leader>td'] = {
+      function()
+        require('gitsigns').toggle_deleted()
+      end,
+      'Toggle deleted',
+    },
+  },
 }
 
 exports.goto_preview = {
-	plugin = true,
+  plugin = true,
 
-	-- Actions
-	n = {
-		-- Preview Definition
-		['<leader>pd'] = {
-			'<cmd>lua require("goto-preview").goto_preview_definition()<CR>',
-			'Preview Definition',
-		},
-		['<leader>pt'] = {
-			'<cmd>lua require("goto-preview").goto_preview_type_implementation()<CR>',
-			'Preview Type',
-		},
-		['<leader>pi'] = {
-			'<cmd>lua require("goto-preview").goto_preview_implementation()<CR>',
-			'Preview Implementation',
-		},
-		['<leader>pr'] = {
-			'<cmd>lua require("goto-preview").goto_preview_references()<CR>',
-			'Preview References',
-		},
-	},
+  -- Actions
+  n = {
+    -- Preview Definition
+    ['<leader>pd'] = {
+      '<cmd>lua require("goto-preview").goto_preview_definition()<CR>',
+      'Preview Definition',
+    },
+    ['<leader>pt'] = {
+      '<cmd>lua require("goto-preview").goto_preview_type_implementation()<CR>',
+      'Preview Type',
+    },
+    ['<leader>pi'] = {
+      '<cmd>lua require("goto-preview").goto_preview_implementation()<CR>',
+      'Preview Implementation',
+    },
+    ['<leader>pr'] = {
+      '<cmd>lua require("goto-preview").goto_preview_references()<CR>',
+      'Preview References',
+    },
+  },
 }
 
 exports.floating_windows = {
-	n = {
-		['<S-left>'] = { '<C-w><', 'Decrease width' },
-		['<S-right>'] = { '<C-w>>', 'Increase width' },
-		['<S-up>'] = { '<C-w>-', 'Decrease height' },
-		['<S-down>'] = { '<C-w>+', 'Increase height' },
-	},
+  n = {
+    ['<S-left>'] = { '<C-w><', 'Decrease width' },
+    ['<S-right>'] = { '<C-w>>', 'Increase width' },
+    ['<S-up>'] = { '<C-w>-', 'Decrease height' },
+    ['<S-down>'] = { '<C-w>+', 'Increase height' },
+  },
 }
 
 exports.tabs = {
-	plugin = false,
+  plugin = false,
 
-	n = {
-		[';tt'] = { '<cmd>tabnew<CR>', 'Create new Tab' },
-		[';tn'] = { '<cmd>tabnext<CR>', 'Next Tab' },
-		[';tp'] = { '<cmd>tabprevious<CR>', 'Previous Tab' },
-	},
+  n = {
+    [';tt'] = { '<cmd>tabnew<CR>', 'Create new Tab' },
+    [';tn'] = { '<cmd>tabnext<CR>', 'Next Tab' },
+    [';tp'] = { '<cmd>tabprevious<CR>', 'Previous Tab' },
+  },
 }
 
 exports.buffers = {
-	plugin = false,
+  plugin = false,
 
-	n = {
-		['tt'] = { '<cmd>enew<CR>', 'Create new buffer' },
-		['tn'] = { '<cmd>bn<CR>', 'Next buffer' },
-		['tp'] = { '<cmd>bp<CR>', 'Previous buffer' },
-		['td'] = { '<cmd>bd<CR>', 'Delete buffer' },
-		['tl'] = { '<cmd>ls<CR>', 'List buffers' },
-	},
+  n = {
+    ['tt'] = { '<cmd>enew<CR>', 'Create new buffer' },
+    ['tn'] = { '<cmd>bn<CR>', 'Next buffer' },
+    ['tp'] = { '<cmd>bp<CR>', 'Previous buffer' },
+    ['td'] = { '<cmd>bd<CR>', 'Delete buffer' },
+    ['tl'] = { '<cmd>ls<CR>', 'List buffers' },
+  },
 }
 
 exports.harpoon = {
-	plugin = true,
+  plugin = true,
 
-	n = {
-		['<leader>;'] = {
-			function()
-				local harpoon = require 'harpoon'
-				harpoon:list():add()
-			end,
-			'Add File to Harpoon',
-		},
-		['<leader>h'] = {
-			function()
-				local harpoon = require 'harpoon'
-				harpoon.ui:toggle_quick_menu(harpoon:list())
-			end,
-			'Harpoon Quick Menu',
-		},
-		['<C-n>'] = {
-			function()
-				local harpoon = require 'harpoon'
-				harpoon:list():next()
-			end,
-			'Harpoon to next file',
-		},
-		['<C-p>'] = {
-			function()
-				local harpoon = require 'harpoon'
-				harpoon:list():prev()
-			end,
-			'Harpoon to previous file',
-		},
-	},
+  n = {
+    ['<leader>;'] = {
+      function()
+        local harpoon = require 'harpoon'
+        harpoon:list():add()
+      end,
+      'Add File to Harpoon',
+    },
+    ['<leader>h'] = {
+      function()
+        local harpoon = require 'harpoon'
+        harpoon.ui:toggle_quick_menu(harpoon:list())
+      end,
+      'Harpoon Quick Menu',
+    },
+    ['<C-n>'] = {
+      function()
+        local harpoon = require 'harpoon'
+        harpoon:list():next()
+      end,
+      'Harpoon to next file',
+    },
+    ['<C-p>'] = {
+      function()
+        local harpoon = require 'harpoon'
+        harpoon:list():prev()
+      end,
+      'Harpoon to previous file',
+    },
+  },
 }
 
 exports.undotree = {
-	plugin = true,
+  plugin = true,
 
-	n = {
-		['<leader>u'] = { '<cmd>UndotreeToggle<CR>', 'Toggle Undo Tree' },
-	},
+  n = {
+    ['<leader>u'] = { '<cmd>UndotreeToggle<CR>', 'Toggle Undo Tree' },
+  },
 }
 
 exports.trouble = {
-	plugin = true,
+  plugin = true,
 
-	n = {
-		['<leader>T'] = { '<cmd>TroubleToggle<CR>', 'Open Trouble Tray' },
-	},
+  n = {
+    ['<leader>T'] = { '<cmd>TroubleToggle<CR>', 'Open Trouble Tray' },
+  },
 }
 
 exports.treesitter_context = {
-	plugin = true,
+  plugin = true,
 
-	n = {
-		['<leader>ss'] = { '<cmd>TreesitterContextToggle<CR>', 'Toggle Treesitter Context' },
-	},
+  n = {
+    ['<leader>ss'] = { '<cmd>TreesitterContextToggle<CR>', 'Toggle Treesitter Context' },
+  },
 }
 
 exports.rapidreturn = {
-	plugin = true,
+  plugin = true,
 
-	n = {
-		['rs'] = { '<cmd>lua require("rapid_return").cmd.save()<CR>', 'Save Cursor' },
-		['rr'] = { '<cmd>lua require("rapid_return").cmd.rewind()<CR>', 'Rewind Cursor' },
-		['rR'] = { '<cmd>lua require("rapid_return").cmd.rewind_all()<CR>', 'Rewind All Cursors' },
-		['rf'] = { '<cmd>lua require("rapid_return").cmd.forward()<CR>', 'Forward Cursor' },
-		['rc'] = { '<cmd>lua require("rapid_return").cmd.clear()<CR>', 'Clear History' },
-		['ruh'] = { '<cmd>lua require("rapid_return").ui.history()<CR>', 'Show History' },
-	},
+  n = {
+    ['rs'] = { '<cmd>lua require("rapid_return").cmd.save()<CR>', 'Save Cursor' },
+    ['rr'] = { '<cmd>lua require("rapid_return").cmd.rewind()<CR>', 'Rewind Cursor' },
+    ['rR'] = { '<cmd>lua require("rapid_return").cmd.rewind_all()<CR>', 'Rewind All Cursors' },
+    ['rf'] = { '<cmd>lua require("rapid_return").cmd.forward()<CR>', 'Forward Cursor' },
+    ['rc'] = { '<cmd>lua require("rapid_return").cmd.clear()<CR>', 'Clear History' },
+    ['ruh'] = { '<cmd>lua require("rapid_return").ui.history()<CR>', 'Show History' },
+  },
 }
 
 exports.lspsaga = {
-	plugin = true,
+  plugin = true,
 
-	n = {
-		['<leader>ca'] = { '<cmd>Lspsaga code_action<CR>', 'Code Action' },
-		['<leader>rn'] = { '<cmd>Lspsaga rename<CR>', 'Rename Symbol' },
-		['<leader>so'] = { '<cmd>Lspsaga outline<CR>', 'Symbol Outline' },
-	},
+  n = {
+    ['<leader>ca'] = { '<cmd>Lspsaga code_action<CR>', 'Code Action' },
+    ['<leader>rn'] = { '<cmd>Lspsaga rename<CR>', 'Rename Symbol' },
+    ['<leader>so'] = { '<cmd>Lspsaga outline<CR>', 'Symbol Outline' },
+  },
 }
 
 exports.dap = {
-	n = {
-		['..'] = { '<cmd>lua require("dap").step_over()<CR>', 'Step Over (shortcut)' },
-		['<leader>bb'] = { '<cmd>lua require("dap").toggle_breakpoint()<CR>', 'Toggle Breakpoint' },
-		['<leader>bc'] = { '<cmd>lua require("dap").continue()<CR>', 'Continue' },
-		['<leader>bso'] = { '<cmd>lua require("dap").step_over()<CR>', 'Step Over' },
-		['<leader>bsO'] = { '<cmd>lua require("dap").step_out()<CR>', 'Step Out' },
-		['<leader>bsi'] = { '<cmd>lua require("dap").step_into()<CR>', 'Step Into' },
-		['<leader>br'] = { '<cmd>lua require("dap").repl.toggle()<CR>', 'Toggle DAP Replay' },
-		['<leader>bg'] = { '<cmd>lua require("dap").run_to_cursor()<CR>', 'Run to Cursor' },
-		['<leader>blb'] = { '<cmd>Telescope dap list_breakpoints<CR>', 'List Breakpoints' },
-	},
+  n = {
+    ['..'] = { '<cmd>lua require("dap").step_over()<CR>', 'Step Over (shortcut)' },
+    ['<leader>bb'] = { '<cmd>lua require("dap").toggle_breakpoint()<CR>', 'Toggle Breakpoint' },
+    ['<leader>bc'] = { '<cmd>lua require("dap").continue()<CR>', 'Continue' },
+    ['<leader>bso'] = { '<cmd>lua require("dap").step_over()<CR>', 'Step Over' },
+    ['<leader>bsO'] = { '<cmd>lua require("dap").step_out()<CR>', 'Step Out' },
+    ['<leader>bsi'] = { '<cmd>lua require("dap").step_into()<CR>', 'Step Into' },
+    ['<leader>br'] = { '<cmd>lua require("dap").repl.toggle()<CR>', 'Toggle DAP Replay' },
+    ['<leader>gb'] = { '<cmd>lua require("dap").run_to_cursor()<CR>', 'Run to Cursor' },
+    ['<leader>btb'] = { '<cmd>Telescope dap list_breakpoints()<CR>', 'List Breakpoints'},
+  },
 }
 
 exports.dapui = {
-	n = {
-		['<leader>bu'] = { '<cmd>lua require("dapui").toggle()<CR>', 'Toggle DAP UI' },
-		['<leader>?'] = { '<cmd>lua require("dapui").eval()<CR>', 'Evaluate value' },
-	},
+  n = {
+    ['<leader>bu'] = { '<cmd>lua require("dapui").toggle()<CR>', 'Toggle DAP UI' },
+    ['<leader>?'] = { '<cmd>lua require("dapui").eval()<CR>', 'Evaluate value' },
+  },
 }
 
 -- exports.dap_python = {
@@ -650,6 +652,7 @@ exports.dapui = {
 --     ['<leader>bt'] = { '<cmd>lua require("dap-python").test_method()<cr>', 'Test Method (Python)' },
 --   },
 -- }
+-- This can be done through a custom function in the keymap or ftplugins
 
 exports.dap_go = {
 	n = {

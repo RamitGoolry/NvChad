@@ -313,6 +313,38 @@ function load_custom_snippets(luasnip) -- TODO: Break each language out into its
 		return result
 	end
 
+	local go_find_struct_field = function()
+		local node = vim.treesitter.get_node()
+		while node ~= nil do
+			if node:type() == 'field_declaration' then
+				break
+			end
+
+			node = node:parent()
+		end
+
+		if node == nil then
+			vim.notify('Could not find field node', vim.log.levels.ERROR)
+			return '<ERROR>'
+		end
+
+		local field_name = node:field('name')[1]
+		if field_name == nil then
+			vim.notify('Could not find field name', vim.log.levels.ERROR)
+			return '<ERROR>'
+		end
+
+		return vim.treesitter.get_node_text(field_name, 0)
+	end
+
+	local snake_case_fmt = function(field_name)
+		-- Convert UpperCamelCase to snake_case
+		local snake_case = field_name:gsub('%u', '_%1'):lower()
+		snake_case = snake_case:gsub('^_', '')
+
+		return snake_case
+	end
+
 	luasnip.add_snippets('go', {
 		snippet(
 			'test',
@@ -403,6 +435,26 @@ gerr.CaptureError(<ctx>, <err>, gerr.WithExtraInfo(map[string]interface{}{
 					finish = insert(0),
 				}
 			)
+		),
+		snippet(
+			'json_tag',
+			format_args('`json:"<name>"`', {
+				name = func(function()
+					return snake_case_fmt(go_find_struct_field())
+				end),
+			})
+		),
+		snippet(
+			'db_tag',
+			format_args('`db:"<name>"`', {
+				name = snake_case_fmt(go_find_struct_field()),
+			})
+		),
+		snippet(
+			'yaml_tag',
+			format_args('`yaml:"<name>"`', {
+				name = snake_case_fmt(go_find_struct_field()),
+			})
 		),
 	})
 end
