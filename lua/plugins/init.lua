@@ -228,12 +228,12 @@ local default_plugins = {
 	{
 		'numToStr/Comment.nvim',
 		keys = {
-			{ 'gcc', mode = 'n', desc = 'Comment toggle current line' },
-			{ 'gc', mode = { 'n', 'o' }, desc = 'Comment toggle linewise' },
-			{ 'gc', mode = 'x', desc = 'Comment toggle linewise (visual)' },
-			{ 'gbc', mode = 'n', desc = 'Comment toggle current block' },
-			{ 'gb', mode = { 'n', 'o' }, desc = 'Comment toggle blockwise' },
-			{ 'gb', mode = 'x', desc = 'Comment toggle blockwise (visual)' },
+			{ 'gcc', mode = 'n',          desc = 'Comment toggle current line' },
+			{ 'gc',  mode = { 'n', 'o' }, desc = 'Comment toggle linewise' },
+			{ 'gc',  mode = 'x',          desc = 'Comment toggle linewise (visual)' },
+			{ 'gbc', mode = 'n',          desc = 'Comment toggle current block' },
+			{ 'gb',  mode = { 'n', 'o' }, desc = 'Comment toggle blockwise' },
+			{ 'gb',  mode = 'x',          desc = 'Comment toggle blockwise (visual)' },
 		},
 		init = function()
 			local utils = require('core.utils')
@@ -465,13 +465,13 @@ local default_plugins = {
 					multiline = true, -- enable multine todo comments
 					multiline_pattern = '^.', -- lua pattern to match the next multiline from the start of the matched keyword
 					multiline_context = 10, -- extra lines that will be re-evaluated when changing a line
-					before = '', -- "fg" or "bg" or empty
+					before = '',      -- "fg" or "bg" or empty
 					keyword = 'wide', -- "fg", "bg", "wide", "wide_bg", "wide_fg" or empty. (wide and wide_bg is the same as bg, but will also highlight surrounding characters, wide_fg acts accordingly but with fg)
-					after = 'fg', -- "fg" or "bg" or empty
+					after = 'fg',     -- "fg" or "bg" or empty
 					pattern = [[.*<(KEYWORDS)\s*:]], -- pattern or table of patterns, used for highlighting (vim regex)
 					comments_only = true, -- uses treesitter to match keywords in comments only
 					max_line_len = 400, -- ignore lines longer than this
-					exclude = {}, -- list of file types to exclude highlighting
+					exclude = {},     -- list of file types to exclude highlighting
 				},
 				-- list of named colors where we try to extract the guifg from the
 				-- list of highlight groups or use the hex color if hl not found as a fallback
@@ -666,7 +666,7 @@ local default_plugins = {
 				position = 'bottom',
 				icons = true,
 				action_keys = {
-					close = 'q', -- close the list
+					close = 'q',   -- close the list
 					cancel = '<esc>', -- cancel the preview and get back to your last window / buffer / cursor
 					refresh = 'r', -- manually refresh
 					jump = '<cr>', -- jump to the diagnostic or open / close fold's
@@ -676,13 +676,13 @@ local default_plugins = {
 					jump_close = { 'o' }, -- jump to the diagnostic and close the list
 					toggle_mode = 'm', -- toggle between 'workspace' and 'document' diagnostics mode
 					toggle_preview = 'P', -- toggle auto_preview
-					hover = 'K', -- opens a small popup with the full multiline message
+					hover = 'K',   -- opens a small popup with the full multiline message
 					preview = 'p', -- preview the diagnostic location
 					close_folds = { 'zM', 'zm' }, -- close all folds
 					open_folds = { 'zR', 'zr' }, -- open all folds
 					toggle_fold = { 'zA', 'za' }, -- toggle fold of current file
 					previous = 'k', -- preview item
-					next = 'j', -- next item
+					next = 'j',    -- next item
 				},
 				use_diagnostic_signs = true,
 			})
