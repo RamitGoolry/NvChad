@@ -10,12 +10,12 @@ function load_custom_snippets(luasnip) -- TODO: Break each language out into its
 	local repeated = require('luasnip.extras').rep
 	local format_args = require('luasnip.extras.fmt').fmta
 
-	local snippet_collection = require 'luasnip.session.snippet_collection'
+	local snippet_collection = require('luasnip.session.snippet_collection')
 
 	-------------------------------
 	--------- Lua snippets --------
 	-------------------------------
-	snippet_collection.clear_snippets 'lua'
+	snippet_collection.clear_snippets('lua')
 
 	local function resolve_variable_name(import_name)
 		local name = import_name[1][1]
@@ -49,7 +49,7 @@ function load_custom_snippets(luasnip) -- TODO: Break each language out into its
 				module = insert(1),
 			})
 		),
-		snippet('exp', text_node 'local exports = {}\nreturn exports'),
+		snippet('exp', text_node('local exports = {}\nreturn exports')),
 		snippet(
 			'exp_tbl',
 			format_args('exports.<name> = {\n<body>\n}', {
@@ -70,7 +70,7 @@ function load_custom_snippets(luasnip) -- TODO: Break each language out into its
 	-------------------------------
 	--------- Go Snippets ---------
 	-------------------------------
-	snippet_collection.clear_snippets 'go'
+	snippet_collection.clear_snippets('go')
 
 	local go_return_values = function(args)
 		local default_values = {
@@ -101,14 +101,14 @@ function load_custom_snippets(luasnip) -- TODO: Break each language out into its
 						}),
 					})
 				else
-					return text_node 'err'
+					return text_node('err')
 				end
 			end,
 			-- Types with a "*" mean they are pointers, so return nil
 			[function(text)
 				return string.find(text, '*', 1, true) ~= nil
 			end] = function(_, _)
-				return text_node 'nil'
+				return text_node('nil')
 			end,
 			-- Usually no "*" and Capital is a struct type, so give the option to have
 			-- or, if there is a ".", the capital will be after the package name
@@ -122,8 +122,9 @@ function load_custom_snippets(luasnip) -- TODO: Break each language out into its
 
 				local in_package_capital = false
 				if in_package then
-					in_package_capital = string.upper(string.sub(text, dot_index + 1, dot_index + 1))
-						== string.sub(text, dot_index + 1, dot_index + 1)
+					in_package_capital = string.upper(
+						string.sub(text, dot_index + 1, dot_index + 1)
+					) == string.sub(text, dot_index + 1, dot_index + 1)
 				end
 
 				return not has_pointer and (is_capital or (in_package and in_package_capital))
@@ -174,9 +175,12 @@ function load_custom_snippets(luasnip) -- TODO: Break each language out into its
 				for idx = 0, count - 1 do
 					local matching_mode = node:named_child(idx)
 					local type_node = matching_mode:field('type')[1]
-					table.insert(result, transform(vim.treesitter.get_node_text(type_node, 0), info))
+					table.insert(
+						result,
+						transform(vim.treesitter.get_node_text(type_node, 0), info)
+					)
 					if idx ~= count - 1 then
-						table.insert(result, text_node ', ')
+						table.insert(result, text_node(', '))
 					end
 				end
 
@@ -232,7 +236,7 @@ function load_custom_snippets(luasnip) -- TODO: Break each language out into its
 			-- Exit early if we couldn't find a function node
 			if node == nil then
 				vim.notify('Could not find function node', vim.log.levels.ERROR)
-				return text_node ''
+				return text_node('')
 			end
 
 			-- This file is in `~/.config/nvim/queries/go/return-snippet.scm`
@@ -249,11 +253,11 @@ function load_custom_snippets(luasnip) -- TODO: Break each language out into its
 
 		return snippet_node(
 			nil,
-			go_result_type {
+			go_result_type({
 				index = 0,
 				err_name = args[1][1],
 				func_name = args[2][1],
-			}
+			})
 		)
 	end
 
@@ -324,13 +328,11 @@ function load_custom_snippets(luasnip) -- TODO: Break each language out into its
 		end
 
 		if node == nil then
-			vim.notify('Could not find field node', vim.log.levels.ERROR)
 			return '<ERROR>'
 		end
 
 		local field_name = node:field('name')[1]
 		if field_name == nil then
-			vim.notify('Could not find field name', vim.log.levels.ERROR)
 			return '<ERROR>'
 		end
 
@@ -403,8 +405,8 @@ if <val>, <err> := <f>(<args>); <err> != nil {
 		snippet(
 			'dbg_var',
 			format_args('fmt.Println("[ <file>:<line> <fn>]: <msg>:", <args>)<finish>', {
-				file = text_node(vim.fn.expand '%:t'),
-				line = text_node(tostring(vim.fn.line '.')),
+				file = text_node(vim.fn.expand('%:t')),
+				line = text_node(tostring(vim.fn.line('.'))),
 				fn = func(go_function_name),
 				msg = repeated(1),
 				args = insert(1, 'var'),
@@ -414,8 +416,8 @@ if <val>, <err> := <f>(<args>); <err> != nil {
 		snippet(
 			'dbg_msg',
 			format_args('fmt.Println("[<file>:<line> <fn>]: <msg>")<finish>', {
-				file = text_node(vim.fn.expand '%:t'),
-				line = text_node(tostring(vim.fn.line '.')),
+				file = text_node(vim.fn.expand('%:t')),
+				line = text_node(tostring(vim.fn.line('.'))),
 				fn = func(go_function_name),
 				msg = insert(1, 'message'),
 				finish = insert(0),
@@ -447,13 +449,17 @@ gerr.CaptureError(<ctx>, <err>, gerr.WithExtraInfo(map[string]interface{}{
 		snippet(
 			'db_tag',
 			format_args('`db:"<name>"`', {
-				name = snake_case_fmt(go_find_struct_field()),
+				name = func(function()
+					return snake_case_fmt(go_find_struct_field())
+				end),
 			})
 		),
 		snippet(
 			'yaml_tag',
 			format_args('`yaml:"<name>"`', {
-				name = snake_case_fmt(go_find_struct_field()),
+				name = func(function()
+					return snake_case_fmt(go_find_struct_field())
+				end),
 			})
 		),
 	})
@@ -462,23 +468,23 @@ end
 local exports = {}
 
 exports.load = function(opts)
-	local luasnip = require 'luasnip'
+	local luasnip = require('luasnip')
 	luasnip.config.set_config(opts)
 
 	-- vscode format
-	local from_vscode = require 'luasnip.loaders.from_vscode'
+	local from_vscode = require('luasnip.loaders.from_vscode')
 	from_vscode.lazy_load()
-	from_vscode.lazy_load { paths = vim.g.vscode_snippets_path or '' }
+	from_vscode.lazy_load({ paths = vim.g.vscode_snippets_path or '' })
 
 	-- snipmate format
-	local from_snipmate = require 'luasnip.loaders.from_snipmate'
+	local from_snipmate = require('luasnip.loaders.from_snipmate')
 	from_snipmate.load()
-	from_snipmate.lazy_load { paths = vim.g.snipmate_snippets_path or '' }
+	from_snipmate.lazy_load({ paths = vim.g.snipmate_snippets_path or '' })
 
 	-- lua format
-	local from_lua = require 'luasnip.loaders.from_lua'
+	local from_lua = require('luasnip.loaders.from_lua')
 	from_lua.load()
-	from_lua.lazy_load { paths = vim.g.lua_snippets_path or '' }
+	from_lua.lazy_load({ paths = vim.g.lua_snippets_path or '' })
 
 	load_custom_snippets(luasnip)
 
