@@ -1007,6 +1007,39 @@ local default_plugins = {
   {
     'b0o/schemastore.nvim',
   },
+
+  -- Flash: Fast File Navigation
+  {
+    'folke/flash.nvim',
+    event = 'VeryLazy',
+    init = function()
+      local utils = require 'core.utils'
+      utils.load_mappings 'flash'
+    end,
+    config = function()
+      local flash = require 'flash'
+      flash.setup()
+    end,
+  },
+  -- Octo: Github PRs and Issues
+  {
+    'pwntester/octo.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+      'nvim_tree/nvim-web-devicons',
+    },
+    lazy = false,
+    cmd = { 'Octo' },
+    init = function()
+      local utils = require 'core.utils'
+      utils.load_mappings 'octo'
+    end,
+    config = function()
+      local octo = require 'octo'
+      octo.setup()
+    end,
+  },
 }
 
 local config = require('core.utils').load_config()
