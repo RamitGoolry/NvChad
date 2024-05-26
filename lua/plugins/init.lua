@@ -1015,7 +1015,7 @@ local default_plugins = {
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-telescope/telescope.nvim',
-      'nvim_tree/nvim-web-devicons',
+      'nvim-tree/nvim-web-devicons',
     },
     lazy = false,
     cmd = { 'Octo' },
