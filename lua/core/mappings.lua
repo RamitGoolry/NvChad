@@ -17,6 +17,7 @@ exports.general = {
 
   n = {
     ['<Esc>'] = { '<cmd> noh <CR>', 'Clear highlights' },
+    ['Q'] = { 'q', 'Quit' },
     -- switch between windows
     ['<C-h>'] = { '<C-w>h', 'Window left' },
     ['<C-l>'] = { '<C-w>l', 'Window right' },
