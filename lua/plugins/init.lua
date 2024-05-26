@@ -25,7 +25,7 @@ local default_plugins = {
       utils.load_mappings 'nvterm'
     end,
     config = function(_, opts)
-      local term = require 'base46.term'
+      local _ = require 'base46.term'
       local nvterm = require 'nvterm'
       nvterm.setup(opts)
     end,
@@ -326,7 +326,7 @@ local default_plugins = {
   -- Goto Preview: Preview Windows
   {
     'rmagatti/goto-preview',
-    keys = { '<leader>' },
+    event = 'VeryLazy',
     init = function()
       local utils = require 'core.utils'
       utils.load_mappings 'goto_preview'
@@ -407,7 +407,7 @@ local default_plugins = {
       local ufo = require 'ufo'
 
       ufo.setup {
-        provider_selector = function(bufnr, filetype, buftype)
+        provider_selector = function(_, _, _)
           return { 'treesitter', 'indent' }
         end,
       }
@@ -507,18 +507,6 @@ local default_plugins = {
           },
         },
       }
-
-      -- vim.api.nvim_create_autocmd('LspProgress', {
-      -- 	pattern = 'end',
-      -- 	callback = function(ev)
-      -- 		local token = ev.data.result.token
-      -- 		local client_id = ev.data.client_id
-      -- 		local client = client_id and vim.lsp.get_client_by_id(client_id)
-      -- 		if client and token then
-      -- 			require('fidget').notification.remove(client.name, token)
-      -- 		end
-      -- 	end,
-      -- })
     end,
   },
 
@@ -560,7 +548,7 @@ local default_plugins = {
           null_ls.builtins.completion.spell,
         },
 
-        on_init = function(new_client, _)
+        on_init = function(_, _)
           -- new_client.offset_encoding = 'utf-8'
         end,
         on_attach = function(client, bufnr)
@@ -656,23 +644,23 @@ local default_plugins = {
         position = 'bottom',
         icons = true,
         action_keys = {
-          close = 'q', -- close the list
-          cancel = '<esc>', -- cancel the preview and get back to your last window / buffer / cursor
-          refresh = 'r', -- manually refresh
-          jump = '<cr>', -- jump to the diagnostic or open / close fold's
-          open_split = { 'i' }, -- open buffer in new split
-          open_vsplit = { 's' }, -- open buffer in new vsplit
-          open_tab = { 't' }, -- open buffer in new tab
-          jump_close = { 'o' }, -- jump to the diagnostic and close the list
-          toggle_mode = 'm', -- toggle between 'workspace' and 'document' diagnostics mode
-          toggle_preview = 'P', -- toggle auto_preview
-          hover = 'K', -- opens a small popup with the full multiline message
-          preview = 'p', -- preview the diagnostic location
-          close_folds = { 'zM', 'zm' }, -- close all folds
-          open_folds = { 'zR', 'zr' }, -- open all folds
-          toggle_fold = { 'zA', 'za' }, -- toggle fold of current file
-          previous = 'k', -- preview item
-          next = 'j', -- next item
+          close = 'q',
+          cancel = '<esc>',
+          refresh = 'r',
+          jump = '<cr>',
+          open_split = { 'i' },
+          open_vsplit = { 's' },
+          open_tab = { 't' },
+          jump_close = { 'o' },
+          toggle_mode = 'm',
+          toggle_preview = 'P',
+          hover = 'K',
+          preview = 'p',
+          close_folds = { 'zM', 'zm' },
+          open_folds = { 'zR', 'zr' },
+          toggle_fold = { 'zA', 'za' },
+          previous = 'k',
+          next = 'j',
         },
         use_diagnostic_signs = true,
       }
@@ -713,7 +701,7 @@ local default_plugins = {
   -- RapidReturn: Stack Based Jumps
   {
     'RamitGoolry/RapidReturn',
-    depends = { 'nvim-telescope/telescope.nvim' },
+    dependencies = { 'nvim-telescope/telescope.nvim' },
     lazy = false,
     init = function()
       local utils = require 'core.utils'
@@ -877,11 +865,11 @@ local default_plugins = {
         port = '11434',
         quit_map = 'q',
         retry_map = '<C-r>',
-        init = function(options)
+        init = function(_)
           pcall(io.popen, 'ollama serve > /dev/null 2>&1 &')
         end,
         command = function(options)
-          local body = {
+          local _ = {
             model = options.model,
             stream = true,
           }
@@ -946,7 +934,7 @@ local default_plugins = {
     -- ft = { 'objc', 'swift' },
     config = function()
       local xbase = require 'xbase'
-      local statusline = require 'xbase.statusline'
+      local _ = require 'xbase.statusline'
       xbase.setup {
         --- Log level. Set it to ERROR to ignore everything
         log_level = vim.log.levels.DEBUG,
@@ -1038,6 +1026,39 @@ local default_plugins = {
     config = function()
       local octo = require 'octo'
       octo.setup()
+    end,
+  },
+
+  -- Noice: Better command line
+  {
+    'folke/noice.nvim',
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+      'rcarriga/nvim-notify',
+      'hrsh7th/nvim-cmp',
+    },
+    event = 'VeryLazy',
+    config = function()
+      local noice = require 'noice'
+      noice.setup {
+        lsp = {
+          signature = {
+            enabled = false,
+          },
+          override = {
+            ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+            ['vim.lsp.util.stylize_markdown'] = true,
+            ['cmp.entry.get_documentation'] = true,
+          },
+        },
+
+        presets = {
+          bottom_search = true,
+          long_message_to_split = true,
+          inc_rename = false,
+          lsp_doc_border = true,
+        },
+      }
     end,
   },
 }
