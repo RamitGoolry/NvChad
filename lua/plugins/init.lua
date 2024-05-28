@@ -1045,6 +1045,8 @@ local default_plugins = {
     config = function()
       local noice = require 'noice'
       noice.setup {
+        messages = { enabled = false },
+        notify = { enabled = false },
         lsp = {
           progress = { enabled = false },
           signature = { enabled = false },
