@@ -344,11 +344,7 @@ exports.nvterm = {
 
   n = {
     -- toggle in normal mode
-<<<<<<< HEAD
-    ['<A-i>'] = {
-=======
     ['<Space><Space>'] = {
->>>>>>> 345475d5bbaec54743ee49c84958c782757d3f9a
       function()
         require('nvterm.terminal').toggle 'float'
       end,
@@ -368,24 +364,6 @@ exports.nvterm = {
       end,
       'Toggle vertical term',
     },
-<<<<<<< HEAD
-
-    -- new
-    --   ['<leader>h'] = {
-    --     function()
-    --       require('nvterm.terminal').new 'horizontal'
-    --     end,
-    --     'New horizontal term',
-    --   },
-    --
-    --   ['<leader>v'] = {
-    --     function()
-    --       require('nvterm.terminal').new 'vertical'
-    --     end,
-    --     'New vertical term',
-    --   },
-=======
->>>>>>> 345475d5bbaec54743ee49c84958c782757d3f9a
   },
 }
 
@@ -642,12 +620,8 @@ exports.dap = {
     ['<leader>bsO'] = { '<cmd>lua require("dap").step_out()<CR>', 'Step Out' },
     ['<leader>bsi'] = { '<cmd>lua require("dap").step_into()<CR>', 'Step Into' },
     ['<leader>br'] = { '<cmd>lua require("dap").repl.toggle()<CR>', 'Toggle DAP Replay' },
-    ['<leader>gb'] = { '<cmd>lua require("dap").run_to_cursor()<CR>', 'Run to Cursor' },
-<<<<<<< HEAD
+    ['<leader>bgc'] = { '<cmd>lua require("dap").run_to_cursor()<CR>', 'Run to Cursor' },
     ['<leader>blb'] = { '<cmd>Telescope dap list_breakpoints()<CR>', 'List Breakpoints' },
-=======
-    ['<leader>btb'] = { '<cmd>Telescope dap list_breakpoints()<CR>', 'List Breakpoints' },
->>>>>>> 345475d5bbaec54743ee49c84958c782757d3f9a
   },
 }
 
@@ -671,8 +645,6 @@ exports.dap_go = {
     ['<leader>bt'] = { '<cmd>lua require("dap-go").debug_test()<cr>', 'Debug Test (Go)' },
     ['<leader>blt'] = { '<cmd>lua require("dap-go").debug_last_test()<cr>', 'Debug Last Test (Go)' },
   },
-<<<<<<< HEAD
-=======
 }
 
 exports.flash = {
@@ -702,7 +674,6 @@ exports.octo = {
   n = {
     ['O'] = { '<cmd>Octo actions<cr>', 'Octo Actions' },
   },
->>>>>>> 345475d5bbaec54743ee49c84958c782757d3f9a
 }
 
 return exports
