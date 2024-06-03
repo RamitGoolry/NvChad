@@ -1,8 +1,10 @@
 -- All plugins have lazy=true by default,to load a plugin on startup just lazy=false
 -- List of all default plugins & their definitions
 local default_plugins = {
+  -- Plenary: Utility functions for literally everything
   { 'nvim-lua/plenary.nvim' },
 
+  -- Base46: Theme plugin with caching
   {
     'NvChad/base46',
     branch = 'v2.0',
@@ -12,12 +14,14 @@ local default_plugins = {
     end,
   },
 
+  -- UI: UI Plugin
   {
     'NvChad/ui',
     branch = 'v2.0',
     lazy = false,
   },
 
+  -- NvTerm: Terminal Plugin
   {
     'NvChad/nvterm',
     init = function()
@@ -31,6 +35,7 @@ local default_plugins = {
     end,
   },
 
+  -- Colorizer: Colorizer Plugin
   {
     'NvChad/nvim-colorizer.lua',
     init = function()
@@ -48,6 +53,7 @@ local default_plugins = {
     end,
   },
 
+  -- Web Dev Icons: Icons for LSP
   {
     'nvim-tree/nvim-web-devicons',
     opts = function()
@@ -62,6 +68,7 @@ local default_plugins = {
     end,
   },
 
+  -- Indent Blankline: Indentation Lines
   {
     'lukas-reineke/indent-blankline.nvim',
     main = 'ibl',
@@ -84,6 +91,7 @@ local default_plugins = {
     end,
   },
 
+  -- Treesitter: Syntax Highlighting
   {
     'nvim-treesitter/nvim-treesitter',
     init = function()
@@ -103,7 +111,7 @@ local default_plugins = {
     end,
   },
 
-  -- git stuff
+  -- Git integration
   {
     'lewis6991/gitsigns.nvim',
     ft = { 'gitcommit', 'diff' },
@@ -137,7 +145,7 @@ local default_plugins = {
     end,
   },
 
-  -- lsp stuff
+  -- Mason: LSP Binary Management
   {
     'williamboman/mason.nvim',
     cmd = { 'Mason', 'MasonInstall', 'MasonInstallAll', 'MasonUpdate' },
@@ -161,6 +169,7 @@ local default_plugins = {
     end,
   },
 
+  -- LSPConfig: LSP Configuration
   {
     'neovim/nvim-lspconfig',
     init = function()
