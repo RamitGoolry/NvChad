@@ -17,6 +17,7 @@ exports.general = {
 
   n = {
     ['<Esc>'] = { '<cmd> noh <CR>', 'Clear highlights' },
+    ['Q'] = { 'q', 'Quit' },
     -- switch between windows
     ['<C-h>'] = { '<C-w>h', 'Window left' },
     ['<C-l>'] = { '<C-w>l', 'Window right' },
@@ -319,7 +320,7 @@ exports.nvterm = {
 
   t = {
     -- toggle in terminal mode
-    ['<A-i>'] = {
+    ['<Space><Space>'] = {
       function()
         require('nvterm.terminal').toggle 'float'
       end,
@@ -343,7 +344,11 @@ exports.nvterm = {
 
   n = {
     -- toggle in normal mode
+<<<<<<< HEAD
     ['<A-i>'] = {
+=======
+    ['<Space><Space>'] = {
+>>>>>>> 345475d5bbaec54743ee49c84958c782757d3f9a
       function()
         require('nvterm.terminal').toggle 'float'
       end,
@@ -363,6 +368,7 @@ exports.nvterm = {
       end,
       'Toggle vertical term',
     },
+<<<<<<< HEAD
 
     -- new
     --   ['<leader>h'] = {
@@ -378,6 +384,8 @@ exports.nvterm = {
     --     end,
     --     'New vertical term',
     --   },
+=======
+>>>>>>> 345475d5bbaec54743ee49c84958c782757d3f9a
   },
 }
 
@@ -635,7 +643,11 @@ exports.dap = {
     ['<leader>bsi'] = { '<cmd>lua require("dap").step_into()<CR>', 'Step Into' },
     ['<leader>br'] = { '<cmd>lua require("dap").repl.toggle()<CR>', 'Toggle DAP Replay' },
     ['<leader>gb'] = { '<cmd>lua require("dap").run_to_cursor()<CR>', 'Run to Cursor' },
+<<<<<<< HEAD
     ['<leader>blb'] = { '<cmd>Telescope dap list_breakpoints()<CR>', 'List Breakpoints' },
+=======
+    ['<leader>btb'] = { '<cmd>Telescope dap list_breakpoints()<CR>', 'List Breakpoints' },
+>>>>>>> 345475d5bbaec54743ee49c84958c782757d3f9a
   },
 }
 
@@ -659,6 +671,38 @@ exports.dap_go = {
     ['<leader>bt'] = { '<cmd>lua require("dap-go").debug_test()<cr>', 'Debug Test (Go)' },
     ['<leader>blt'] = { '<cmd>lua require("dap-go").debug_last_test()<cr>', 'Debug Last Test (Go)' },
   },
+<<<<<<< HEAD
+=======
+}
+
+exports.flash = {
+  plugin = true,
+
+  n = {
+    ['s'] = {
+      function()
+        local flash = require 'flash'
+        flash.jump()
+      end,
+      'Flash Jump',
+    },
+    ['S'] = {
+      function()
+        local flash = require 'flash'
+        flash.treesitter()
+      end,
+      'Flash Treesitter',
+    },
+  },
+}
+
+exports.octo = {
+  plugin = true,
+
+  n = {
+    ['O'] = { '<cmd>Octo actions<cr>', 'Octo Actions' },
+  },
+>>>>>>> 345475d5bbaec54743ee49c84958c782757d3f9a
 }
 
 return exports

@@ -58,7 +58,7 @@ for _, provider in ipairs { 'node', 'perl', 'python3', 'ruby' } do
 end
 
 -- add binaries installed by mason.nvim to path
-local is_windows = vim.loop.os_uname().sysname == 'Windows_NT'
+local is_windows = vim.uv.os_uname().sysname == 'Windows_NT'
 vim.env.PATH = vim.fn.stdpath 'data' .. '/mason/bin' .. (is_windows and ';' or ':') .. vim.env.PATH
 
 -------------------------------------- autocmds ------------------------------------------
@@ -75,7 +75,7 @@ autocmd('FileType', {
 -- reload some chadrc options on-save
 autocmd('BufWritePost', {
   pattern = vim.tbl_map(function(path)
-    return vim.fs.normalize(vim.loop.fs_realpath(path))
+    return vim.fs.normalize(vim.uv.fs_realpath(path))
   end, vim.fn.glob(vim.fn.stdpath 'config' .. '/lua/custom/**/*.lua', true, true, true)),
   group = vim.api.nvim_create_augroup('ReloadNvChad', {}),
 
