@@ -666,6 +666,23 @@ exports.flash = {
       'Flash Treesitter',
     },
   },
+
+  v = {
+    ['s'] = {
+      function()
+        local flash = require 'flash'
+        flash.jump()
+      end,
+      'Flash Jump',
+    },
+    ['S'] = {
+      function()
+        local flash = require 'flash'
+        flash.treesitter()
+      end,
+      'Flash Treesitter',
+    },
+  },
 }
 
 exports.octo = {
