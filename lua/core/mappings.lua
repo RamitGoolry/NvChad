@@ -576,7 +576,10 @@ exports.trouble = {
   plugin = true,
 
   n = {
-    ['<leader>T'] = { '<cmd>TroubleToggle<CR>', 'Open Trouble Tray' },
+    ['<leader>T'] = {
+      '<cmd>Trouble diagnostics toggle<CR>',
+      'Trouble Diagnostic',
+    },
   },
 }
 
