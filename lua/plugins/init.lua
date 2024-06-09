@@ -592,7 +592,7 @@ local default_plugins = {
       masons_null_ls.setup {
         ensure_installed = {
           'stylua',
-          'prettier',
+          'prettierd',
           'alex',
           'gofmt',
           -- 'rustfmt', -- rustfmt has been deprecated from Mason
@@ -1080,6 +1080,12 @@ local default_plugins = {
         },
       }
     end,
+  },
+
+  -- Sleuth: Indent Detection
+  {
+    'tpope/vim-sleuth',
+    event = 'BufRead',
   },
 }
 
