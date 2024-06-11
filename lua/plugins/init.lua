@@ -1091,11 +1091,12 @@ local default_plugins = {
   -- Precognition: Vim motions practive
   {
     'tris203/precognition.nvim',
+    branch = 'inlay_hints',
     event = 'VeryLazy',
     config = {
       startVisible = true,
       showBlankVirtLine = true,
-      highlightColor = { link = 'Comment' },
+      highlightColor = { link = 'String' },
       hints = {
         Caret = { text = '^', prio = 2 },
         Dollar = { text = '$', prio = 1 },
