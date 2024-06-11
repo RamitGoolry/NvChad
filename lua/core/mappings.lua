@@ -3,20 +3,13 @@
 local exports = {}
 
 exports.general = {
-  i = {
-    -- go to  beginning and end
-    ['<C-b>'] = { '<ESC>^i', 'Beginning of line' },
-    ['<C-e>'] = { '<End>', 'End of line' },
-
-    -- navigate within insert mode
-    ['<C-h>'] = { '<Left>', 'Move left' },
-    ['<C-l>'] = { '<Right>', 'Move right' },
-    ['<C-j>'] = { '<Down>', 'Move down' },
-    ['<C-k>'] = { '<Up>', 'Move up' },
-  },
-
   n = {
-    ['<Esc>'] = { '<cmd> noh <CR>', 'Clear highlights' },
+    ['<Esc>'] = {
+      function()
+        vim.cmd [[noh]]
+      end,
+      'Clear highlights',
+    },
     ['Q'] = { 'q', 'Quit' },
     -- switch between windows
     ['<C-h>'] = { '<C-w>h', 'Window left' },
@@ -25,14 +18,18 @@ exports.general = {
     ['<C-k>'] = { '<C-w>k', 'Window up' },
 
     -- splitting windows
-    ['<leader>%'] = { '<cmd>vsplit<CR>', 'Split Window Vertically' },
-    ['<leader>"'] = { '<cmd>split<CR>', 'Split Window Horizontally' },
-
-    -- save
-    ['<C-s>'] = { '<cmd> w <CR>', 'Save file' },
-
-    -- Copy all
-    ['<C-c>'] = { '<cmd> %y+ <CR>', 'Copy whole file' },
+    ['<leader>%'] = {
+      function()
+        vim.cmd [[vsplit]]
+      end,
+      'Split Window Vertically',
+    },
+    ['<leader>"'] = {
+      function()
+        vim.cmd [[split]]
+      end,
+      'Split Window Horizontally',
+    },
 
     -- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>
     -- http://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
@@ -47,7 +44,12 @@ exports.general = {
       opts = { expr = true },
     },
 
-    ['<leader>ch'] = { '<cmd> NvCheatsheet <CR>', 'Mapping cheatsheet' },
+    ['<leader>ch'] = {
+      function()
+        vim.cmd [[NvCheatsheet]]
+      end,
+      'Mapping cheatsheet',
+    },
 
     ['<leader>fm'] = {
       function()
@@ -86,31 +88,6 @@ exports.general = {
 
 exports.tabufline = {
   plugin = true,
-
-  -- n = {
-  -- 	-- cycle through buffers
-  -- 	['<tab>'] = {
-  -- 		function()
-  -- 			require('nvchad.tabufline').tabuflineNext()
-  -- 		end,
-  -- 		'Goto next buffer',
-  -- 	},
-  --
-  -- 	['<S-tab>'] = {
-  -- 		function()
-  -- 			require('nvchad.tabufline').tabuflinePrev()
-  -- 		end,
-  -- 		'Goto prev buffer',
-  -- 	},
-  --
-  -- 	-- close buffer + hide terminal buffer
-  -- 	['<leader>x'] = {
-  -- 		function()
-  -- 			require('nvchad.tabufline').close_buffer()
-  -- 		end,
-  -- 		'Close buffer',
-  -- 	},
-  -- },
 }
 
 exports.comment = {
@@ -128,7 +105,10 @@ exports.comment = {
 
   v = {
     ['<leader>/'] = {
-      '<ESC><cmd>lua require(\'Comment.api\').toggle.linewise(vim.fn.visualmode())<CR>',
+      function()
+        local api = require 'Comment.api'
+        api.toggle.linewise(vim.fn.visualmode())
+      end,
       'Toggle comment',
     },
   },
