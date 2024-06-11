@@ -255,10 +255,20 @@ exports.nvimtree = {
 
   n = {
     -- toggle
-    ['<leader>n'] = { '<cmd> NvimTreeToggle <CR>', 'Toggle nvimtree' },
+    ['<leader>n'] = {
+      function()
+        vim.cmd [[NvimTreeToggle]]
+      end,
+      'Toggle nvimtree',
+    },
 
     -- focus
-    ['<leader>e'] = { '<cmd> NvimTreeFocus <CR>', 'Focus nvimtree' },
+    ['<leader>e'] = {
+      function()
+        vim.cmd [[NvimTreeFocus]]
+      end,
+      'Focus nvimtree',
+    },
   },
 }
 
@@ -266,32 +276,93 @@ exports.telescope = {
   plugin = true,
 
   n = {
-    -- find
-    ['<leader>ff'] = { '<cmd> Telescope find_files <CR>', 'Find files' },
-    ['<leader>fg'] = { '<cmd> Telescope live_grep <CR>', 'Live Grep' },
+    ['<leader>ff'] = {
+      function()
+        vim.cmd [[Telescope find_files]]
+      end,
+      'Find files',
+    },
+
+    ['<leader>fg'] = {
+      function()
+        vim.cmd [[Telescope live_grep]]
+      end,
+      'Live Grep',
+    },
+
     ['<leader>fa'] = {
-      '<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>',
+      function()
+        vim.cmd [[Telescope find_files follow=true no_ignore=true hidden=true]]
+      end,
       'Find all',
     },
-    ['<leader>fb'] = { '<cmd> Telescope buffers <CR>', 'Find buffers' },
-    ['<leader>fh'] = { '<cmd> Telescope help_tags <CR>', 'Help page' },
-    ['<leader>fo'] = { '<cmd> Telescope oldfiles <CR>', 'Find oldfiles' },
-    ['<leader>fz'] = { '<cmd> Telescope current_buffer_fuzzy_find <CR>', 'Find in current buffer' },
 
-    -- git
-    ['<leader>cm'] = { '<cmd> Telescope git_commits <CR>', 'Git commits' },
-    ['<leader>gt'] = { '<cmd> Telescope git_status <CR>', 'Git status' },
+    ['<leader>fb'] = {
+      function()
+        vim.cmd [[Telescope buffers]]
+      end,
+      'Find buffers',
+    },
 
-    -- pick a hidden term
-    ['<leader>pt'] = { '<cmd> Telescope terms <CR>', 'Pick hidden term' },
+    ['<leader>fh'] = {
+      function()
+        vim.cmd [[Telescope help_tags]]
+      end,
+      'Help page',
+    },
+    ['<leader>fo'] = {
+      function()
+        vim.cmd [[Telescope oldfiles]]
+      end,
+      'Find oldfiles',
+    },
+    ['<leader>fz'] = {
+      function()
+        vim.cmd [[Telescope current_buffer_fuzzy_find]]
+      end,
+      'Find in current buffer',
+    },
 
-    -- theme switcher
-    ['<leader>th'] = { '<cmd> Telescope themes <CR>', 'Nvchad themes' },
+    ['<leader>cm'] = {
+      function()
+        vim.cmd [[Telescope git_commits]]
+      end,
+      'Git commits',
+    },
+    ['<leader>gt'] = {
+      function()
+        vim.cmd [[Telescope git_status]]
+      end,
+      'Git status',
+    },
 
-    ['<leader>ma'] = { '<cmd> Telescope marks <CR>', 'telescope bookmarks' },
+    ['<leader>pt'] = {
+      function()
+        vim.cmd [[Telescope terms]]
+      end,
+      'Pick hidden term',
+    },
 
-    -- References
-    ['<leader>tr'] = { '<cmd> Telescope lsp_references <CR>', 'LSP references' },
+    ['<leader>th'] = {
+      function()
+        vim.cmd [[Telescope themes]]
+      end,
+      'Nvchad themes',
+    },
+
+    ['<leader>ma'] = {
+      function()
+        vim.cmd [[Telescope marks]]
+      end,
+      'Bookmarks',
+    },
+
+    ['<leader>tr'] = {
+      function()
+        vim.cmd [[Telescope lsp_references]]
+      end,
+      'LSP references',
+    },
   },
 }
 
