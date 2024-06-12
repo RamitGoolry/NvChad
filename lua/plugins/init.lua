@@ -1094,7 +1094,7 @@ local default_plugins = {
     branch = 'inlay_hints',
     event = 'VeryLazy',
     config = {
-      startVisible = true,
+      startVisible = false,
       showBlankVirtLine = true,
       highlightColor = { link = 'String' },
       hints = {
