@@ -531,19 +531,31 @@ exports.goto_preview = {
   n = {
     -- Preview Definition
     ['<leader>pd'] = {
-      '<cmd>lua require("goto-preview").goto_preview_definition()<CR>',
+      function()
+        local goto_preview = require 'goto-preview'
+        goto_preview.goto_preview_definition()
+      end,
       'Preview Definition',
     },
     ['<leader>pt'] = {
-      '<cmd>lua require("goto-preview").goto_preview_type_implementation()<CR>',
+      function()
+        local goto_preview = require 'goto-preview'
+        goto_preview.goto_preview_type_definition()
+      end,
       'Preview Type',
     },
     ['<leader>pi'] = {
-      '<cmd>lua require("goto-preview").goto_preview_implementation()<CR>',
+      function()
+        local goto_preview = require 'goto-preview'
+        goto_preview.goto_preview_implementation()
+      end,
       'Preview Implementation',
     },
     ['<leader>pr'] = {
-      '<cmd>lua require("goto-preview").goto_preview_references()<CR>',
+      function()
+        local goto_preview = require 'goto-preview'
+        goto_preview.goto_preview_references()
+      end,
       'Preview References',
     },
   },
@@ -562,9 +574,25 @@ exports.tabs = {
   plugin = false,
 
   n = {
-    [';tt'] = { '<cmd>tabnew<CR>', 'Create new Tab' },
-    [';tn'] = { '<cmd>tabnext<CR>', 'Next Tab' },
-    [';tp'] = { '<cmd>tabprevious<CR>', 'Previous Tab' },
+    [';tt'] = {
+      function()
+        vim.cmd [[tabnew]]
+      end,
+      'Create new Tab',
+    },
+    [';tn'] = {
+      function()
+        vim.cmd [[tabnext]]
+      end,
+      '<cmd>tabnext<CR>',
+      'Next Tab',
+    },
+    [';tp'] = {
+      function()
+        vim.cmd [[tabprevious]]
+      end,
+      'Previous Tab',
+    },
   },
 }
 
