@@ -926,27 +926,6 @@ local default_plugins = {
     end,
   },
 
-  -- Autosession : Session Management
-  {
-    'rmagatti/auto-session',
-    lazy = false,
-    config = function()
-      local opts = {
-        log_level = 'error', -- I don't want to see the logs if I dont need to
-        auto_session_enable_last_session = false,
-        auto_session_root_dir = vim.fn.stdpath 'data' .. '/sessions/',
-        auto_session_enabled = true,
-        auto_save_enabled = true,
-        auto_restore_enabled = nil,
-        auto_session_suppress_dirs = nil,
-        auto_session_use_git_branch = nil,
-        bypass_session_save_file_types = nil,
-      }
-      local auto_session = require 'auto-session'
-      auto_session.setup(opts)
-    end,
-  },
-
   -- SchemaStore: Schema Store for JSON
   {
     'b0o/schemastore.nvim',
@@ -1088,13 +1067,12 @@ local default_plugins = {
     event = 'BufRead',
   },
 
-  -- Precognition: Vim motions practive
+  -- Precognition: Vim motions practice
   {
     'tris203/precognition.nvim',
-    branch = 'inlay_hints',
     event = 'VeryLazy',
     config = {
-      startVisible = false,
+      startVisible = true,
       showBlankVirtLine = true,
       highlightColor = { link = 'String' },
       hints = {
@@ -1116,6 +1094,42 @@ local default_plugins = {
         NextParagraph = { text = '}', prio = 8 },
       },
     },
+  },
+
+  -- Persisted: Session Persistence
+  {
+    'olimorris/persisted.nvim',
+    lazy = false, -- make sure the plugin is always loaded at startup
+    config = function()
+      local persisted = require 'persisted'
+      persisted.setup {
+        save_dir = vim.fn.expand(vim.fn.stdpath 'data' .. '/sessions/'), -- directory where session files are saved
+        silent = false, -- silent nvim message when sourcing session file
+        use_git_branch = false, -- create session files based on the branch of a git enabled repository
+        default_branch = 'master', -- the branch to load if a session file is not found for the current branch
+        autosave = true, -- automatically save session files when exiting Neovim
+        should_autosave = nil, -- function to determine if a session should be autosaved
+        autoload = true, -- automatically load the session for the cwd on Neovim startup
+        on_autoload_no_session = nil, -- function to run when `autoload = true` but there is no session to load
+        follow_cwd = true, -- change session file name to match current working directory if it changes
+        allowed_dirs = nil, -- table of dirs that the plugin will auto-save and auto-load from
+        ignored_dirs = nil, -- table of dirs that are ignored when auto-saving and auto-loading
+        ignored_branches = nil, -- table of branch patterns that are ignored for auto-saving and auto-loading
+        telescope = {
+          reset_prompt = true, -- Reset the Telescope prompt after an action?
+          mappings = { -- table of mappings for the Telescope extension
+            change_branch = '<c-b>',
+            copy_session = '<c-c>',
+            delete_session = '<c-d>',
+          },
+          icons = { -- icons displayed in the picker, set to nil to disable entirely
+            branch = ' ',
+            dir = ' ',
+            selected = ' ',
+          },
+        },
+      }
+    end,
   },
 }
 
