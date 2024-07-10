@@ -775,4 +775,31 @@ exports.octo = {
   },
 }
 
+exports.neotest = {
+  plugin = true,
+
+  n = {
+    ['<leader>Ntr'] = {
+      function()
+        local neotest = require 'neotest'
+        neotest.run.run { suite = false }
+      end,
+      'Run Nearest Test',
+    },
+    ['<leader>Ntd'] = {
+      function()
+        local neotest = require 'neotest'
+        neotest.run.run { suite = false, strategy = 'dap' }
+      end,
+      'Debug nearest test',
+    },
+    ['<leader>Ntw'] = {
+      function()
+        -- TODO
+      end,
+      'Toggle test watcher',
+    },
+  },
+}
+
 return exports
