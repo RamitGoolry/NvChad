@@ -702,7 +702,9 @@ local default_plugins = {
     end,
     config = function()
       local treesitter_context = require 'treesitter-context'
-      treesitter_context.setup {}
+      treesitter_context.setup {
+        enable = false,
+      }
       vim.cmd [[TSContextEnable]]
     end,
   },
@@ -1070,9 +1072,9 @@ local default_plugins = {
   -- Precognition: Vim motions practice
   {
     'tris203/precognition.nvim',
-    event = 'VeryLazy',
+    -- event = 'VeryLazy',
     config = {
-      startVisible = true,
+      startVisible = false,
       showBlankVirtLine = true,
       highlightColor = { link = 'String' },
       hints = {
