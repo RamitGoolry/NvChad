@@ -113,7 +113,7 @@ lspconfig.rust_analyzer.setup {
           enable = true,
         },
         implicitDrops = {
-          enable = true,
+          enable = false,
         },
         lifetimeElisionHints = {
           enable = true,
