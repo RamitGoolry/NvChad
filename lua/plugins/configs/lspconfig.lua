@@ -14,8 +14,8 @@ exports.on_attach = function(client, bufnr)
   end
 
   if
-    not utils.load_config().ui.lsp_semantic_tokens
-    and client.supports_method 'textDocument/semanticTokens'
+      not utils.load_config().ui.lsp_semantic_tokens
+      and client.supports_method 'textDocument/semanticTokens'
   then
     client.server_capabilities.semanticTokensProvider = nil
   end
@@ -159,7 +159,7 @@ lspconfig.gopls.setup {
         unusedparams = false,
         unusedwrite = true,
         useany = true,
-        shadow = true,
+        shadow = false,
         unusedvariable = true,
       },
       experimentalPostfixCompletions = true,
