@@ -285,7 +285,8 @@ exports.telescope = {
 
     ['<leader>fg'] = {
       function()
-        vim.cmd [[Telescope live_grep]]
+        local telescope = require 'telescope'
+        telescope.extensions.live_grep_args.live_grep_args()
       end,
       'Live Grep',
     },

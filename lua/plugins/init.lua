@@ -237,12 +237,12 @@ local default_plugins = {
   {
     'numToStr/Comment.nvim',
     keys = {
-      { 'gcc', mode = 'n',          desc = 'Comment toggle current line' },
-      { 'gc',  mode = { 'n', 'o' }, desc = 'Comment toggle linewise' },
-      { 'gc',  mode = 'x',          desc = 'Comment toggle linewise (visual)' },
-      { 'gbc', mode = 'n',          desc = 'Comment toggle current block' },
-      { 'gb',  mode = { 'n', 'o' }, desc = 'Comment toggle blockwise' },
-      { 'gb',  mode = 'x',          desc = 'Comment toggle blockwise (visual)' },
+      { 'gcc', mode = 'n', desc = 'Comment toggle current line' },
+      { 'gc', mode = { 'n', 'o' }, desc = 'Comment toggle linewise' },
+      { 'gc', mode = 'x', desc = 'Comment toggle linewise (visual)' },
+      { 'gbc', mode = 'n', desc = 'Comment toggle current block' },
+      { 'gb', mode = { 'n', 'o' }, desc = 'Comment toggle blockwise' },
+      { 'gb', mode = 'x', desc = 'Comment toggle blockwise (visual)' },
     },
     init = function()
       local utils = require 'core.utils'
@@ -255,6 +255,7 @@ local default_plugins = {
   },
 
   -- file managing , picker etc
+  -- TODO Remove this in favour of Oil as file opener
   {
     'nvim-tree/nvim-tree.lua',
     cmd = { 'NvimTreeToggle', 'NvimTreeFocus' },
@@ -275,7 +276,15 @@ local default_plugins = {
 
   {
     'nvim-telescope/telescope.nvim',
-    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+      {
+        'nvim-telescope/telescope-live-grep-args.nvim',
+        -- This will not install any breaking changes.
+        -- For major updates, this must be adjusted manually.
+        version = '^1.0.0',
+      },
+    },
     cmd = 'Telescope',
     lazy = false,
     init = function()
@@ -409,7 +418,7 @@ local default_plugins = {
     lazy = false,
     config = function()
       vim.o.foldcolumn = '1' -- '0' is not bad
-      vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
+      vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
       vim.o.foldlevelstart = 99
       vim.o.foldenable = true
 
@@ -430,7 +439,7 @@ local default_plugins = {
     lazy = false,
     config = function()
       local opts = {
-        signs = true,      -- show icons in the signs column
+        signs = true, -- show icons in the signs column
         sign_priority = 8, -- sign priority
         -- keywords recognized as todo comments
         keywords = {
@@ -452,8 +461,8 @@ local default_plugins = {
           },
         },
         gui_style = {
-          fg = 'NONE',         -- The gui style to use for the fg highlight group.
-          bg = 'BOLD',         -- The gui style to use for the bg highlight group.
+          fg = 'NONE', -- The gui style to use for the fg highlight group.
+          bg = 'BOLD', -- The gui style to use for the bg highlight group.
         },
         merge_keywords = true, -- when true, custom keywords will be merged with the defaults
         -- highlighting of the line containing the todo comment
@@ -461,16 +470,16 @@ local default_plugins = {
         -- * keyword: highlights of the keyword
         -- * after: highlights after the keyword (todo text)
         highlight = {
-          multiline = true,                -- enable multine todo comments
-          multiline_pattern = '^.',        -- lua pattern to match the next multiline from the start of the matched keyword
-          multiline_context = 10,          -- extra lines that will be re-evaluated when changing a line
-          before = '',                     -- "fg" or "bg" or empty
-          keyword = 'wide',                -- "fg", "bg", "wide", "wide_bg", "wide_fg" or empty. (wide and wide_bg is the same as bg, but will also highlight surrounding characters, wide_fg acts accordingly but with fg)
-          after = 'fg',                    -- "fg" or "bg" or empty
+          multiline = true, -- enable multine todo comments
+          multiline_pattern = '^.', -- lua pattern to match the next multiline from the start of the matched keyword
+          multiline_context = 10, -- extra lines that will be re-evaluated when changing a line
+          before = '', -- "fg" or "bg" or empty
+          keyword = 'wide', -- "fg", "bg", "wide", "wide_bg", "wide_fg" or empty. (wide and wide_bg is the same as bg, but will also highlight surrounding characters, wide_fg acts accordingly but with fg)
+          after = 'fg', -- "fg" or "bg" or empty
           pattern = [[.*<(KEYWORDS)\s*:]], -- pattern or table of patterns, used for highlighting (vim regex)
-          comments_only = true,            -- uses treesitter to match keywords in comments only
-          max_line_len = 400,              -- ignore lines longer than this
-          exclude = {},                    -- list of file types to exclude highlighting
+          comments_only = true, -- uses treesitter to match keywords in comments only
+          max_line_len = 400, -- ignore lines longer than this
+          exclude = {}, -- list of file types to exclude highlighting
         },
         -- list of named colors where we try to extract the guifg from the
         -- list of highlight groups or use the hex color if hl not found as a fallback
@@ -832,10 +841,10 @@ local default_plugins = {
             stream = true,
           }
           return 'curl --silent --no-buffer -X POST http://'
-              .. options.host
-              .. ':'
-              .. options.port
-              .. '/api/chat -d $body'
+            .. options.host
+            .. ':'
+            .. options.port
+            .. '/api/chat -d $body'
         end,
         display_mode = 'float',
         show_prompt = false,
@@ -1072,9 +1081,9 @@ local default_plugins = {
   -- Precognition: Vim motions practice
   {
     'tris203/precognition.nvim',
-    -- event = 'VeryLazy',
+    event = 'VeryLazy',
     config = {
-      startVisible = false,
+      startVisible = true,
       showBlankVirtLine = true,
       highlightColor = { link = 'String' },
       hints = {
@@ -1106,20 +1115,20 @@ local default_plugins = {
       local persisted = require 'persisted'
       persisted.setup {
         save_dir = vim.fn.expand(vim.fn.stdpath 'data' .. '/sessions/'), -- directory where session files are saved
-        silent = false,                                                  -- silent nvim message when sourcing session file
-        use_git_branch = false,                                          -- create session files based on the branch of a git enabled repository
-        default_branch = 'master',                                       -- the branch to load if a session file is not found for the current branch
-        autosave = true,                                                 -- automatically save session files when exiting Neovim
-        should_autosave = nil,                                           -- function to determine if a session should be autosaved
-        autoload = true,                                                 -- automatically load the session for the cwd on Neovim startup
-        on_autoload_no_session = nil,                                    -- function to run when `autoload = true` but there is no session to load
-        follow_cwd = true,                                               -- change session file name to match current working directory if it changes
-        allowed_dirs = nil,                                              -- table of dirs that the plugin will auto-save and auto-load from
-        ignored_dirs = nil,                                              -- table of dirs that are ignored when auto-saving and auto-loading
-        ignored_branches = nil,                                          -- table of branch patterns that are ignored for auto-saving and auto-loading
+        silent = false, -- silent nvim message when sourcing session file
+        use_git_branch = false, -- create session files based on the branch of a git enabled repository
+        default_branch = 'master', -- the branch to load if a session file is not found for the current branch
+        autosave = true, -- automatically save session files when exiting Neovim
+        should_autosave = nil, -- function to determine if a session should be autosaved
+        autoload = true, -- automatically load the session for the cwd on Neovim startup
+        on_autoload_no_session = nil, -- function to run when `autoload = true` but there is no session to load
+        follow_cwd = true, -- change session file name to match current working directory if it changes
+        allowed_dirs = nil, -- table of dirs that the plugin will auto-save and auto-load from
+        ignored_dirs = nil, -- table of dirs that are ignored when auto-saving and auto-loading
+        ignored_branches = nil, -- table of branch patterns that are ignored for auto-saving and auto-loading
         telescope = {
-          reset_prompt = true,                                           -- Reset the Telescope prompt after an action?
-          mappings = {                                                   -- table of mappings for the Telescope extension
+          reset_prompt = true, -- Reset the Telescope prompt after an action?
+          mappings = { -- table of mappings for the Telescope extension
             change_branch = '<c-b>',
             copy_session = '<c-c>',
             delete_session = '<c-d>',
