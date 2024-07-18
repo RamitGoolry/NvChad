@@ -1083,7 +1083,7 @@ local default_plugins = {
     'tris203/precognition.nvim',
     event = 'VeryLazy',
     config = {
-      startVisible = true,
+      startVisible = false,
       showBlankVirtLine = true,
       highlightColor = { link = 'String' },
       hints = {
@@ -1178,6 +1178,15 @@ local default_plugins = {
           neotest_golang(go_test_config),
         },
       }
+    end,
+  },
+
+  {
+    'petertriho/nvim-scrollbar',
+    lazy = false,
+    config = function()
+      local scrollbar = require 'scrollbar'
+      scrollbar.setup()
     end,
   },
 }
