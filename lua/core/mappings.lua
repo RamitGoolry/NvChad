@@ -602,6 +602,7 @@ exports.buffers = {
 
   n = {
     ['tt'] = { '<cmd>enew<CR>', 'Create new buffer' },
+    ['tq'] = { '<cmd>bd<CR>', 'Close buffer' },
     ['tn'] = { '<cmd>bn<CR>', 'Next buffer' },
     ['tp'] = { '<cmd>bp<CR>', 'Previous buffer' },
     ['td'] = { '<cmd>bd<CR>', 'Delete buffer' },

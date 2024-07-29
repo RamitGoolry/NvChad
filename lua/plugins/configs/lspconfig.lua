@@ -14,8 +14,8 @@ exports.on_attach = function(client, bufnr)
   end
 
   if
-    not utils.load_config().ui.lsp_semantic_tokens
-    and client.supports_method 'textDocument/semanticTokens'
+      not utils.load_config().ui.lsp_semantic_tokens
+      and client.supports_method 'textDocument/semanticTokens'
   then
     client.server_capabilities.semanticTokensProvider = nil
   end
@@ -174,10 +174,10 @@ lspconfig.tsserver.setup {
   capabilities = exports.capabilities,
 }
 
-lspconfig.golangci_lint_ls.setup {
-  on_attach = exports.on_attach,
-  capabilities = exports.capabilities,
-}
+-- lspconfig.golangci_lint_ls.setup {
+--   on_attach = exports.on_attach,
+--   capabilities = exports.capabilities,
+-- }
 
 -- lspconfig.pyright.setup {
 --   on_attach = M.on_attach,
