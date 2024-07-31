@@ -575,20 +575,20 @@ exports.tabs = {
   plugin = false,
 
   n = {
-    [';tt'] = {
+    ['<leader>tt'] = {
       function()
         vim.cmd [[tabnew]]
       end,
       'Create new Tab',
     },
-    [';tn'] = {
+    ['<leader>tn'] = {
       function()
         vim.cmd [[tabnext]]
       end,
       '<cmd>tabnext<CR>',
       'Next Tab',
     },
-    [';tp'] = {
+    ['<leader>tp'] = {
       function()
         vim.cmd [[tabprevious]]
       end,
@@ -800,6 +800,19 @@ exports.neotest = {
         -- TODO
       end,
       'Toggle test watcher',
+    },
+  },
+}
+
+exports.kubectl = {
+  plugin = true,
+
+  n = {
+    ['<leader>k'] = {
+      function()
+        require('kubectl').open()
+      end,
+      'Kubectl',
     },
   },
 }

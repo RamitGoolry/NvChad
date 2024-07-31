@@ -1189,6 +1189,15 @@ local default_plugins = {
       scrollbar.setup()
     end,
   },
+
+  {
+    'ramilito/kubectl.nvim',
+    event = 'VeryLazy',
+    config = function()
+      local kubectl = require 'kubectl'
+      kubectl.setup()
+    end,
+  },
 }
 
 local config = require('core.utils').load_config()
