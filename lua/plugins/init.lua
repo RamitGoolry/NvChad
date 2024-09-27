@@ -235,37 +235,35 @@ local default_plugins = {
   },
 
   {
-    'numToStr/Comment.nvim',
+    'echasnovski/mini.comment',
+    version = '*', -- Stable Release
     event = 'BufRead',
-    init = function()
-      local utils = require 'core.utils'
-    end,
-    config = function(_, _) -- TODO: Fix multiline comments, I need them to work
-      local comment = require 'Comment'
+    config = function()
+      local comment = require 'mini.comment'
       comment.setup {
-        padding = true,
-        sticky = true,
-        ignore = nil,
-        toggler = {
-          line = '<leader>/',
-          block = '<leader>b/',
+        -- Options which control module behavior
+        options = {
+          custom_commentstring = nil,
+          ignore_blank_line = false,
+          start_of_line = false,
+          pad_comment_parts = true,
         },
-        opleader = {
-          line = 'gc',
-          block = 'gb',
-        },
-        extra = {
-          above = 'gcO',
-          below = 'gco',
-          eol = 'gcA',
-        },
-        ---NOTE: If given `false` then the plugin won't create any mappings
+
+        -- Module mappings. Use `''` (empty string) to disable one.
         mappings = {
-          basic = true,
-          extra = false,
+          comment = '<leader>/',
+          comment_line = '<leader>/',
+          comment_visual = '<leader>/',
+
+          -- Define 'comment' textobject (like `d//` - delete whole comment block)
+          textobject = '//',
         },
-        pre_hook = nil,
-        post_hook = nil,
+
+        -- Hook functions to be executed at certain stage of commenting
+        hooks = {
+          pre = function() end,
+          post = function() end,
+        },
       }
     end,
   },
@@ -280,7 +278,8 @@ local default_plugins = {
       utils.load_mappings 'nvimtree'
     end,
     opts = function()
-      local nvimtree = require 'plugins.configs.nvimtree' -- TODO:(ramit) Fix the 'require' luasnip snippet. This should have been 'autopairs', not 'nvim_autopairs'
+      local nvimtree = require 'plugins.configs.nvimtree'
+      -- TODO: Fix the 'require' luasnip snippet. This should have been 'autopairs', not 'nvim_autopairs'
       return nvimtree
     end,
     config = function(_, opts)

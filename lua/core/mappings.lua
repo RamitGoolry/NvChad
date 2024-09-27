@@ -90,25 +90,6 @@ exports.tabufline = {
   plugin = true,
 }
 
-exports.comment = {
-  plugin = true,
-
-  -- toggle comment in both modes
-  n = {
-    ['<leader>/'] = {
-      function() end,
-      'Toggle comment',
-    },
-  },
-
-  v = {
-    ['<leader>/'] = {
-      function() end,
-      'Toggle comment',
-    },
-  },
-}
-
 exports.lspconfig = {
   plugin = true,
 
