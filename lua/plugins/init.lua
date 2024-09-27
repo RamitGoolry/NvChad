@@ -236,21 +236,37 @@ local default_plugins = {
 
   {
     'numToStr/Comment.nvim',
-    keys = {
-      { 'gcc', mode = 'n', desc = 'Comment toggle current line' },
-      { 'gc', mode = { 'n', 'o' }, desc = 'Comment toggle linewise' },
-      { 'gc', mode = 'x', desc = 'Comment toggle linewise (visual)' },
-      { 'gbc', mode = 'n', desc = 'Comment toggle current block' },
-      { 'gb', mode = { 'n', 'o' }, desc = 'Comment toggle blockwise' },
-      { 'gb', mode = 'x', desc = 'Comment toggle blockwise (visual)' },
-    },
+    event = 'BufRead',
     init = function()
       local utils = require 'core.utils'
-      utils.load_mappings 'comment'
     end,
-    config = function(_, opts)
+    config = function(_, _) -- TODO: Fix multiline comments, I need them to work
       local comment = require 'Comment'
-      comment.setup(opts)
+      comment.setup {
+        padding = true,
+        sticky = true,
+        ignore = nil,
+        toggler = {
+          line = '<leader>/',
+          block = '<leader>b/',
+        },
+        opleader = {
+          line = 'gc',
+          block = 'gb',
+        },
+        extra = {
+          above = 'gcO',
+          below = 'gco',
+          eol = 'gcA',
+        },
+        ---NOTE: If given `false` then the plugin won't create any mappings
+        mappings = {
+          basic = true,
+          extra = false,
+        },
+        pre_hook = nil,
+        post_hook = nil,
+      }
     end,
   },
 

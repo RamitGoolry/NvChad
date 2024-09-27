@@ -96,19 +96,14 @@ exports.comment = {
   -- toggle comment in both modes
   n = {
     ['<leader>/'] = {
-      function()
-        require('Comment.api').toggle.linewise.current()
-      end,
+      function() end,
       'Toggle comment',
     },
   },
 
   v = {
     ['<leader>/'] = {
-      function()
-        local api = require 'Comment.api'
-        api.toggle.linewise(vim.fn.visualmode())
-      end,
+      function() end,
       'Toggle comment',
     },
   },
