@@ -645,7 +645,7 @@ local default_plugins = {
           'jsonls',
           'pyright',
           'rust_analyzer',
-          'tsserver',
+          'ts_ls',
           'basedpyright',
         },
       }
