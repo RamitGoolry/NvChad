@@ -99,15 +99,6 @@ local options = {
       'i',
       's',
     }),
-    ['<S-Tab>'] = cmp.mapping(function(_)
-      local copilot_keys = vim.fn['copilot#Accept']()
-      if copilot_keys ~= '' then
-        vim.api.nvim_feedkeys(copilot_keys, 'i', true)
-      end
-    end, {
-      'i',
-      's',
-    }),
   },
   sources = {
     { name = 'luasnip', priority = 2000 },
@@ -115,6 +106,7 @@ local options = {
     { name = 'buffer', priority = 500, keyword_length = 5 },
     { name = 'nvim_lua', priority = 250 },
     { name = 'path', priority = 100 },
+    { name = 'supermaven', priority = 100 },
   },
   sorting = {
     priority_weight = 2,

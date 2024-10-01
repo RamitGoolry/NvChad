@@ -338,20 +338,23 @@ local default_plugins = {
     end,
   },
 
-  -- Github Copilot: AI Assistant
+  -- Supermaven: AI Assistant
   {
-    'github/copilot.vim',
-    cmd = 'Copilot',
+    'supermaven-inc/supermaven-nvim',
     lazy = false,
     config = function()
-      vim.g.copilot_no_tab_map = true
-      vim.g.copilot_assume_mapped = true
-      vim.g.tab_fallback = ''
-      vim.g.copilot_enabled = true
-      vim.g.copilot_filetypes = {
-        yaml = true,
-        json = true,
-        yml = true,
+      local supermaven_nvim = require 'supermaven-nvim'
+      supermaven_nvim.setup {
+        keymaps = {
+          accept_suggestion = '<S-Tab>',
+          clear_suggestion = '<C-]>',
+          accept_word = '<C-j>',
+        },
+        ignore_filetypes = {
+          yaml = true,
+          json = true,
+          yml = true,
+        },
       }
     end,
   },
