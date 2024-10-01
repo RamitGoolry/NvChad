@@ -106,7 +106,6 @@ local options = {
     { name = 'buffer', priority = 500, keyword_length = 5 },
     { name = 'nvim_lua', priority = 250 },
     { name = 'path', priority = 100 },
-    { name = 'supermaven', priority = 100 },
   },
   sorting = {
     priority_weight = 2,
