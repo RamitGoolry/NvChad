@@ -19,7 +19,25 @@ local default_plugins = {
     'NvChad/ui',
     branch = 'v2.0',
     lazy = false,
+    config = function()
+      require 'nvchad'
+    end,
   },
+
+  -- -- Volt: Reactive UI
+  -- {
+  --   'nvchad/volt',
+  -- },
+  --
+  -- -- Minty: Color Tools
+  -- {
+  --   'nvchad/minty',
+  -- },
+  --
+  -- -- Right Click Menu
+  -- {
+  --   'nvchad/menu',
+  -- },
 
   -- NvTerm: Terminal Plugin
   {
@@ -279,7 +297,6 @@ local default_plugins = {
     end,
     opts = function()
       local nvimtree = require 'plugins.configs.nvimtree'
-      -- TODO: Fix the 'require' luasnip snippet. This should have been 'autopairs', not 'nvim_autopairs'
       return nvimtree
     end,
     config = function(_, opts)
@@ -350,11 +367,7 @@ local default_plugins = {
           clear_suggestion = '<C-]>',
           accept_word = '<C-j>',
         },
-        ignore_filetypes = {
-          yaml = true,
-          json = true,
-          yml = true,
-        },
+        ignore_filetypes = {},
       }
     end,
   },
@@ -476,6 +489,11 @@ local default_plugins = {
             icon = '⏲ ',
             color = 'test',
             alt = { 'TESTING', 'PASSED', 'FAILED' },
+          },
+          REMOVE = {
+            icon = ' ',
+            color = '#ff0000',
+            alt = { 'DELETE', 'REMOVE', 'CLEAN', 'REVERT' },
           },
         },
         gui_style = {
@@ -765,29 +783,19 @@ local default_plugins = {
     end,
   },
 
+  -- Helm LSP Server
   {
     'towolf/vim-helm',
     lazy = false,
   },
 
-  -- vim graphql
+  -- GraphQL
   {
     'jparise/vim-graphql',
     event = 'BufRead',
   },
 
-  -- Conflict
-  {
-    'akinsho/git-conflict.nvim',
-    version = '*',
-    config = true,
-    lazy = false,
-    dependencies = {
-      'https://gitlab.com/yorickpeterse/nvim-pqf.git',
-    },
-  },
-
-  -- Notify
+  -- Notification Plugin
   {
     'rcarriga/nvim-notify',
     lazy = false,
@@ -810,7 +818,7 @@ local default_plugins = {
     end,
   },
 
-  -- DAP
+  -- DAP: Debugger Plugin
   {
     'mfussenegger/nvim-dap',
     lazy = false,
@@ -826,7 +834,7 @@ local default_plugins = {
     end,
   },
 
-  -- NVIM DAP Virtual Text
+  -- NVIM DAP Virtual Text: Shows valus of variables in the current scope in virtual text
   {
     'theHamsta/nvim-dap-virtual-text',
     lazy = false,
@@ -839,6 +847,7 @@ local default_plugins = {
     end,
   },
 
+  -- Gen: AI Assistant using Ollama
   {
     'David-Kunz/gen.nvim',
     cmd = { 'Gen' },
@@ -907,6 +916,7 @@ local default_plugins = {
   },
 
   -- XBase: Basics for XCode Development
+  -- TODO: Remove?
   {
     'xbase-lab/xbase',
     build = 'make install',
@@ -956,6 +966,7 @@ local default_plugins = {
   },
 
   -- SchemaStore: Schema Store for JSON
+  -- TODO: Maybe we don't need this
   {
     'b0o/schemastore.nvim',
   },
@@ -973,31 +984,8 @@ local default_plugins = {
       flash.setup()
     end,
   },
-  -- Octo: Github PRs and Issues
-  {
-    'pwntester/octo.nvim',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope.nvim',
-      'nvim-tree/nvim-web-devicons',
-    },
-    lazy = false,
-    cmd = { 'Octo' },
-    init = function()
-      local utils = require 'core.utils'
-      utils.load_mappings 'octo'
-    end,
-    config = function()
-      local octo = require 'octo'
-      octo.setup {
-        suppress_missing_scope = {
-          projects_v2 = true,
-        },
-      }
-    end,
-  },
 
-  -- Noice: Better command line
+  -- Noice: Better vim UI
   {
     'folke/noice.nvim',
     dependencies = {
@@ -1090,7 +1078,7 @@ local default_plugins = {
     end,
   },
 
-  -- Sleuth: Indent Detection
+  -- Sleuth: Auto Indent Detection
   {
     'tpope/vim-sleuth',
     event = 'BufRead',
@@ -1134,7 +1122,7 @@ local default_plugins = {
       persisted.setup {
         save_dir = vim.fn.expand(vim.fn.stdpath 'data' .. '/sessions/'), -- directory where session files are saved
         silent = false, -- silent nvim message when sourcing session file
-        use_git_branch = false, -- create session files based on the branch of a git enabled repository
+        use_git_branch = true, -- create session files based on the branch of a git enabled repository
         default_branch = 'master', -- the branch to load if a session file is not found for the current branch
         autosave = true, -- automatically save session files when exiting Neovim
         should_autosave = nil, -- function to determine if a session should be autosaved
@@ -1162,6 +1150,7 @@ local default_plugins = {
   },
 
   -- Neotest: Testing library
+  -- TODO: This needs to be better for me to actualy use it. How can I have auto testing for golang?
   {
     'nvim-neotest/neotest',
     dependencies = {
@@ -1199,6 +1188,7 @@ local default_plugins = {
     end,
   },
 
+  -- Mini Scrollbar Plugin: Highlights errors and warnings without intruding at all
   {
     'petertriho/nvim-scrollbar',
     lazy = false,
@@ -1208,12 +1198,29 @@ local default_plugins = {
     end,
   },
 
+  -- Kubectl: Kubernetes Plugin
+  -- TODO: I don't know how to use this, I'm not sure if I want to use it
   {
     'ramilito/kubectl.nvim',
     event = 'VeryLazy',
     config = function()
       local kubectl = require 'kubectl'
       kubectl.setup()
+    end,
+  },
+
+  -- Diffview: Diff View Plugin
+  {
+    'sindrets/diffview.nvim',
+    dependencies = {
+      'nvim-tree/nvim-web-devicons',
+    },
+    event = 'VeryLazy',
+    cmd = { 'DiffviewOpen', 'DiffviewClose', 'DiffviewToggleFiles' },
+    config = function()
+      local diffview = require 'diffview'
+      local options = require 'plugins.configs.diffview'
+      diffview.setup(options)
     end,
   },
 }
