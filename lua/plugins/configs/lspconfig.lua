@@ -286,6 +286,14 @@ lspconfig.jsonls.setup {
 -- 	},
 -- }
 
+lspconfig.nil_ls.setup {
+  on_attach = function(client, bufnr)
+    exports.on_attach(client, bufnr)
+    vim.lsp.inlay_hint.enable(true)
+  end,
+  capabilities = exports.capabilities,
+}
+
 lspconfig.helm_ls.setup {
   settings = {
     ['helm-ls'] = {
@@ -316,5 +324,7 @@ lspconfig.sourcekit.setup {
   end,
   capabilities = exports.capabilities,
 }
+
+lspconfig.gleam.setup {}
 
 return exports

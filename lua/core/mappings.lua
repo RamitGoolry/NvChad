@@ -557,14 +557,14 @@ exports.tabs = {
       end,
       'Create new Tab',
     },
-    ['<leader>tn'] = {
+    ['<M-Up>'] = {
       function()
         vim.cmd [[tabnext]]
       end,
       '<cmd>tabnext<CR>',
       'Next Tab',
     },
-    ['<leader>tp'] = {
+    ['<M-Down>'] = {
       function()
         vim.cmd [[tabprevious]]
       end,
@@ -579,8 +579,8 @@ exports.buffers = {
   n = {
     ['tt'] = { '<cmd>enew<CR>', 'Create new buffer' },
     ['tq'] = { '<cmd>bd<CR>', 'Close buffer' },
-    ['tn'] = { '<cmd>bn<CR>', 'Next buffer' },
-    ['tp'] = { '<cmd>bp<CR>', 'Previous buffer' },
+    ['<M-Right>'] = { '<cmd>bn<CR>', 'Next buffer' },
+    ['<M-Left>'] = { '<cmd>bp<CR>', 'Previous buffer' },
     ['td'] = { '<cmd>bd<CR>', 'Delete buffer' },
     ['tl'] = { '<cmd>ls<CR>', 'List buffers' },
   },
