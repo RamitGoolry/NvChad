@@ -261,7 +261,10 @@ local default_plugins = {
       comment.setup {
         -- Options which control module behavior
         options = {
-          custom_commentstring = nil,
+          custom_commentstring = function()
+            return require('ts_context_commentstring').calculate_commentstring()
+              or vim.bo.commentstring
+          end,
           ignore_blank_line = false,
           start_of_line = false,
           pad_comment_parts = true,
@@ -484,7 +487,8 @@ local default_plugins = {
           HACK = { icon = ' ', color = 'warning' },
           WARN = { icon = ' ', color = 'warning' },
           PERF = { icon = ' ', alt = { 'OPTIM', 'PERFORMANCE', 'OPTIMIZE' } },
-          NOTE = { icon = ' ', color = 'hint', alt = { 'INFO' } },
+          NOTE = { icon = '  ', color = 'hint', alt = { 'INFO' } },
+          QUESTION = { icon = ' ', color = 'hint' },
           TEST = {
             icon = '⏲ ',
             color = 'test',
@@ -1198,17 +1202,6 @@ local default_plugins = {
     end,
   },
 
-  -- Kubectl: Kubernetes Plugin
-  -- TODO: I don't know how to use this, I'm not sure if I want to use it
-  {
-    'ramilito/kubectl.nvim',
-    event = 'VeryLazy',
-    config = function()
-      local kubectl = require 'kubectl'
-      kubectl.setup()
-    end,
-  },
-
   -- Diffview: Diff View Plugin
   {
     'sindrets/diffview.nvim',
@@ -1221,6 +1214,32 @@ local default_plugins = {
       local diffview = require 'diffview'
       local options = require 'plugins.configs.diffview'
       diffview.setup(options)
+    end,
+  },
+
+  -- nvim-ts-context-commentstring
+  {
+    'JoosepAlviste/nvim-ts-context-commentstring',
+    event = 'VeryLazy',
+    config = function()
+      local context_commentstring = require 'ts_context_commentstring'
+      context_commentstring.setup {
+        enable_autocmd = false,
+      }
+    end,
+  },
+
+  -- TwoSlash Queries - Typescript Type queries in comments
+  {
+    'marilari88/twoslash-queries.nvim',
+    event = 'VeryLazy',
+    config = function()
+      local twoslash_queries = require 'twoslash-queries'
+      twoslash_queries.setup {
+        multi_line = true,
+        is_enabled = true,
+        highlight = 'Type',
+      }
     end,
   },
 }

@@ -170,7 +170,11 @@ lspconfig.gopls.setup {
 }
 
 lspconfig.ts_ls.setup {
-  on_attach = exports.on_attach,
+  on_attach = function(client, bufnr)
+    local twoslash_queries = require 'twoslash-queries'
+    twoslash_queries.attach(client, bufnr)
+    exports.on_attach(client, bufnr)
+  end,
   capabilities = exports.capabilities,
 }
 

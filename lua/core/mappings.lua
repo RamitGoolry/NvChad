@@ -293,6 +293,12 @@ exports.telescope = {
       end,
       'Find oldfiles',
     },
+    ['<leader><leader>'] = {
+      function()
+        vim.cmd [[Telescope oldfiles]]
+      end,
+      'Find oldfiles',
+    },
     ['<leader>fz'] = {
       function()
         vim.cmd [[Telescope current_buffer_fuzzy_find]]
