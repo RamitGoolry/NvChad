@@ -330,5 +330,6 @@ lspconfig.sourcekit.setup {
 }
 
 lspconfig.gleam.setup {}
+lspconfig.zls.setup {}
 
 return exports

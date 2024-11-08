@@ -1290,6 +1290,8 @@ local default_plugins = {
       },
     },
     config = function()
+      vim.opt.laststatus = 3
+
       local avante = require 'avante'
       avante.setup {
         ---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
