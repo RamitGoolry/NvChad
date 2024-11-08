@@ -595,7 +595,7 @@ exports.harpoon = {
   plugin = true,
 
   n = {
-    ['<leader>;'] = {
+    ['<leader>'] = {
       function()
         local harpoon = require 'harpoon'
         harpoon:list():add()
