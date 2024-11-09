@@ -263,7 +263,7 @@ local default_plugins = {
         options = {
           custom_commentstring = function()
             return require('ts_context_commentstring').calculate_commentstring()
-                or vim.bo.commentstring
+              or vim.bo.commentstring
           end,
           ignore_blank_line = false,
           start_of_line = false,
@@ -452,7 +452,7 @@ local default_plugins = {
     lazy = false,
     config = function()
       vim.o.foldcolumn = '1' -- '0' is not bad
-      vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
+      vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
       vim.o.foldlevelstart = 99
       vim.o.foldenable = true
 
@@ -473,7 +473,7 @@ local default_plugins = {
     lazy = false,
     config = function()
       local opts = {
-        signs = true,      -- show icons in the signs column
+        signs = true, -- show icons in the signs column
         sign_priority = 8, -- sign priority
         -- keywords recognized as todo comments
         keywords = {
@@ -501,8 +501,8 @@ local default_plugins = {
           },
         },
         gui_style = {
-          fg = 'NONE',         -- The gui style to use for the fg highlight group.
-          bg = 'BOLD',         -- The gui style to use for the bg highlight group.
+          fg = 'NONE', -- The gui style to use for the fg highlight group.
+          bg = 'BOLD', -- The gui style to use for the bg highlight group.
         },
         merge_keywords = true, -- when true, custom keywords will be merged with the defaults
         -- highlighting of the line containing the todo comment
@@ -510,16 +510,16 @@ local default_plugins = {
         -- * keyword: highlights of the keyword
         -- * after: highlights after the keyword (todo text)
         highlight = {
-          multiline = true,                -- enable multine todo comments
-          multiline_pattern = '^.',        -- lua pattern to match the next multiline from the start of the matched keyword
-          multiline_context = 10,          -- extra lines that will be re-evaluated when changing a line
-          before = '',                     -- "fg" or "bg" or empty
-          keyword = 'wide',                -- "fg", "bg", "wide", "wide_bg", "wide_fg" or empty. (wide and wide_bg is the same as bg, but will also highlight surrounding characters, wide_fg acts accordingly but with fg)
-          after = 'fg',                    -- "fg" or "bg" or empty
+          multiline = true, -- enable multine todo comments
+          multiline_pattern = '^.', -- lua pattern to match the next multiline from the start of the matched keyword
+          multiline_context = 10, -- extra lines that will be re-evaluated when changing a line
+          before = '', -- "fg" or "bg" or empty
+          keyword = 'wide', -- "fg", "bg", "wide", "wide_bg", "wide_fg" or empty. (wide and wide_bg is the same as bg, but will also highlight surrounding characters, wide_fg acts accordingly but with fg)
+          after = 'fg', -- "fg" or "bg" or empty
           pattern = [[.*<(KEYWORDS)\s*:]], -- pattern or table of patterns, used for highlighting (vim regex)
-          comments_only = true,            -- uses treesitter to match keywords in comments only
-          max_line_len = 400,              -- ignore lines longer than this
-          exclude = {},                    -- list of file types to exclude highlighting
+          comments_only = true, -- uses treesitter to match keywords in comments only
+          max_line_len = 400, -- ignore lines longer than this
+          exclude = {}, -- list of file types to exclude highlighting
         },
         -- list of named colors where we try to extract the guifg from the
         -- list of highlight groups or use the hex color if hl not found as a fallback
@@ -872,10 +872,10 @@ local default_plugins = {
             stream = true,
           }
           return 'curl --silent --no-buffer -X POST http://'
-              .. options.host
-              .. ':'
-              .. options.port
-              .. '/api/chat -d $body'
+            .. options.host
+            .. ':'
+            .. options.port
+            .. '/api/chat -d $body'
         end,
         display_mode = 'float',
         show_prompt = false,
@@ -1125,20 +1125,20 @@ local default_plugins = {
       local persisted = require 'persisted'
       persisted.setup {
         save_dir = vim.fn.expand(vim.fn.stdpath 'data' .. '/sessions/'), -- directory where session files are saved
-        silent = false,                                                  -- silent nvim message when sourcing session file
-        use_git_branch = true,                                           -- create session files based on the branch of a git enabled repository
-        default_branch = 'master',                                       -- the branch to load if a session file is not found for the current branch
-        autosave = true,                                                 -- automatically save session files when exiting Neovim
-        should_autosave = nil,                                           -- function to determine if a session should be autosaved
-        autoload = true,                                                 -- automatically load the session for the cwd on Neovim startup
-        on_autoload_no_session = nil,                                    -- function to run when `autoload = true` but there is no session to load
-        follow_cwd = true,                                               -- change session file name to match current working directory if it changes
-        allowed_dirs = nil,                                              -- table of dirs that the plugin will auto-save and auto-load from
-        ignored_dirs = nil,                                              -- table of dirs that are ignored when auto-saving and auto-loading
-        ignored_branches = nil,                                          -- table of branch patterns that are ignored for auto-saving and auto-loading
+        silent = false, -- silent nvim message when sourcing session file
+        use_git_branch = true, -- create session files based on the branch of a git enabled repository
+        default_branch = 'master', -- the branch to load if a session file is not found for the current branch
+        autosave = true, -- automatically save session files when exiting Neovim
+        should_autosave = nil, -- function to determine if a session should be autosaved
+        autoload = true, -- automatically load the session for the cwd on Neovim startup
+        on_autoload_no_session = nil, -- function to run when `autoload = true` but there is no session to load
+        follow_cwd = true, -- change session file name to match current working directory if it changes
+        allowed_dirs = nil, -- table of dirs that the plugin will auto-save and auto-load from
+        ignored_dirs = nil, -- table of dirs that are ignored when auto-saving and auto-loading
+        ignored_branches = nil, -- table of branch patterns that are ignored for auto-saving and auto-loading
         telescope = {
-          reset_prompt = true,                                           -- Reset the Telescope prompt after an action?
-          mappings = {                                                   -- table of mappings for the Telescope extension
+          reset_prompt = true, -- Reset the Telescope prompt after an action?
+          mappings = { -- table of mappings for the Telescope extension
             change_branch = '<c-b>',
             copy_session = '<c-c>',
             delete_session = '<c-d>',
@@ -1262,7 +1262,7 @@ local default_plugins = {
       'MunifTanjim/nui.nvim',
       --- The below dependencies are optional,
       'nvim-tree/nvim-web-devicons', -- or echasnovski/mini.icons
-      'zbirenbaum/copilot.lua',      -- for providers='copilot'
+      'zbirenbaum/copilot.lua', -- for providers='copilot'
       {
         -- support for image pasting
         'HakonHarnes/img-clip.nvim',
@@ -1294,24 +1294,126 @@ local default_plugins = {
 
       local avante = require 'avante'
       avante.setup {
-        ---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
-        provider = 'claude',                  -- Recommend using Claude
-        auto_suggestions_provider = 'claude', -- Since auto-suggestions are a high-frequency operation and therefore expensive, it is recommended to specify an inexpensive provider or even a free provider: copilot
-        claude = {
-          endpoint = 'https://api.anthropic.com',
-          model = 'claude-3-5-sonnet-20241022',
+        debug = false,
+        ---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | [string]
+        provider = 'claude', -- Only recommend using Claude
+        auto_suggestions_provider = 'claude',
+        ---@alias Tokenizer "tiktoken" | "hf"
+        -- Used for counting tokens and encoding text.
+        -- By default, we will use tiktoken.
+        -- For most providers that we support we will determine this automatically.
+        -- If you wish to use a given implementation, then you can override it here.
+        tokenizer = 'tiktoken',
+        ---@type AvanteSupportedProvider
+        openai = {
+          endpoint = 'https://api.openai.com/v1',
+          model = 'gpt-4o',
+          timeout = 30000, -- Timeout in milliseconds
+          temperature = 0,
+          max_tokens = 4096,
+          ['local'] = false,
+        },
+        ---@type AvanteSupportedProvider
+        copilot = {
+          endpoint = 'https://api.githubcopilot.com',
+          model = 'gpt-4o-2024-05-13',
+          proxy = nil, -- [protocol://]host[:port] Use this proxy
+          allow_insecure = false, -- Allow insecure server connections
+          timeout = 30000, -- Timeout in milliseconds
           temperature = 0,
           max_tokens = 4096,
         },
+        ---@type AvanteAzureProvider
+        azure = {
+          endpoint = '', -- example: "https://<your-resource-name>.openai.azure.com"
+          deployment = '', -- Azure deployment name (e.g., "gpt-4o", "my-gpt-4o-deployment")
+          api_version = '2024-06-01',
+          timeout = 30000, -- Timeout in milliseconds
+          temperature = 0,
+          max_tokens = 4096,
+          ['local'] = false,
+        },
+        ---@type AvanteSupportedProvider
+        claude = {
+          endpoint = 'https://api.anthropic.com',
+          model = 'claude-3-5-sonnet-20241022',
+          timeout = 30000, -- Timeout in milliseconds
+          temperature = 0,
+          max_tokens = 8000,
+          ['local'] = false,
+        },
+        ---@type AvanteSupportedProvider
+        gemini = {
+          endpoint = 'https://generativelanguage.googleapis.com/v1beta/models',
+          model = 'gemini-1.5-flash-latest',
+          timeout = 30000, -- Timeout in milliseconds
+          temperature = 0,
+          max_tokens = 4096,
+          ['local'] = false,
+        },
+        ---@type AvanteSupportedProvider
+        cohere = {
+          endpoint = 'https://api.cohere.com/v2',
+          model = 'command-r-plus-08-2024',
+          timeout = 30000, -- Timeout in milliseconds
+          temperature = 0,
+          max_tokens = 4096,
+          ['local'] = false,
+        },
+        ---To add support for custom provider, follow the format below
+        ---See https://github.com/yetone/avante.nvim/wiki#custom-providers for more details
+        ---@type {[string]: AvanteProvider}
+        vendors = {
+          ---@type AvanteSupportedProvider
+          ['claude-haiku'] = {
+            endpoint = 'https://api.anthropic.com',
+            model = 'claude-3-5-haiku-20241022',
+            timeout = 30000, -- Timeout in milliseconds
+            temperature = 0,
+            max_tokens = 8000,
+            ['local'] = false,
+          },
+          ---@type AvanteSupportedProvider
+          ['claude-opus'] = {
+            endpoint = 'https://api.anthropic.com',
+            model = 'claude-3-opus-20240229',
+            timeout = 30000, -- Timeout in milliseconds
+            temperature = 0,
+            max_tokens = 8000,
+            ['local'] = false,
+          },
+        },
+        ---Specify the behaviour of avante.nvim
+        ---1. auto_apply_diff_after_generation: Whether to automatically apply diff after LLM response.
+        ---                                     This would simulate similar behaviour to cursor. Default to false.
+        ---2. auto_set_keymaps                : Whether to automatically set the keymap for the current line. Default to true.
+        ---                                     Note that avante will safely set these keymap. See https://github.com/yetone/avante.nvim/wiki#keymaps-and-api-i-guess for more details.
+        ---3. auto_set_highlight_group        : Whether to automatically set the highlight group for the current line. Default to true.
+        ---4. support_paste_from_clipboard    : Whether to support pasting image from clipboard. This will be determined automatically based whether img-clip is available or not.
         behaviour = {
           auto_suggestions = false, -- Experimental stage
           auto_set_highlight_group = true,
           auto_set_keymaps = true,
-          auto_apply_diff_after_generation = true,
+          auto_apply_diff_after_generation = false,
           support_paste_from_clipboard = false,
         },
+        history = {
+          max_tokens = 4096,
+          storage_path = vim.fn.stdpath 'state' .. '/avante',
+          paste = {
+            extension = 'png',
+            filename = 'pasted-%Y-%m-%d-%H-%M-%S',
+          },
+        },
+        highlights = {
+          ---@type AvanteConflictHighlights
+          diff = {
+            current = 'DiffText',
+            incoming = 'DiffAdd',
+          },
+        },
         mappings = {
-          --- @class AvanteConflictMappings
+          ---@class AvanteConflictMappings
           diff = {
             ours = 'co',
             theirs = 'ct',
@@ -1335,6 +1437,18 @@ local default_plugins = {
             normal = '<CR>',
             insert = '<C-s>',
           },
+          -- NOTE: The following will be safely set by avante.nvim
+          ask = '<leader><leader>',
+          edit = '<leader>ae',
+          refresh = '<leader>ar',
+          focus = '<leader>af',
+          toggle = {
+            default = '<leader>at',
+            debug = '<leader>ad',
+            hint = '<leader>ah',
+            suggestion = '<leader>as',
+            repomap = '<leader>aR',
+          },
           sidebar = {
             apply_all = 'A',
             apply_cursor = 'a',
@@ -1342,14 +1456,14 @@ local default_plugins = {
             reverse_switch_windows = '<S-Tab>',
           },
         },
-        hints = { enabled = true },
         windows = {
-          ---@type "right" | "left" | "top" | "bottom"
-          position = 'left',  -- the position of the sidebar
-          wrap = true,        -- similar to vim.o.wrap
-          width = 35,         -- default % based on available width
+          ---@alias AvantePosition "right" | "left" | "top" | "bottom" | "smart"
+          position = 'left',
+          wrap = true, -- similar to vim.o.wrap
+          width = 30, -- default % based on available width in vertical layout
+          height = 30, -- default % based on available height in horizontal layout
           sidebar_header = {
-            enabled = true,   -- true, false to enable/disable the header
+            enabled = true, -- true, false to enable/disable the header
             align = 'center', -- left, center, right for title
             rounded = true,
           },
@@ -1362,29 +1476,24 @@ local default_plugins = {
             start_insert = true, -- Start insert mode when opening the edit window
           },
           ask = {
-            floating = false,    -- Open the 'AvanteAsk' prompt in a floating window
-            start_insert = true, -- Start insert mode when opening the ask window
+            floating = false, -- Open the 'AvanteAsk' prompt in a floating window
             border = 'rounded',
-            ---@type "ours" | "theirs"
-            focus_on_apply = 'ours', -- which diff to focus after applying
+            start_insert = true, -- Start insert mode when opening the ask window
+            ---@alias AvanteInitialDiff "ours" | "theirs"
+            focus_on_apply = 'theirs', -- which diff to focus after applying
           },
         },
-        highlights = {
-          ---@type AvanteConflictHighlights
-          diff = {
-            current = 'DiffText',
-            incoming = 'DiffAdd',
-          },
-        },
-        --- @class AvanteConflictUserConfig
+        --- @class AvanteConflictConfig
         diff = {
           autojump = true,
-          ---@type string | fun(): any
-          list_opener = 'copen',
           --- Override the 'timeoutlen' setting while hovering over a diff (see :help timeoutlen).
           --- Helps to avoid entering operator-pending mode with diff mappings starting with `c`.
           --- Disable by setting to -1.
           override_timeoutlen = 500,
+        },
+        --- @class AvanteHintsConfig
+        hints = {
+          enabled = true,
         },
       }
     end,
