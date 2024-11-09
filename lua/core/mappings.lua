@@ -730,6 +730,13 @@ exports.flash = {
       end,
       'Flash Treesitter',
     },
+    ['R'] = {
+      function()
+        local flash = require 'flash'
+        flash.remote()
+      end,
+      'Flash Remote',
+    },
   },
 
   v = {
