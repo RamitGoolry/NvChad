@@ -1438,12 +1438,12 @@ local default_plugins = {
             insert = '<C-s>',
           },
           -- NOTE: The following will be safely set by avante.nvim
-          ask = '<leader><leader>',
+          ask = '<leader>aa',
           edit = '<leader>ae',
           refresh = '<leader>ar',
           focus = '<leader>af',
           toggle = {
-            default = '<leader>at',
+            default = '<leader><leader>',
             debug = '<leader>ad',
             hint = '<leader>ah',
             suggestion = '<leader>as',
@@ -1478,7 +1478,7 @@ local default_plugins = {
           ask = {
             floating = false, -- Open the 'AvanteAsk' prompt in a floating window
             border = 'rounded',
-            start_insert = true, -- Start insert mode when opening the ask window
+            start_insert = false, -- Start insert mode when opening the ask window
             ---@alias AvanteInitialDiff "ours" | "theirs"
             focus_on_apply = 'theirs', -- which diff to focus after applying
           },
