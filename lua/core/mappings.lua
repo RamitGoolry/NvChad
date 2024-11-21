@@ -340,6 +340,34 @@ exports.telescope = {
       end,
       'LSP references',
     },
+
+    ['<leader>td'] = {
+      function()
+        vim.cmd [[Telescope lsp_definition]]
+      end,
+      'LSP definition',
+    },
+
+    ['<leader>ti'] = {
+      function()
+        vim.cmd [[Telescope lsp_implementations]]
+      end,
+      'LSP implementations',
+    },
+
+    ['<leader>tci'] = {
+      function()
+        vim.cmd [[Telescope lsp_incoming_calls]]
+      end,
+      'LSP incoming calls',
+    },
+
+    ['<leader>tco'] = {
+      function()
+        vim.cmd [[Telescope lsp_outgoing_calls]]
+      end,
+      'LSP outgoing calls',
+    },
   },
 }
 
@@ -490,13 +518,6 @@ exports.gitsigns = {
         package.loaded.gitsigns.blame_line()
       end,
       'Blame line',
-    },
-
-    ['<leader>td'] = {
-      function()
-        require('gitsigns').toggle_deleted()
-      end,
-      'Toggle deleted',
     },
   },
 }
