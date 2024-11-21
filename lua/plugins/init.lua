@@ -1311,7 +1311,6 @@ local default_plugins = {
           timeout = 30000, -- Timeout in milliseconds
           temperature = 0,
           max_tokens = 4096,
-          ['local'] = false,
         },
         ---@type AvanteSupportedProvider
         copilot = {
@@ -1331,7 +1330,6 @@ local default_plugins = {
           timeout = 30000, -- Timeout in milliseconds
           temperature = 0,
           max_tokens = 4096,
-          ['local'] = false,
         },
         ---@type AvanteSupportedProvider
         claude = {
@@ -1340,7 +1338,6 @@ local default_plugins = {
           timeout = 30000, -- Timeout in milliseconds
           temperature = 0,
           max_tokens = 8000,
-          ['local'] = false,
         },
         ---@type AvanteSupportedProvider
         gemini = {
@@ -1349,7 +1346,6 @@ local default_plugins = {
           timeout = 30000, -- Timeout in milliseconds
           temperature = 0,
           max_tokens = 4096,
-          ['local'] = false,
         },
         ---@type AvanteSupportedProvider
         cohere = {
@@ -1358,7 +1354,6 @@ local default_plugins = {
           timeout = 30000, -- Timeout in milliseconds
           temperature = 0,
           max_tokens = 4096,
-          ['local'] = false,
         },
         ---To add support for custom provider, follow the format below
         ---See https://github.com/yetone/avante.nvim/wiki#custom-providers for more details
@@ -1371,7 +1366,6 @@ local default_plugins = {
             timeout = 30000, -- Timeout in milliseconds
             temperature = 0,
             max_tokens = 8000,
-            ['local'] = false,
           },
           ---@type AvanteSupportedProvider
           ['claude-opus'] = {
@@ -1380,7 +1374,6 @@ local default_plugins = {
             timeout = 30000, -- Timeout in milliseconds
             temperature = 0,
             max_tokens = 8000,
-            ['local'] = false,
           },
         },
         ---Specify the behaviour of avante.nvim
@@ -1496,13 +1489,6 @@ local default_plugins = {
           enabled = true,
         },
       }
-    end,
-  },
-  {
-    'mg979/vim-visual-multi',
-    event = 'VeryLazy',
-    config = function()
-      vim.g.VM_leader = '\\'
     end,
   },
 }
