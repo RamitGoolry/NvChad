@@ -313,20 +313,17 @@ lspconfig.sourcekit.setup {
   cmd = {
     'xcrun',
     'sourcekit-lsp',
-    '-Xswiftc',
-    '-sdk',
-    '-Xswiftc',
-    '/Applications/Xcode.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/SDKs/XRSimulator.sdk',
-    '-Xswiftc',
-    '-target',
-    '-Xswiftc',
-    'arm64-apple-xros1.0-simulator',
   },
   on_attach = function(client, bufnr)
     exports.on_attach(client, bufnr)
     vim.lsp.inlay_hint.enable(true)
   end,
   capabilities = exports.capabilities,
+  root_dir = function(filename)
+    return lspconfig.util.root_pattern('.sourcekit-lsp/config.json', 'Package.swift', '.git')(
+      filename
+    ) .. '/ios'
+  end,
 }
 
 lspconfig.gleam.setup {}

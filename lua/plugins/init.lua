@@ -920,7 +920,6 @@ local default_plugins = {
   },
 
   -- XBase: Basics for XCode Development
-  -- TODO: Remove?
   {
     'xbase-lab/xbase',
     build = 'make install',
@@ -930,7 +929,7 @@ local default_plugins = {
       'nvim-lua/plenary.nvim',
     },
     lazy = false, -- NOTE: For now
-    -- ft = { 'objc', 'swift' },
+    ft = { 'objc', 'swift' },
     config = function()
       local xbase = require 'xbase'
       local _ = require 'xbase.statusline'
