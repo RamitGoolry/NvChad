@@ -24,21 +24,6 @@ local default_plugins = {
     end,
   },
 
-  -- -- Volt: Reactive UI
-  -- {
-  --   'nvchad/volt',
-  -- },
-  --
-  -- -- Minty: Color Tools
-  -- {
-  --   'nvchad/minty',
-  -- },
-  --
-  -- -- Right Click Menu
-  -- {
-  --   'nvchad/menu',
-  -- },
-
   -- NvTerm: Terminal Plugin
   {
     'NvChad/nvterm',
@@ -851,41 +836,6 @@ local default_plugins = {
     end,
   },
 
-  -- Gen: AI Assistant using Ollama
-  {
-    'David-Kunz/gen.nvim',
-    cmd = { 'Gen' },
-    config = function()
-      local gen = require 'gen'
-      gen.setup {
-        model = 'llama3',
-        host = 'localhost',
-        port = '11434',
-        quit_map = 'q',
-        retry_map = '<C-r>',
-        init = function(_)
-          pcall(io.popen, 'ollama serve > /dev/null 2>&1 &')
-        end,
-        command = function(options)
-          local _ = {
-            model = options.model,
-            stream = true,
-          }
-          return 'curl --silent --no-buffer -X POST http://'
-            .. options.host
-            .. ':'
-            .. options.port
-            .. '/api/chat -d $body'
-        end,
-        display_mode = 'float',
-        show_prompt = false,
-        show_nodel = false,
-        no_auto_close = false,
-        debug = false,
-      }
-    end,
-  },
-
   -- Dadbod: UI for Databases
   {
     'tpope/vim-dadbod',
@@ -1297,29 +1247,29 @@ local default_plugins = {
   },
 
   -- Smear: Cool cursor animations
-  {
-    'sphamba/smear-cursor.nvim',
-    lazy = false,
-    opts = {
-      -- Smear cursor color. Defaults to Cursor GUI color if not set.
-      -- Set to "none" to match the text color at the target cursor position.
-      cursor_color = '#d3cdc3',
-      time_interval = 5,
-
-      -- Background color. Defaults to Normal GUI background color if not set.
-      normal_bg = '#282828',
-
-      -- Smear cursor when switching buffers or windows.
-      smear_between_buffers = true,
-
-      -- Smear cursor when moving within line or to neighbor lines.
-      smear_between_neighbor_lines = true,
-
-      -- Set to `true` if your font supports legacy computing symbols (block unicode symbols).
-      -- Smears will blend better on all backgrounds.
-      legacy_computing_symbols_support = false,
-    },
-  },
+  -- {
+  --   'sphamba/smear-cursor.nvim',
+  --   lazy = false,
+  --   opts = {
+  --     -- Smear cursor color. Defaults to Cursor GUI color if not set.
+  --     -- Set to "none" to match the text color at the target cursor position.
+  --     cursor_color = '#d3cdc3',
+  --     time_interval = 5,
+  --
+  --     -- Background color. Defaults to Normal GUI background color if not set.
+  --     normal_bg = '#282828',
+  --
+  --     -- Smear cursor when switching buffers or windows.
+  --     smear_between_buffers = true,
+  --
+  --     -- Smear cursor when moving within line or to neighbor lines.
+  --     smear_between_neighbor_lines = true,
+  --
+  --     -- Set to `true` if your font supports legacy computing symbols (block unicode symbols).
+  --     -- Smears will blend better on all backgrounds.
+  --     legacy_computing_symbols_support = false,
+  --   },
+  -- },
 }
 
 local config = require('core.utils').load_config()
