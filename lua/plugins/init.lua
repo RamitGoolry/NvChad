@@ -739,7 +739,7 @@ local default_plugins = {
       treesitter_context.setup {
         enable = false,
       }
-      vim.cmd [[TSContextEnable]]
+      -- vim.cmd [[TSContextEnable]]
     end,
   },
 
@@ -1246,30 +1246,29 @@ local default_plugins = {
     end,
   },
 
-  -- Smear: Cool cursor animations
-  -- {
-  --   'sphamba/smear-cursor.nvim',
-  --   lazy = false,
-  --   opts = {
-  --     -- Smear cursor color. Defaults to Cursor GUI color if not set.
-  --     -- Set to "none" to match the text color at the target cursor position.
-  --     cursor_color = '#d3cdc3',
-  --     time_interval = 5,
-  --
-  --     -- Background color. Defaults to Normal GUI background color if not set.
-  --     normal_bg = '#282828',
-  --
-  --     -- Smear cursor when switching buffers or windows.
-  --     smear_between_buffers = true,
-  --
-  --     -- Smear cursor when moving within line or to neighbor lines.
-  --     smear_between_neighbor_lines = true,
-  --
-  --     -- Set to `true` if your font supports legacy computing symbols (block unicode symbols).
-  --     -- Smears will blend better on all backgrounds.
-  --     legacy_computing_symbols_support = false,
-  --   },
-  -- },
+  -- nvim-lint: Linter Plugin
+  {
+    'mfussenegger/nvim-lint',
+  },
+
+  -- mason-nvim-lint: Bridge Mason and nvim-lint
+  {
+    'rshkarin/mason-nvim-lint',
+    event = 'VeryLazy',
+    dependencies = {
+      'williamboman/mason.nvim',
+      'mfussenegger/nvim-lint',
+    },
+    config = function()
+      local mason_lint = require 'mason-nvim-lint'
+      mason_lint.setup {
+        ensure_installed = {
+          'nilaway',
+        },
+        automatic_installation = false,
+      }
+    end,
+  },
 }
 
 local config = require('core.utils').load_config()
