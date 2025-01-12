@@ -599,7 +599,7 @@ exports.buffers = {
 
   n = {
     ['tt'] = { '<cmd>enew<CR>', 'Create new buffer' },
-    ['œ'] = { '<cmd>bd<CR>', 'Close buffer' }, -- This is the same <M-q> (atleast on macbook)
+    ['<M-q>'] = { '<cmd>bd<CR>', 'Close buffer' }, -- This is the same <M-q> (atleast on macbook)
     ['<M-Right>'] = { '<cmd>bn<CR>', 'Next buffer' },
     ['<M-Left>'] = { '<cmd>bp<CR>', 'Previous buffer' },
     ['tl'] = { '<cmd>ls<CR>', 'List buffers' },
