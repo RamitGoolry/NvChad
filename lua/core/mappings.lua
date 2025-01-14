@@ -599,9 +599,9 @@ exports.buffers = {
 
   n = {
     ['tt'] = { '<cmd>enew<CR>', 'Create new buffer' },
-    ['<M-q>'] = { '<cmd>bd<CR>', 'Close buffer' }, -- This is the same <M-q> (atleast on macbook)
-    ['<M-Right>'] = { '<cmd>bn<CR>', 'Next buffer' },
-    ['<M-Left>'] = { '<cmd>bp<CR>', 'Previous buffer' },
+    ['<M-q>'] = { '<cmd>bd<CR>', 'Close buffer' },
+    ['<M-Right>'] = { '<cmd>bn<CR>', 'Next buffer' }, -- TODO: This mapping is not working
+    ['<M-Left>'] = { '<cmd>bp<CR>', 'Previous buffer' }, -- TODO: This mapping is not working
     ['tl'] = { '<cmd>ls<CR>', 'List buffers' },
   },
 }
@@ -610,7 +610,7 @@ exports.harpoon = {
   plugin = true,
 
   n = {
-    ['<leader>'] = {
+    ['<leader>\''] = { -- TODO: Better mapping
       function()
         local harpoon = require 'harpoon'
         harpoon:list():add()
