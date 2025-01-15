@@ -672,12 +672,15 @@ exports.rapidreturn = {
   plugin = true,
 
   n = {
-    ['rs'] = { '<cmd>lua require("rapid_return").cmd.save()<CR>', 'Save Cursor' },
-    ['rr'] = { '<cmd>lua require("rapid_return").cmd.rewind()<CR>', 'Rewind Cursor' },
-    ['rR'] = { '<cmd>lua require("rapid_return").cmd.rewind_all()<CR>', 'Rewind All Cursors' },
-    ['rf'] = { '<cmd>lua require("rapid_return").cmd.forward()<CR>', 'Forward Cursor' },
-    ['rc'] = { '<cmd>lua require("rapid_return").cmd.clear()<CR>', 'Clear History' },
-    ['ruh'] = { '<cmd>lua require("rapid_return").ui.history()<CR>', 'Show History' },
+    ['<leader>rs'] = { '<cmd>lua require("rapid_return").cmd.save()<CR>', 'Save Cursor' },
+    ['<leader>rr'] = { '<cmd>lua require("rapid_return").cmd.rewind()<CR>', 'Rewind Cursor' },
+    ['<leader>rR'] = {
+      '<cmd>lua require("rapid_return").cmd.rewind_all()<CR>',
+      'Rewind All Cursors',
+    },
+    ['<leader>rf'] = { '<cmd>lua require("rapid_return").cmd.forward()<CR>', 'Forward Cursor' },
+    ['<leader>rc'] = { '<cmd>lua require("rapid_return").cmd.clear()<CR>', 'Clear History' },
+    ['<leader>ruh'] = { '<cmd>lua require("rapid_return").ui.history()<CR>', 'Show History' },
   },
 }
 
