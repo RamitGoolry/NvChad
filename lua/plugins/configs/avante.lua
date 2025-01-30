@@ -40,9 +40,9 @@ local options = {
   claude = {
     endpoint = 'https://api.anthropic.com',
     model = 'claude-3-5-sonnet-latest',
-    timeout = 30000, -- Timeout in milliseconds
+    timeout = 60000, -- Timeout in milliseconds
     temperature = 0,
-    max_tokens = 8000,
+    max_tokens = 8192,
   },
   ---@type AvanteSupportedProvider
   gemini = {
