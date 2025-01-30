@@ -2,7 +2,7 @@ local options = {
   debug = false,
   ---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | [string]
   provider = 'claude', -- Only recommend using Claude
-  auto_suggestions_provider = 'claude',
+  auto_suggestions_provider = 'ollama-deepseek-r1-14b',
   ---@alias Tokenizer "tiktoken" | "hf"
   -- Used for counting tokens and encoding text.
   -- By default, we will use tiktoken.
@@ -13,7 +13,7 @@ local options = {
   openai = {
     endpoint = 'https://api.openai.com/v1',
     model = 'gpt-4o',
-    timeout = 30000, -- Timeout in milliseconds
+    timeout = 30000,
     temperature = 0,
     max_tokens = 4096,
   },
@@ -39,10 +39,10 @@ local options = {
   ---@type AvanteSupportedProvider
   claude = {
     endpoint = 'https://api.anthropic.com',
-    model = 'claude-3-5-sonnet-20241022',
-    timeout = 30000, -- Timeout in milliseconds
+    model = 'claude-3-5-sonnet-latest',
+    timeout = 60000, -- Timeout in milliseconds
     temperature = 0,
-    max_tokens = 8000,
+    max_tokens = 8192,
   },
   ---@type AvanteSupportedProvider
   gemini = {
@@ -64,39 +64,79 @@ local options = {
   ---See https://github.com/yetone/avante.nvim/wiki#custom-providers for more details
   ---@type {[string]: AvanteProvider}
   vendors = {
-    ---@type AvanteSupportedProvider
-    ['claude-haiku'] = {
-      endpoint = 'https://api.anthropic.com',
-      model = 'claude-3-5-haiku-20241022',
-      timeout = 30000, -- Timeout in milliseconds
+    ---@type AvanteProvider
+    ['deepseek'] = {
+      __inherited_from = 'openai',
+      endpoint = 'https://api.deepseek.com/v1',
+      model = 'deepseek-reasoner',
+      timeout = 120000,
       temperature = 0,
-      max_tokens = 8000,
+      max_tokens = 32768,
     },
-    ---@type AvanteSupportedProvider
-    ['claude-opus'] = {
-      endpoint = 'https://api.anthropic.com',
-      model = 'claude-3-opus-20240229',
-      timeout = 30000, -- Timeout in milliseconds
+
+    ---@type AvanteProvider
+    ['ollama-deepseek-r1-14b'] = {
+      -- __inherited_from = 'openai',
+      endpoint = 'http://localhost:11434/api',
+      model = 'deepseek-r1:14b',
+      timeout = 120000,
       temperature = 0,
-      max_tokens = 8000,
+      max_tokens = 32768,
+      parse_curl_args = function(opts, code_opts)
+        return {
+          url = opts.endpoint .. '/chat',
+          headers = {
+            ['Accept'] = 'application/json',
+            ['Content-Type'] = 'application/json',
+          },
+          body = {
+            model = opts.model,
+            options = {
+              num_ctx = 16384,
+            },
+            messages = require('avante.providers').copilot.parse_messages(code_opts), -- you can make your own message, but this is very advanced
+            stream = true,
+          },
+        }
+      end,
+      parse_stream_data = function(data, handler_opts)
+        -- Parse the JSON data
+        local json_data = vim.fn.json_decode(data)
+        -- Check for stream completion marker first
+        if json_data and json_data.done then
+          handler_opts.on_complete(nil) -- Properly terminate the stream
+          return
+        end
+        -- Process normal message content
+        if json_data and json_data.message and json_data.message.content then
+          -- Extract the content from the message
+          local content = json_data.message.content
+          -- Call the handler with the content
+          handler_opts.on_chunk(content)
+        end
+      end,
+    },
+
+    ---@type AvanteProvider
+    ['o1'] = {
+      __inherited_from = 'openai',
+      endpoint = 'https://api.openai.com/v1',
+      model = 'o1-2024-12-17',
+      timeout = 120000, -- 2 Mins
+      temperature = 0,
+      max_tokens = 65536,
+      stream = false,
     },
   },
-  ---Specify the behaviour of avante.nvim
-  ---1. auto_apply_diff_after_generation: Whether to automatically apply diff after LLM response.
-  ---                                     This would simulate similar behaviour to cursor. Default to false.
-  ---2. auto_set_keymaps                : Whether to automatically set the keymap for the current line. Default to true.
-  ---                                     Note that avante will safely set these keymap. See https://github.com/yetone/avante.nvim/wiki#keymaps-and-api-i-guess for more details.
-  ---3. auto_set_highlight_group        : Whether to automatically set the highlight group for the current line. Default to true.
-  ---4. support_paste_from_clipboard    : Whether to support pasting image from clipboard. This will be determined automatically based whether img-clip is available or not.
   behaviour = {
-    auto_suggestions = false, -- Experimental stage
+    auto_suggestions = true, -- Experimental stage
     auto_set_highlight_group = true,
     auto_set_keymaps = true,
     auto_apply_diff_after_generation = false,
-    support_paste_from_clipboard = false,
+    support_paste_from_clipboard = true,
   },
   history = {
-    max_tokens = 4096,
+    max_tokens = 262144,
     storage_path = vim.fn.stdpath 'state' .. '/avante',
     paste = {
       extension = 'png',

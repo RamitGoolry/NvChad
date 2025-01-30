@@ -775,14 +775,6 @@ exports.flash = {
   },
 }
 
-exports.octo = {
-  plugin = true,
-
-  n = {
-    ['O'] = { '<cmd>Octo actions<cr>', 'Octo Actions' },
-  },
-}
-
 exports.neotest = {
   plugin = true,
 
@@ -806,19 +798,6 @@ exports.neotest = {
         -- TODO
       end,
       'Toggle test watcher',
-    },
-  },
-}
-
-exports.kubectl = {
-  plugin = true,
-
-  n = {
-    ['<leader>k'] = {
-      function()
-        require('kubectl').open()
-      end,
-      'Kubectl',
     },
   },
 }
