@@ -1,8 +1,8 @@
 local options = {
   debug = false,
   ---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | [string]
-  provider = 'ollama-deepseek-r1-14b', -- Only recommend using Claude
-  auto_suggestions_provider = 'claude',
+  provider = 'claude', -- Only recommend using Claude
+  auto_suggestions_provider = 'ollama-deepseek-r1-14b',
   ---@alias Tokenizer "tiktoken" | "hf"
   -- Used for counting tokens and encoding text.
   -- By default, we will use tiktoken.
@@ -21,15 +21,15 @@ local options = {
   copilot = {
     endpoint = 'https://api.githubcopilot.com',
     model = 'gpt-4o-2024-05-13',
-    proxy = nil, -- [protocol://]host[:port] Use this proxy
+    proxy = nil,            -- [protocol://]host[:port] Use this proxy
     allow_insecure = false, -- Allow insecure server connections
-    timeout = 30000, -- Timeout in milliseconds
+    timeout = 30000,        -- Timeout in milliseconds
     temperature = 0,
     max_tokens = 4096,
   },
   ---@type AvanteAzureProvider
   azure = {
-    endpoint = '', -- example: "https://<your-resource-name>.openai.azure.com"
+    endpoint = '',   -- example: "https://<your-resource-name>.openai.azure.com"
     deployment = '', -- Azure deployment name (e.g., "gpt-4o", "my-gpt-4o-deployment")
     api_version = '2024-06-01',
     timeout = 30000, -- Timeout in milliseconds
@@ -95,22 +95,15 @@ local options = {
       stream = false,
     },
   },
-  ---Specify the behaviour of avante.nvim
-  ---1. auto_apply_diff_after_generation: Whether to automatically apply diff after LLM response.
-  ---                                     This would simulate similar behaviour to cursor. Default to false.
-  ---2. auto_set_keymaps                : Whether to automatically set the keymap for the current line. Default to true.
-  ---                                     Note that avante will safely set these keymap. See https://github.com/yetone/avante.nvim/wiki#keymaps-and-api-i-guess for more details.
-  ---3. auto_set_highlight_group        : Whether to automatically set the highlight group for the current line. Default to true.
-  ---4. support_paste_from_clipboard    : Whether to support pasting image from clipboard. This will be determined automatically based whether img-clip is available or not.
   behaviour = {
-    auto_suggestions = false, -- Experimental stage
+    auto_suggestions = true, -- Experimental stage
     auto_set_highlight_group = true,
     auto_set_keymaps = true,
     auto_apply_diff_after_generation = false,
-    support_paste_from_clipboard = false,
+    support_paste_from_clipboard = true,
   },
   history = {
-    max_tokens = 4096,
+    max_tokens = 262144,
     storage_path = vim.fn.stdpath 'state' .. '/avante',
     paste = {
       extension = 'png',
@@ -171,11 +164,11 @@ local options = {
   windows = {
     ---@alias AvantePosition "right" | "left" | "top" | "bottom" | "smart"
     position = 'left',
-    wrap = true, -- similar to vim.o.wrap
-    width = 30, -- default % based on available width in vertical layout
-    height = 30, -- default % based on available height in horizontal layout
+    wrap = true,        -- similar to vim.o.wrap
+    width = 30,         -- default % based on available width in vertical layout
+    height = 30,        -- default % based on available height in horizontal layout
     sidebar_header = {
-      enabled = true, -- true, false to enable/disable the header
+      enabled = true,   -- true, false to enable/disable the header
       align = 'center', -- left, center, right for title
       rounded = true,
     },
@@ -188,9 +181,9 @@ local options = {
       start_insert = true, -- Start insert mode when opening the edit window
     },
     ask = {
-      floating = false, -- Open the 'AvanteAsk' prompt in a floating window
+      floating = false,          -- Open the 'AvanteAsk' prompt in a floating window
       border = 'rounded',
-      start_insert = false, -- Start insert mode when opening the ask window
+      start_insert = false,      -- Start insert mode when opening the ask window
       ---@alias AvanteInitialDiff "ours" | "theirs"
       focus_on_apply = 'theirs', -- which diff to focus after applying
     },
