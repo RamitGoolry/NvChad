@@ -21,15 +21,15 @@ local options = {
   copilot = {
     endpoint = 'https://api.githubcopilot.com',
     model = 'gpt-4o-2024-05-13',
-    proxy = nil,            -- [protocol://]host[:port] Use this proxy
+    proxy = nil, -- [protocol://]host[:port] Use this proxy
     allow_insecure = false, -- Allow insecure server connections
-    timeout = 30000,        -- Timeout in milliseconds
+    timeout = 30000, -- Timeout in milliseconds
     temperature = 0,
     max_tokens = 4096,
   },
   ---@type AvanteAzureProvider
   azure = {
-    endpoint = '',   -- example: "https://<your-resource-name>.openai.azure.com"
+    endpoint = '', -- example: "https://<your-resource-name>.openai.azure.com"
     deployment = '', -- Azure deployment name (e.g., "gpt-4o", "my-gpt-4o-deployment")
     api_version = '2024-06-01',
     timeout = 30000, -- Timeout in milliseconds
@@ -64,7 +64,7 @@ local options = {
   ---See https://github.com/yetone/avante.nvim/wiki#custom-providers for more details
   ---@type {[string]: AvanteProvider}
   vendors = {
-    ---@type AvanteSupportedProvider
+    ---@type AvanteProvider
     ['deepseek'] = {
       __inherited_from = 'openai',
       endpoint = 'https://api.deepseek.com/v1',
@@ -74,17 +74,50 @@ local options = {
       max_tokens = 32768,
     },
 
-    ---@type AvanteSupportedProvider
+    ---@type AvanteProvider
     ['ollama-deepseek-r1-14b'] = {
-      __inherited_from = 'openai',
-      endpoint = 'http://localhost:11434/v1',
+      -- __inherited_from = 'openai',
+      endpoint = 'http://localhost:11434/api',
       model = 'deepseek-r1:14b',
       timeout = 120000, -- 2 Mins
       temperature = 0,
       max_tokens = 32768,
+      parse_curl_args = function(opts, code_opts)
+        return {
+          url = opts.endpoint .. '/chat',
+          headers = {
+            ['Accept'] = 'application/json',
+            ['Content-Type'] = 'application/json',
+          },
+          body = {
+            model = opts.model,
+            options = {
+              num_ctx = 16384,
+            },
+            messages = require('avante.providers').copilot.parse_messages(code_opts), -- you can make your own message, but this is very advanced
+            stream = true,
+          },
+        }
+      end,
+      parse_stream_data = function(data, handler_opts)
+        -- Parse the JSON data
+        local json_data = vim.fn.json_decode(data)
+        -- Check for stream completion marker first
+        if json_data and json_data.done then
+          handler_opts.on_complete(nil) -- Properly terminate the stream
+          return
+        end
+        -- Process normal message content
+        if json_data and json_data.message and json_data.message.content then
+          -- Extract the content from the message
+          local content = json_data.message.content
+          -- Call the handler with the content
+          handler_opts.on_chunk(content)
+        end
+      end,
     },
 
-    ---@type AvanteSupportedProvider
+    ---@type AvanteProvider
     ['o1'] = {
       __inherited_from = 'openai',
       endpoint = 'https://api.openai.com/v1',
@@ -164,11 +197,11 @@ local options = {
   windows = {
     ---@alias AvantePosition "right" | "left" | "top" | "bottom" | "smart"
     position = 'left',
-    wrap = true,        -- similar to vim.o.wrap
-    width = 30,         -- default % based on available width in vertical layout
-    height = 30,        -- default % based on available height in horizontal layout
+    wrap = true, -- similar to vim.o.wrap
+    width = 30, -- default % based on available width in vertical layout
+    height = 30, -- default % based on available height in horizontal layout
     sidebar_header = {
-      enabled = true,   -- true, false to enable/disable the header
+      enabled = true, -- true, false to enable/disable the header
       align = 'center', -- left, center, right for title
       rounded = true,
     },
@@ -181,9 +214,9 @@ local options = {
       start_insert = true, -- Start insert mode when opening the edit window
     },
     ask = {
-      floating = false,          -- Open the 'AvanteAsk' prompt in a floating window
+      floating = false, -- Open the 'AvanteAsk' prompt in a floating window
       border = 'rounded',
-      start_insert = false,      -- Start insert mode when opening the ask window
+      start_insert = false, -- Start insert mode when opening the ask window
       ---@alias AvanteInitialDiff "ours" | "theirs"
       focus_on_apply = 'theirs', -- which diff to focus after applying
     },
