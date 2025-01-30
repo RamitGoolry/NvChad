@@ -13,7 +13,7 @@ local options = {
   openai = {
     endpoint = 'https://api.openai.com/v1',
     model = 'gpt-4o',
-    timeout = 30000, -- Timeout in milliseconds
+    timeout = 30000,
     temperature = 0,
     max_tokens = 4096,
   },
@@ -69,7 +69,7 @@ local options = {
       __inherited_from = 'openai',
       endpoint = 'https://api.deepseek.com/v1',
       model = 'deepseek-reasoner',
-      timeout = 120000, -- 2 Mins
+      timeout = 120000,
       temperature = 0,
       max_tokens = 32768,
     },
@@ -79,7 +79,7 @@ local options = {
       -- __inherited_from = 'openai',
       endpoint = 'http://localhost:11434/api',
       model = 'deepseek-r1:14b',
-      timeout = 120000, -- 2 Mins
+      timeout = 120000,
       temperature = 0,
       max_tokens = 32768,
       parse_curl_args = function(opts, code_opts)
