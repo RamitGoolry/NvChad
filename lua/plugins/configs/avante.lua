@@ -1,7 +1,7 @@
 local options = {
   debug = false,
   ---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | [string]
-  provider = 'ollama-deepseek-r1-8b', -- Only recommend using Claude
+  provider = 'ollama-deepseek-r1-14b', -- Only recommend using Claude
   auto_suggestions_provider = 'claude',
   ---@alias Tokenizer "tiktoken" | "hf"
   -- Used for counting tokens and encoding text.
@@ -65,23 +65,6 @@ local options = {
   ---@type {[string]: AvanteProvider}
   vendors = {
     ---@type AvanteSupportedProvider
-    ['claude-haiku'] = {
-      endpoint = 'https://api.anthropic.com',
-      model = 'claude-3-5-haiku-20241022',
-      timeout = 30000, -- Timeout in milliseconds
-      temperature = 0,
-      max_tokens = 8000,
-    },
-    ---@type AvanteSupportedProvider
-    ['claude-opus'] = {
-      endpoint = 'https://api.anthropic.com',
-      model = 'claude-3-opus-20240229',
-      timeout = 30000, -- Timeout in milliseconds
-      temperature = 0,
-      max_tokens = 8000,
-    },
-
-    ---@type AvanteSupportedProvider
     ['deepseek'] = {
       __inherited_from = 'openai',
       endpoint = 'https://api.deepseek.com/v1',
@@ -92,13 +75,24 @@ local options = {
     },
 
     ---@type AvanteSupportedProvider
-    ['ollama-deepseek-r1-8b'] = {
+    ['ollama-deepseek-r1-14b'] = {
       __inherited_from = 'openai',
       endpoint = 'http://localhost:11434/v1',
-      model = 'deepseek-r1:8b',
+      model = 'deepseek-r1:14b',
       timeout = 120000, -- 2 Mins
       temperature = 0,
       max_tokens = 32768,
+    },
+
+    ---@type AvanteSupportedProvider
+    ['o1'] = {
+      __inherited_from = 'openai',
+      endpoint = 'https://api.openai.com/v1',
+      model = 'o1-2024-12-17',
+      timeout = 120000, -- 2 Mins
+      temperature = 0,
+      max_tokens = 65536,
+      stream = false,
     },
   },
   ---Specify the behaviour of avante.nvim
