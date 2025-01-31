@@ -117,7 +117,7 @@ local options = {
       endpoint = 'https://openrouter.ai/api/v1',
       model = 'deepseek/deepseek-r1',
       api_key_name = 'OPENROUTER_DEEPSEEK_API_KEY',
-      timeout = 60000, -- 1 Min
+      timeout = 900000, -- 15 Min
       temperature = 0,
       max_tokens = 8192,
     },
