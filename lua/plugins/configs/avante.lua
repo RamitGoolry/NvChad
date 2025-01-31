@@ -1,13 +1,9 @@
 local options = {
   debug = false,
   ---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | [string]
-  provider = 'claude', -- Only recommend using Claude
-  auto_suggestions_provider = 'ollama-deepseek-r1-14b',
-  ---@alias Tokenizer "tiktoken" | "hf"
-  -- Used for counting tokens and encoding text.
-  -- By default, we will use tiktoken.
-  -- For most providers that we support we will determine this automatically.
-  -- If you wish to use a given implementation, then you can override it here.
+  provider = 'openrouter-deepseek-r1',
+  auto_suggestions_provider = 'claude',
+
   tokenizer = 'tiktoken',
   ---@type AvanteSupportedProvider
   openai = {
@@ -60,9 +56,7 @@ local options = {
     temperature = 0,
     max_tokens = 4096,
   },
-  ---To add support for custom provider, follow the format below
-  ---See https://github.com/yetone/avante.nvim/wiki#custom-providers for more details
-  ---@type {[string]: AvanteProvider}
+
   vendors = {
     ---@type AvanteProvider
     ['deepseek'] = {
@@ -118,6 +112,17 @@ local options = {
     },
 
     ---@type AvanteProvider
+    ['openrouter-deepseek-r1'] = {
+      __inherited_from = 'openai',
+      endpoint = 'https://openrouter.ai/api/v1',
+      model = 'deepseek/deepseek-r1',
+      api_key_name = 'OPENROUTER_DEEPSEEK_API_KEY',
+      timeout = 900000, -- 15 Min
+      temperature = 0,
+      max_tokens = 8192,
+    },
+
+    ---@type AvanteProvider
     ['o1'] = {
       __inherited_from = 'openai',
       endpoint = 'https://api.openai.com/v1',
@@ -129,7 +134,7 @@ local options = {
     },
   },
   behaviour = {
-    auto_suggestions = true, -- Experimental stage
+    auto_suggestions = false, -- Experimental stage
     auto_set_highlight_group = true,
     auto_set_keymaps = true,
     auto_apply_diff_after_generation = false,
@@ -175,7 +180,7 @@ local options = {
       normal = '<CR>',
       insert = '<C-s>',
     },
-    -- NOTE: The following will be safely set by avante.nvim
+
     ask = '<leader>aa',
     edit = '<leader>ae',
     refresh = '<leader>ar',
@@ -201,22 +206,22 @@ local options = {
     width = 30, -- default % based on available width in vertical layout
     height = 30, -- default % based on available height in horizontal layout
     sidebar_header = {
-      enabled = true, -- true, false to enable/disable the header
+      enabled = true,
       align = 'center', -- left, center, right for title
       rounded = true,
     },
     input = {
       prefix = '> ',
-      height = 8, -- Height of the input window in vertical layout
+      height = 10, -- Height of the input window in vertical layout
     },
     edit = {
       border = 'rounded',
-      start_insert = true, -- Start insert mode when opening the edit window
+      start_insert = true,
     },
     ask = {
-      floating = false, -- Open the 'AvanteAsk' prompt in a floating window
+      floating = false,
       border = 'rounded',
-      start_insert = false, -- Start insert mode when opening the ask window
+      start_insert = false,
       ---@alias AvanteInitialDiff "ours" | "theirs"
       focus_on_apply = 'theirs', -- which diff to focus after applying
     },
@@ -224,9 +229,6 @@ local options = {
   --- @class AvanteConflictConfig
   diff = {
     autojump = true,
-    --- Override the 'timeoutlen' setting while hovering over a diff (see :help timeoutlen).
-    --- Helps to avoid entering operator-pending mode with diff mappings starting with `c`.
-    --- Disable by setting to -1.
     override_timeoutlen = 500,
   },
   --- @class AvanteHintsConfig
