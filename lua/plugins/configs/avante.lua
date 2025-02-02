@@ -1,7 +1,7 @@
 local options = {
   debug = false,
   ---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | [string]
-  provider = 'openrouter-deepseek-r1',
+  provider = 'claude',
   auto_suggestions_provider = 'claude',
 
   tokenizer = 'tiktoken',
@@ -123,14 +123,13 @@ local options = {
     },
 
     ---@type AvanteProvider
-    ['o1'] = {
+    ['o3-mini'] = {
       __inherited_from = 'openai',
       endpoint = 'https://api.openai.com/v1',
-      model = 'o1-2024-12-17',
-      timeout = 120000, -- 2 Mins
+      model = 'o3-mini',
+      timeout = 600000, -- 10 Mins
       temperature = 0,
       max_tokens = 65536,
-      stream = false,
     },
   },
   behaviour = {
