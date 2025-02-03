@@ -1,7 +1,7 @@
 local options = {
   debug = false,
   ---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | [string]
-  provider = 'claude',
+  provider = 'openrouter-deepseek-r1',
   auto_suggestions_provider = 'claude',
 
   tokenizer = 'tiktoken',
@@ -123,6 +123,17 @@ local options = {
     },
 
     ---@type AvanteProvider
+    ['openrouter-deepseek-r1-free'] = {
+      __inherited_from = 'openai',
+      endpoint = 'https://openrouter.ai/api/v1',
+      model = 'deepseek/deepseek-r1:free',
+      api_key_name = 'OPENROUTER_DEEPSEEK_API_KEY',
+      timeout = 900000, -- 15 Min
+      temperature = 0,
+      max_tokens = 8192,
+    },
+
+    ---@type AvanteProvider
     ['o3-mini'] = {
       __inherited_from = 'openai',
       endpoint = 'https://api.openai.com/v1',
@@ -130,6 +141,17 @@ local options = {
       timeout = 600000, -- 10 Mins
       temperature = 0,
       max_tokens = 65536,
+    },
+
+    ---@type AvanteProvider
+    ['qwen-max'] = {
+      __inherited_from = 'openai',
+      endpoint = 'https://openrouter.ai/api/v1',
+      model = 'qwen/qwen-max',
+      api_key_name = 'OPENROUTER_DEEPSEEK_API_KEY',
+      timeout = 900000, -- 15 Min
+      temperature = 0,
+      max_tokens = 8192,
     },
   },
   behaviour = {
