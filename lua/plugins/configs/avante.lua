@@ -153,6 +153,17 @@ local options = {
       temperature = 0,
       max_tokens = 8192,
     },
+
+    ---@type AvanteProvider
+    ['gemini-2-flash'] = {
+      __inherited_from = 'openai',
+      endpoint = 'https://openrouter.ai/api/v1',
+      model = 'google/gemini-2.0-flash-001',
+      api_key_name = 'OPENROUTER_DEEPSEEK_API_KEY',
+      timeout = 900000, -- 15 Min
+      temperature = 0,
+      max_tokens = 8192,
+    },
   },
   behaviour = {
     auto_suggestions = false, -- Experimental stage
