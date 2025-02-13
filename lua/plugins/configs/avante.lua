@@ -120,6 +120,7 @@ local options = {
       timeout = 900000, -- 15 Min
       temperature = 0,
       max_tokens = 8192,
+      disable_tools = true,
     },
 
     ---@type AvanteProvider
