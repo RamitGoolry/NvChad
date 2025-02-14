@@ -509,8 +509,8 @@ local default_plugins = {
       'nvimtools/none-ls.nvim',
     },
     config = function()
-      local masons_null_ls = require 'mason-null-ls'
-      masons_null_ls.setup {
+      local mason_null_ls = require 'mason-null-ls'
+      mason_null_ls.setup {
         ensure_installed = {
           'stylua',
           'prettierd',
@@ -770,37 +770,10 @@ local default_plugins = {
     config = function()
       local xbase = require 'xbase'
       local _ = require 'xbase.statusline'
-      xbase.setup {
-        --- Log level. Set it to ERROR to ignore everything
-        log_level = vim.log.levels.DEBUG,
-        statusline = {
-          watching = { icon = '', color = '#1abc9c' },
-          device_running = { icon = '', color = '#4a6edb' },
-          success = { icon = '', color = '#1abc9c' },
-          failure = { icon = '', color = '#db4b4b' },
-        },
-        simctl = { -- {} = all available devices
-          iOS = {},
-          watchOS = {},
-          tvOS = {},
-          visionOS = {},
-        },
-        log_buffer = {
-          focus = true,
-          height = 20,
-          width = 75,
-          default_direction = 'horizontal',
-        },
-        mappings = {
-          enable = true,
-          build_picker = '<leader>xb',
-          run_picker = '<leader>xr',
-          watch_picker = '<leader>xs',
-          all_picker = '<leader>xa',
-          toggle_split_log_buffer = '<leader>x"',
-          toggle_vsplit_log_buffer = '<leader>%',
-        },
-      }
+
+      local config = require 'plugins.configs.xbase'
+
+      xbase.setup(config)
       -- statusline.feline()
     end,
   },
