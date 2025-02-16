@@ -29,3 +29,5 @@ local config = {
     toggle_vsplit_log_buffer = '<leader>%',
   },
 }
+
+return config
