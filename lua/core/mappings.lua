@@ -802,4 +802,18 @@ exports.neotest = {
   },
 }
 
+exports.snacks = {
+  plugin = true,
+
+  n = {
+    ['<leader>lg'] = {
+      function()
+        local snacks = require 'snacks'
+        snacks.lazygit.open()
+      end,
+      'Lazygit',
+    },
+  },
+}
+
 return exports
