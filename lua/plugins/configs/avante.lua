@@ -124,24 +124,15 @@ local options = {
     },
 
     ---@type AvanteProvider
-    ['openrouter-deepseek-r1-free'] = {
+    ['o3-mini-high'] = {
       __inherited_from = 'openai',
       endpoint = 'https://openrouter.ai/api/v1',
-      model = 'deepseek/deepseek-r1:free',
+      model = 'openai/o3-mini-high',
       api_key_name = 'OPENROUTER_DEEPSEEK_API_KEY',
       timeout = 900000, -- 15 Min
       temperature = 0,
       max_tokens = 8192,
-    },
-
-    ---@type AvanteProvider
-    ['o3-mini'] = {
-      __inherited_from = 'openai',
-      endpoint = 'https://api.openai.com/v1',
-      model = 'o3-mini',
-      timeout = 600000, -- 10 Mins
-      temperature = 0,
-      max_tokens = 65536,
+      disable_tools = true,
     },
 
     ---@type AvanteProvider
@@ -149,17 +140,6 @@ local options = {
       __inherited_from = 'openai',
       endpoint = 'https://openrouter.ai/api/v1',
       model = 'qwen/qwen-max',
-      api_key_name = 'OPENROUTER_DEEPSEEK_API_KEY',
-      timeout = 900000, -- 15 Min
-      temperature = 0,
-      max_tokens = 8192,
-    },
-
-    ---@type AvanteProvider
-    ['gemini-2-flash'] = {
-      __inherited_from = 'openai',
-      endpoint = 'https://openrouter.ai/api/v1',
-      model = 'google/gemini-2.0-flash-001',
       api_key_name = 'OPENROUTER_DEEPSEEK_API_KEY',
       timeout = 900000, -- 15 Min
       temperature = 0,
