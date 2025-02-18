@@ -1,7 +1,7 @@
 local options = {
   debug = false,
   ---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | [string]
-  provider = 'openrouter-deepseek-r1',
+  provider = 'o3-mini-high',
   auto_suggestions_provider = 'claude',
 
   tokenizer = 'tiktoken',
@@ -131,7 +131,7 @@ local options = {
       api_key_name = 'OPENROUTER_DEEPSEEK_API_KEY',
       timeout = 900000, -- 15 Min
       temperature = 0,
-      max_tokens = 8192,
+      max_tokens = 16384,
       disable_tools = true,
     },
 
