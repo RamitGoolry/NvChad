@@ -1133,11 +1133,7 @@ local default_plugins = {
   {
     'folke/snacks.nvim',
     event = 'BufRead',
-    opts = {
-      lazygit = {
-        -- TODO: Move this to its own config file eventually
-      },
-    },
+    opts = require 'plugins.configs.snacks',
     config = function()
       local utils = require 'core.utils'
       utils.load_mappings 'snacks'

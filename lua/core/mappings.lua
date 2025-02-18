@@ -229,21 +229,38 @@ exports.lspconfig = {
 exports.nvimtree = {
   plugin = true,
 
+  n = {},
+}
+
+exports.snacks = {
+  plugin = true,
+
   n = {
-    -- toggle
-    ['<leader>n'] = {
+    -- Lazygit
+    ['<leader>lg'] = {
       function()
-        vim.cmd [[NvimTreeToggle]]
+        local snacks = require 'snacks'
+        snacks.lazygit.open()
       end,
-      'Toggle nvimtree',
+      'Lazygit',
     },
 
-    -- focus
-    ['<leader>e'] = {
+    -- Picker
+    ['<leader>ff'] = {
       function()
-        vim.cmd [[NvimTreeFocus]]
+        local snacks = require 'snacks'
+        snacks.picker.files()
       end,
-      'Focus nvimtree',
+      'Find files',
+    },
+
+    -- Explorer
+    ['<leader>n'] = {
+      function()
+        local snacks = require 'snacks'
+        snacks.explorer()
+      end,
+      'File Explorer',
     },
   },
 }
@@ -252,13 +269,6 @@ exports.telescope = {
   plugin = true,
 
   n = {
-    ['<leader>ff'] = {
-      function()
-        vim.cmd [[Telescope find_files]]
-      end,
-      'Find files',
-    },
-
     ['<leader>fg'] = {
       function()
         local telescope = require 'telescope'
@@ -300,24 +310,11 @@ exports.telescope = {
       'Find in current buffer',
     },
 
-    ['<leader>cm'] = {
-      function()
-        vim.cmd [[Telescope git_commits]]
-      end,
-      'Git commits',
-    },
     ['<leader>gt'] = {
       function()
         vim.cmd [[Telescope git_status]]
       end,
       'Git status',
-    },
-
-    ['<leader>pt'] = {
-      function()
-        vim.cmd [[Telescope terms]]
-      end,
-      'Pick hidden term',
     },
 
     ['<leader>th'] = {
@@ -798,20 +795,6 @@ exports.neotest = {
         -- TODO
       end,
       'Toggle test watcher',
-    },
-  },
-}
-
-exports.snacks = {
-  plugin = true,
-
-  n = {
-    ['<leader>lg'] = {
-      function()
-        local snacks = require 'snacks'
-        snacks.lazygit.open()
-      end,
-      'Lazygit',
     },
   },
 }
