@@ -254,6 +254,14 @@ exports.snacks = {
       'Find files',
     },
 
+    ['<leader>fg'] = {
+      function()
+        local snacks = require 'snacks'
+        snacks.picker.grep()
+      end,
+      'Grep files',
+    },
+
     -- Explorer
     ['<leader>n'] = {
       function()
@@ -269,14 +277,6 @@ exports.telescope = {
   plugin = true,
 
   n = {
-    ['<leader>fg'] = {
-      function()
-        local telescope = require 'telescope'
-        telescope.extensions.live_grep_args.live_grep_args()
-      end,
-      'Live Grep',
-    },
-
     ['<leader>fa'] = {
       function()
         vim.cmd [[Telescope find_files follow=true no_ignore=true hidden=true]]

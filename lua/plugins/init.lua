@@ -274,26 +274,6 @@ local default_plugins = {
     end,
   },
 
-  -- file managing , picker etc
-  -- TODO Remove this in favour of Oil as file opener
-  {
-    'nvim-tree/nvim-tree.lua',
-    cmd = { 'NvimTreeToggle', 'NvimTreeFocus' },
-    init = function()
-      local utils = require 'core.utils'
-      utils.load_mappings 'nvimtree'
-    end,
-    opts = function()
-      local nvimtree = require 'plugins.configs.nvimtree'
-      return nvimtree
-    end,
-    config = function(_, opts)
-      local nvim_tree = require 'nvim-tree'
-      dofile(vim.g.base46_cache .. 'nvimtree')
-      nvim_tree.setup(opts)
-    end,
-  },
-
   {
     'nvim-telescope/telescope.nvim',
     dependencies = {
@@ -740,19 +720,6 @@ local default_plugins = {
           { name = 'buffer' },
         },
       })
-    end,
-  },
-
-  -- Oil: Directory Viewer / Manager
-  {
-    'stevearc/oil.nvim',
-    cmd = { 'Oil' },
-    config = function()
-      local oil = require 'oil'
-      oil.setup {
-        delete_to_trash = true, -- to be safe for now
-        skip_confirm_for_simple_edits = true,
-      }
     end,
   },
 
