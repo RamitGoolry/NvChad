@@ -262,6 +262,38 @@ exports.snacks = {
       'Grep files',
     },
 
+    ['<leader>fo'] = {
+      function()
+        local snacks = require 'snacks'
+        snacks.picker.recent()
+      end,
+      'Recent files',
+    },
+
+    ['<leader>tr'] = {
+      function()
+        local snacks = require 'snacks'
+        snacks.picker.lsp_references()
+      end,
+      'LSP references',
+    },
+
+    ['<leader>td'] = {
+      function()
+        local snacks = require 'snacks'
+        snacks.picker.lsp_definitions()
+      end,
+      'LSP definitions',
+    },
+
+    ['<leader>ti'] = {
+      function()
+        local snacks = require 'snacks'
+        snacks.picker.lsp_implementations()
+      end,
+      'LSP implementations',
+    },
+
     -- Explorer
     ['<leader>n'] = {
       function()
@@ -277,93 +309,11 @@ exports.telescope = {
   plugin = true,
 
   n = {
-    ['<leader>fa'] = {
-      function()
-        vim.cmd [[Telescope find_files follow=true no_ignore=true hidden=true]]
-      end,
-      'Find all',
-    },
-
-    ['<leader>fb'] = {
-      function()
-        vim.cmd [[Telescope buffers]]
-      end,
-      'Find buffers',
-    },
-
-    ['<leader>fh'] = {
-      function()
-        vim.cmd [[Telescope help_tags]]
-      end,
-      'Help page',
-    },
-    ['<leader>fo'] = {
-      function()
-        vim.cmd [[Telescope oldfiles]]
-      end,
-      'Find oldfiles',
-    },
-    ['<leader>fz'] = {
-      function()
-        vim.cmd [[Telescope current_buffer_fuzzy_find]]
-      end,
-      'Find in current buffer',
-    },
-
-    ['<leader>gt'] = {
-      function()
-        vim.cmd [[Telescope git_status]]
-      end,
-      'Git status',
-    },
-
-    ['<leader>th'] = {
+    ['<leader>th'] = { -- TODO: Figure out how to make this work with snacks
       function()
         vim.cmd [[Telescope themes]]
       end,
       'Nvchad themes',
-    },
-
-    ['<leader>ma'] = {
-      function()
-        vim.cmd [[Telescope marks]]
-      end,
-      'Bookmarks',
-    },
-
-    ['<leader>tr'] = {
-      function()
-        vim.cmd [[Telescope lsp_references]]
-      end,
-      'LSP references',
-    },
-
-    ['<leader>td'] = {
-      function()
-        vim.cmd [[Telescope lsp_definition]]
-      end,
-      'LSP definition',
-    },
-
-    ['<leader>ti'] = {
-      function()
-        vim.cmd [[Telescope lsp_implementations]]
-      end,
-      'LSP implementations',
-    },
-
-    ['<leader>tci'] = {
-      function()
-        vim.cmd [[Telescope lsp_incoming_calls]]
-      end,
-      'LSP incoming calls',
-    },
-
-    ['<leader>tco'] = {
-      function()
-        vim.cmd [[Telescope lsp_outgoing_calls]]
-      end,
-      'LSP outgoing calls',
     },
   },
 }
