@@ -302,6 +302,25 @@ exports.snacks = {
       end,
       'File Explorer',
     },
+
+    -- Terminal
+    ['<Space><Space>'] = {
+      function()
+        local snacks = require 'snacks'
+        snacks.terminal()
+      end,
+      'Toggle Terminal',
+    },
+  },
+
+  t = {
+    ['<Space><Space>'] = {
+      function()
+        local snacks = require 'snacks'
+        snacks.terminal()
+      end,
+      'Toggle Terminal',
+    },
   },
 }
 
@@ -314,58 +333,6 @@ exports.telescope = {
         vim.cmd [[Telescope themes]]
       end,
       'Nvchad themes',
-    },
-  },
-}
-
-exports.nvterm = {
-  plugin = true,
-
-  t = {
-    -- toggle in terminal mode
-    ['<Space><Space>'] = {
-      function()
-        require('nvterm.terminal').toggle 'float'
-      end,
-      'Toggle floating term',
-    },
-
-    ['<A-h>'] = {
-      function()
-        require('nvterm.terminal').toggle 'horizontal'
-      end,
-      'Toggle horizontal term',
-    },
-
-    ['<A-v>'] = {
-      function()
-        require('nvterm.terminal').toggle 'vertical'
-      end,
-      'Toggle vertical term',
-    },
-  },
-
-  n = {
-    -- toggle in normal mode
-    ['<Space><Space>'] = {
-      function()
-        require('nvterm.terminal').toggle 'float'
-      end,
-      'Toggle floating term',
-    },
-
-    ['<A-h>'] = {
-      function()
-        require('nvterm.terminal').toggle 'horizontal'
-      end,
-      'Toggle horizontal term',
-    },
-
-    ['<A-v>'] = {
-      function()
-        require('nvterm.terminal').toggle 'vertical'
-      end,
-      'Toggle vertical term',
     },
   },
 }

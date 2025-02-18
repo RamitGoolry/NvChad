@@ -24,20 +24,6 @@ local default_plugins = {
     end,
   },
 
-  -- NvTerm: Terminal Plugin
-  {
-    'NvChad/nvterm',
-    init = function()
-      local utils = require 'core.utils'
-      utils.load_mappings 'nvterm'
-    end,
-    config = function(_, opts)
-      local _ = require 'base46.term'
-      local nvterm = require 'nvterm'
-      nvterm.setup(opts)
-    end,
-  },
-
   -- Colorizer: Colorizer Plugin
   {
     'NvChad/nvim-colorizer.lua',
