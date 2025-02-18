@@ -325,9 +325,9 @@ lspconfig.sourcekit.setup {
   end,
   capabilities = exports.capabilities,
   root_dir = function(filename)
-    return lspconfig.util.root_pattern('.sourcekit-lsp/config.json', 'Package.swift', '.git')(
-      filename
-    ) .. '/ios'
+    local dir =
+      lspconfig.util.root_pattern('.sourcekit-lsp/config.json', 'Package.swift', '.git')(filename)
+    return dir
   end,
 }
 
