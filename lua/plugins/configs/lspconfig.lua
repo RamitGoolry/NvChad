@@ -72,63 +72,64 @@ lspconfig.lua_ls.setup {
   },
 }
 
-lspconfig.rust_analyzer.setup {
-  on_attach = function(client, bufnr)
-    exports.on_attach(client, bufnr)
-    vim.lsp.inlay_hint.enable(true)
-  end,
-  capabilities = exports.capabilities,
-  settings = {
-    ['rust-analyzer'] = {
-      assist = {
-        importGranularity = 'module',
-        importPrefix = 'by_self',
-      },
-      cargo = {
-        loadOutDirsFromCheck = true,
-        autoReload = true,
-      },
-      completion = {
-        autoimport = {
-          enable = true,
-        },
-        fullFunctionSignatures = {
-          enable = true,
-        },
-      },
-      procMacro = {
-        enable = true,
-      },
-      inlayHints = {
-        bindingModeHints = {
-          enable = true,
-        },
-        chainingHints = {
-          enable = true,
-        },
-        closingBraceHints = {
-          enable = true,
-        },
-        discriminantHints = {
-          enable = true,
-        },
-        implicitDrops = {
-          enable = false,
-        },
-        lifetimeElisionHints = {
-          enable = true,
-          useParameterNames = true,
-        },
-        rangeExclusiveHints = {
-          enable = true,
-        },
-        reborrowHints = {
-          enable = true,
-        },
-      },
-    },
-  },
-}
+-- NOTE: RustaceanVim suggests turning off Manual Rust Analyser setup
+-- lspconfig.rust_analyzer.setup {
+--   on_attach = function(client, bufnr)
+--     exports.on_attach(client, bufnr)
+--     vim.lsp.inlay_hint.enable(true)
+--   end,
+--   capabilities = exports.capabilities,
+--   settings = {
+--     ['rust-analyzer'] = {
+--       assist = {
+--         importGranularity = 'module',
+--         importPrefix = 'by_self',
+--       },
+--       cargo = {
+--         loadOutDirsFromCheck = true,
+--         autoReload = true,
+--       },
+--       completion = {
+--         autoimport = {
+--           enable = true,
+--         },
+--         fullFunctionSignatures = {
+--           enable = true,
+--         },
+--       },
+--       procMacro = {
+--         enable = true,
+--       },
+--       inlayHints = {
+--         bindingModeHints = {
+--           enable = true,
+--         },
+--         chainingHints = {
+--           enable = true,
+--         },
+--         closingBraceHints = {
+--           enable = true,
+--         },
+--         discriminantHints = {
+--           enable = true,
+--         },
+--         implicitDrops = {
+--           enable = false,
+--         },
+--         lifetimeElisionHints = {
+--           enable = true,
+--           useParameterNames = true,
+--         },
+--         rangeExclusiveHints = {
+--           enable = true,
+--         },
+--         reborrowHints = {
+--           enable = true,
+--         },
+--       },
+--     },
+--   },
+-- }
 
 lspconfig.gopls.setup {
   on_attach = function(client, bufnr)

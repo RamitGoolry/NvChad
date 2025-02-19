@@ -1130,6 +1130,7 @@ local default_plugins = {
     end,
   },
 
+  -- Snacks: Bunch of QoL plugins
   {
     'folke/snacks.nvim',
     event = 'BufRead',
@@ -1142,6 +1143,13 @@ local default_plugins = {
       local utils = require 'core.utils'
       utils.load_mappings 'snacks'
     end,
+  },
+
+  -- Rustaceanvim: Rust plugim
+  {
+    'mrcjkb/rustaceanvim',
+    version = '^5', -- Recommended
+    lazy = false, -- This plugin is already lazy
   },
 }
 
