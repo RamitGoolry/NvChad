@@ -17,15 +17,15 @@ local options = {
   copilot = {
     endpoint = 'https://api.githubcopilot.com',
     model = 'gpt-4o-2024-05-13',
-    proxy = nil, -- [protocol://]host[:port] Use this proxy
+    proxy = nil,            -- [protocol://]host[:port] Use this proxy
     allow_insecure = false, -- Allow insecure server connections
-    timeout = 30000, -- Timeout in milliseconds
+    timeout = 30000,        -- Timeout in milliseconds
     temperature = 0,
     max_tokens = 4096,
   },
   ---@type AvanteAzureProvider
   azure = {
-    endpoint = '', -- example: "https://<your-resource-name>.openai.azure.com"
+    endpoint = '',   -- example: "https://<your-resource-name>.openai.azure.com"
     deployment = '', -- Azure deployment name (e.g., "gpt-4o", "my-gpt-4o-deployment")
     api_version = '2024-06-01',
     timeout = 30000, -- Timeout in milliseconds
@@ -216,7 +216,7 @@ local options = {
     ---@alias AvantePosition "right" | "left" | "top" | "bottom" | "smart"
     position = 'left',
     wrap = true, -- similar to vim.o.wrap
-    width = 30, -- default % based on available width in vertical layout
+    width = 30,  -- default % based on available width in vertical layout
     height = 30, -- default % based on available height in horizontal layout
     sidebar_header = {
       enabled = true,
@@ -247,6 +247,22 @@ local options = {
   --- @class AvanteHintsConfig
   hints = {
     enabled = true,
+  },
+  --- @class AvanteRepoMapConfig
+  repo_map = {
+    ignore_patterns = { '%.git', '%.worktree', '__pycache__', 'node_modules' }, -- ignore files matching these
+    negate_patterns = {},                                                       -- negate ignore files matching these.
+  },
+  --- @class AvanteFileSelectorConfig
+  file_selector = {
+    --- @alias FileSelectorProvider "native" | "fzf" | "mini.pick" | "snacks" | "telescope" | string | fun(params: avante.file_selector.IParams|nil): nil
+    provider = 'snacks',
+    -- Options override for custom providers
+    provider_opts = {},
+  },
+  suggestion = {
+    debounce = 600,
+    throttle = 600,
   },
 }
 

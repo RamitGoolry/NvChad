@@ -229,21 +229,97 @@ exports.lspconfig = {
 exports.nvimtree = {
   plugin = true,
 
+  n = {},
+}
+
+exports.snacks = {
+  plugin = true,
+
   n = {
-    -- toggle
-    ['<leader>n'] = {
+    -- Lazygit
+    ['<leader>lg'] = {
       function()
-        vim.cmd [[NvimTreeToggle]]
+        local snacks = require 'snacks'
+        snacks.lazygit.open()
       end,
-      'Toggle nvimtree',
+      'Lazygit',
     },
 
-    -- focus
-    ['<leader>e'] = {
+    -- Picker
+    ['<leader>ff'] = {
       function()
-        vim.cmd [[NvimTreeFocus]]
+        local snacks = require 'snacks'
+        snacks.picker.files()
       end,
-      'Focus nvimtree',
+      'Find files',
+    },
+
+    ['<leader>fg'] = {
+      function()
+        local snacks = require 'snacks'
+        snacks.picker.grep()
+      end,
+      'Grep files',
+    },
+
+    ['<leader>fo'] = {
+      function()
+        local snacks = require 'snacks'
+        snacks.picker.recent()
+      end,
+      'Recent files',
+    },
+
+    ['<leader>tr'] = {
+      function()
+        local snacks = require 'snacks'
+        snacks.picker.lsp_references()
+      end,
+      'LSP references',
+    },
+
+    ['<leader>td'] = {
+      function()
+        local snacks = require 'snacks'
+        snacks.picker.lsp_definitions()
+      end,
+      'LSP definitions',
+    },
+
+    ['<leader>ti'] = {
+      function()
+        local snacks = require 'snacks'
+        snacks.picker.lsp_implementations()
+      end,
+      'LSP implementations',
+    },
+
+    -- Explorer
+    ['<leader>n'] = {
+      function()
+        local snacks = require 'snacks'
+        snacks.explorer()
+      end,
+      'File Explorer',
+    },
+
+    -- Terminal
+    ['<Space><Space>'] = {
+      function()
+        local snacks = require 'snacks'
+        snacks.terminal()
+      end,
+      'Toggle Terminal',
+    },
+  },
+
+  t = {
+    ['<Space><Space>'] = {
+      function()
+        local snacks = require 'snacks'
+        snacks.terminal()
+      end,
+      'Toggle Terminal',
     },
   },
 }
@@ -252,173 +328,11 @@ exports.telescope = {
   plugin = true,
 
   n = {
-    ['<leader>ff'] = {
-      function()
-        vim.cmd [[Telescope find_files]]
-      end,
-      'Find files',
-    },
-
-    ['<leader>fg'] = {
-      function()
-        local telescope = require 'telescope'
-        telescope.extensions.live_grep_args.live_grep_args()
-      end,
-      'Live Grep',
-    },
-
-    ['<leader>fa'] = {
-      function()
-        vim.cmd [[Telescope find_files follow=true no_ignore=true hidden=true]]
-      end,
-      'Find all',
-    },
-
-    ['<leader>fb'] = {
-      function()
-        vim.cmd [[Telescope buffers]]
-      end,
-      'Find buffers',
-    },
-
-    ['<leader>fh'] = {
-      function()
-        vim.cmd [[Telescope help_tags]]
-      end,
-      'Help page',
-    },
-    ['<leader>fo'] = {
-      function()
-        vim.cmd [[Telescope oldfiles]]
-      end,
-      'Find oldfiles',
-    },
-    ['<leader>fz'] = {
-      function()
-        vim.cmd [[Telescope current_buffer_fuzzy_find]]
-      end,
-      'Find in current buffer',
-    },
-
-    ['<leader>cm'] = {
-      function()
-        vim.cmd [[Telescope git_commits]]
-      end,
-      'Git commits',
-    },
-    ['<leader>gt'] = {
-      function()
-        vim.cmd [[Telescope git_status]]
-      end,
-      'Git status',
-    },
-
-    ['<leader>pt'] = {
-      function()
-        vim.cmd [[Telescope terms]]
-      end,
-      'Pick hidden term',
-    },
-
-    ['<leader>th'] = {
+    ['<leader>th'] = { -- TODO: Figure out how to make this work with snacks
       function()
         vim.cmd [[Telescope themes]]
       end,
       'Nvchad themes',
-    },
-
-    ['<leader>ma'] = {
-      function()
-        vim.cmd [[Telescope marks]]
-      end,
-      'Bookmarks',
-    },
-
-    ['<leader>tr'] = {
-      function()
-        vim.cmd [[Telescope lsp_references]]
-      end,
-      'LSP references',
-    },
-
-    ['<leader>td'] = {
-      function()
-        vim.cmd [[Telescope lsp_definition]]
-      end,
-      'LSP definition',
-    },
-
-    ['<leader>ti'] = {
-      function()
-        vim.cmd [[Telescope lsp_implementations]]
-      end,
-      'LSP implementations',
-    },
-
-    ['<leader>tci'] = {
-      function()
-        vim.cmd [[Telescope lsp_incoming_calls]]
-      end,
-      'LSP incoming calls',
-    },
-
-    ['<leader>tco'] = {
-      function()
-        vim.cmd [[Telescope lsp_outgoing_calls]]
-      end,
-      'LSP outgoing calls',
-    },
-  },
-}
-
-exports.nvterm = {
-  plugin = true,
-
-  t = {
-    -- toggle in terminal mode
-    ['<Space><Space>'] = {
-      function()
-        require('nvterm.terminal').toggle 'float'
-      end,
-      'Toggle floating term',
-    },
-
-    ['<A-h>'] = {
-      function()
-        require('nvterm.terminal').toggle 'horizontal'
-      end,
-      'Toggle horizontal term',
-    },
-
-    ['<A-v>'] = {
-      function()
-        require('nvterm.terminal').toggle 'vertical'
-      end,
-      'Toggle vertical term',
-    },
-  },
-
-  n = {
-    -- toggle in normal mode
-    ['<Space><Space>'] = {
-      function()
-        require('nvterm.terminal').toggle 'float'
-      end,
-      'Toggle floating term',
-    },
-
-    ['<A-h>'] = {
-      function()
-        require('nvterm.terminal').toggle 'horizontal'
-      end,
-      'Toggle horizontal term',
-    },
-
-    ['<A-v>'] = {
-      function()
-        require('nvterm.terminal').toggle 'vertical'
-      end,
-      'Toggle vertical term',
     },
   },
 }
@@ -798,20 +712,6 @@ exports.neotest = {
         -- TODO
       end,
       'Toggle test watcher',
-    },
-  },
-}
-
-exports.snacks = {
-  plugin = true,
-
-  n = {
-    ['<leader>lg'] = {
-      function()
-        local snacks = require 'snacks'
-        snacks.lazygit.open()
-      end,
-      'Lazygit',
     },
   },
 }

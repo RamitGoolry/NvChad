@@ -24,20 +24,6 @@ local default_plugins = {
     end,
   },
 
-  -- NvTerm: Terminal Plugin
-  {
-    'NvChad/nvterm',
-    init = function()
-      local utils = require 'core.utils'
-      utils.load_mappings 'nvterm'
-    end,
-    config = function(_, opts)
-      local _ = require 'base46.term'
-      local nvterm = require 'nvterm'
-      nvterm.setup(opts)
-    end,
-  },
-
   -- Colorizer: Colorizer Plugin
   {
     'NvChad/nvim-colorizer.lua',
@@ -271,26 +257,6 @@ local default_plugins = {
           post = function() end,
         },
       }
-    end,
-  },
-
-  -- file managing , picker etc
-  -- TODO Remove this in favour of Oil as file opener
-  {
-    'nvim-tree/nvim-tree.lua',
-    cmd = { 'NvimTreeToggle', 'NvimTreeFocus' },
-    init = function()
-      local utils = require 'core.utils'
-      utils.load_mappings 'nvimtree'
-    end,
-    opts = function()
-      local nvimtree = require 'plugins.configs.nvimtree'
-      return nvimtree
-    end,
-    config = function(_, opts)
-      local nvim_tree = require 'nvim-tree'
-      dofile(vim.g.base46_cache .. 'nvimtree')
-      nvim_tree.setup(opts)
     end,
   },
 
@@ -743,19 +709,6 @@ local default_plugins = {
     end,
   },
 
-  -- Oil: Directory Viewer / Manager
-  {
-    'stevearc/oil.nvim',
-    cmd = { 'Oil' },
-    config = function()
-      local oil = require 'oil'
-      oil.setup {
-        delete_to_trash = true, -- to be safe for now
-        skip_confirm_for_simple_edits = true,
-      }
-    end,
-  },
-
   -- XBase: Basics for XCode Development
   {
     'xbase-lab/xbase',
@@ -1134,11 +1087,7 @@ local default_plugins = {
   {
     'folke/snacks.nvim',
     event = 'BufRead',
-    opts = {
-      lazygit = {
-        -- TODO: Move this to its own config file eventually
-      },
-    },
+    opts = require 'plugins.configs.snacks',
     config = function()
       local utils = require 'core.utils'
       utils.load_mappings 'snacks'
