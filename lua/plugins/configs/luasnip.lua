@@ -423,7 +423,7 @@ if <val>, <err> := <f>(<args>); <err> != nil {
       'capture_err',
       format_args(
         [[
-gerr.CaptureError(<ctx>, <err>, gerr.WithExtraInfo(map[string]interface{}{
+gerr.CaptureError(<ctx>, <err>, gerr.WithExtraInfo(map[string]any{
 	<info>
 }))<finish>]],
         {
