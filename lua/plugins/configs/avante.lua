@@ -17,15 +17,15 @@ local options = {
   copilot = {
     endpoint = 'https://api.githubcopilot.com',
     model = 'gpt-4o-2024-05-13',
-    proxy = nil,            -- [protocol://]host[:port] Use this proxy
+    proxy = nil, -- [protocol://]host[:port] Use this proxy
     allow_insecure = false, -- Allow insecure server connections
-    timeout = 30000,        -- Timeout in milliseconds
+    timeout = 30000, -- Timeout in milliseconds
     temperature = 0,
     max_tokens = 4096,
   },
   ---@type AvanteAzureProvider
   azure = {
-    endpoint = '',   -- example: "https://<your-resource-name>.openai.azure.com"
+    endpoint = '', -- example: "https://<your-resource-name>.openai.azure.com"
     deployment = '', -- Azure deployment name (e.g., "gpt-4o", "my-gpt-4o-deployment")
     api_version = '2024-06-01',
     timeout = 30000, -- Timeout in milliseconds
@@ -112,7 +112,7 @@ local options = {
     },
 
     ---@type AvanteProvider
-    ['openrouter-deepseek-r1'] = {
+    ['deepseek-r1'] = {
       __inherited_from = 'openai',
       endpoint = 'https://openrouter.ai/api/v1',
       model = 'deepseek/deepseek-r1',
@@ -136,10 +136,10 @@ local options = {
     },
 
     ---@type AvanteProvider
-    ['qwen-max'] = {
+    ['claude-3.7-sonnet'] = {
       __inherited_from = 'openai',
       endpoint = 'https://openrouter.ai/api/v1',
-      model = 'qwen/qwen-max',
+      model = 'anthropic/claude-3.7-sonnet',
       api_key_name = 'OPENROUTER_DEEPSEEK_API_KEY',
       timeout = 900000, -- 15 Min
       temperature = 0,
@@ -216,7 +216,7 @@ local options = {
     ---@alias AvantePosition "right" | "left" | "top" | "bottom" | "smart"
     position = 'left',
     wrap = true, -- similar to vim.o.wrap
-    width = 30,  -- default % based on available width in vertical layout
+    width = 30, -- default % based on available width in vertical layout
     height = 30, -- default % based on available height in horizontal layout
     sidebar_header = {
       enabled = true,
@@ -251,7 +251,7 @@ local options = {
   --- @class AvanteRepoMapConfig
   repo_map = {
     ignore_patterns = { '%.git', '%.worktree', '__pycache__', 'node_modules' }, -- ignore files matching these
-    negate_patterns = {},                                                       -- negate ignore files matching these.
+    negate_patterns = {}, -- negate ignore files matching these.
   },
   --- @class AvanteFileSelectorConfig
   file_selector = {
