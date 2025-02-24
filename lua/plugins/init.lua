@@ -940,8 +940,8 @@ local default_plugins = {
         go_test_args = {
           '-v',
           '-count=1',
-          '-timeout=10s',
-          '-parallel=6',
+          '-timeout=1m',
+          '-parallel=10',
         },
         dap_go_enabled = true,
       }
