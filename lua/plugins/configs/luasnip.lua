@@ -313,6 +313,34 @@ local function load_custom_snippets(luasnip) -- TODO: Break each language out in
     return result
   end
 
+  local go_auto_err_var = function()
+    local buf = vim.api.nvim_get_current_buf()
+    local cursor_pos = vim.api.nvim_win_get_cursor(0)
+    local row = cursor_pos[1]
+    for i = row - 1, 1, -1 do
+      local line = vim.api.nvim_buf_get_lines(buf, i - 1, i, false)[1]
+      if line then
+        local err_var = line:match '%s*,%s*([%w_]*[eE]rr)%s*[:]?='
+        if err_var then
+          return err_var
+        end
+        local standalone_err = line:match '([%w_]*[eE]rr)%s*[:]?='
+        if standalone_err then
+          return standalone_err
+        end
+      end
+    end
+    return 'err'
+  end
+
+  local go_return_values_auto = function(args)
+    local info = { index = 0, err_name = go_auto_err_var(), func_name = go_function_name() }
+    return go_return_values {
+      { info.err_name },
+      { info.func_name },
+    }
+  end
+
   local go_find_struct_field = function()
     local node = vim.treesitter.get_node()
     while node ~= nil do
@@ -362,38 +390,14 @@ local function load_custom_snippets(luasnip) -- TODO: Break each language out in
       'iferr',
       format_args(
         [[
-<val>, <err> := <f>(<args>)
-if <err_rep> != nil {
+if <err> != nil {
 	return <result>
 }
 <finish>
 		]],
         {
-          val = insert(1, '_'),
-          err = insert(2, 'err'),
-          f = insert(3),
-          args = insert(4),
-          err_rep = repeated(2),
-          result = dynamic(5, go_return_values, { 2, 3 }),
-          finish = insert(0),
-        }
-      )
-    ),
-    snippet(
-      'iferr-inline',
-      format_args(
-        [[
-if <val>, <err> := <f>(<args>); <err> != nil {
-	return <result>
-}
-<finish>
-		]],
-        {
-          val = insert(1, '_'),
-          err = insert(2, 'err'),
-          f = insert(3),
-          args = insert(4),
-          result = dynamic(5, go_return_values, { 2, 3 }),
+          err = func(go_auto_err_var),
+          result = dynamic(1, go_return_values_auto, {}),
           finish = insert(0),
         }
       )

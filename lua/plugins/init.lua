@@ -1100,9 +1100,6 @@ local default_plugins = {
     version = '^5', -- Recommended
     lazy = false, -- This plugin is already lazy
   },
-
-  -- Augment: AI Plugin for large codebases
-  { 'augmentcode/augment.vim', lazy = false },
 }
 
 local config = require('core.utils').load_config()
