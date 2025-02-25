@@ -693,14 +693,14 @@ exports.neotest = {
   plugin = true,
 
   n = {
-    ['<leader>Ntr'] = {
+    ['<leader>mr'] = {
       function()
         local neotest = require 'neotest'
         neotest.run.run { suite = false }
       end,
       'Run Nearest Test',
     },
-    ['<leader>Ntd'] = {
+    ['<leader>md'] = {
       function()
         local neotest = require 'neotest'
         neotest.run.run { suite = false, strategy = 'dap' }
@@ -709,9 +709,23 @@ exports.neotest = {
     },
     ['<leader>Ntw'] = {
       function()
-        -- TODO
+        local neotest = require 'neotest'
       end,
       'Toggle test watcher',
+    },
+    ['<leader>ms'] = {
+      function()
+        local neotest = require 'neotest'
+        neotest.summary.toggle()
+      end,
+      'Test summary',
+    },
+    ['<leader>mo'] = {
+      function()
+        local neotest = require 'neotest'
+        neotest.output.open()
+      end,
+      'Test output',
     },
   },
 }
