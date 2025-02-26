@@ -58,7 +58,10 @@ exports.config = function()
     dapui.close()
   end
 
-  vim.fn.sign_define('DapBreakpoint', { text = '🔴', texthl = '', linehl = '', numhl = '' })
+  vim.fn.sign_define(
+    'DapBreakpoint',
+    { text = '', texthl = 'DiagnosticSignError', linehl = '', numhl = '' }
+  )
 end
 
 return exports
