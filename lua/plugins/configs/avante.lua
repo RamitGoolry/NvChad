@@ -101,7 +101,7 @@ local options = {
       api_key_name = 'OPENROUTER_DEEPSEEK_API_KEY',
       timeout = 900000, -- 15 Min
       temperature = 0,
-      max_tokens = 8192,
+      max_tokens = 32768,
     },
   },
   behaviour = {
@@ -172,9 +172,9 @@ local options = {
   },
   windows = {
     ---@alias AvantePosition "right" | "left" | "top" | "bottom" | "smart"
-    position = 'smart',
+    position = 'left',
     wrap = true, -- similar to vim.o.wrap
-    width = 30,  -- default % based on available width in vertical layout
+    width = 30, -- default % based on available width in vertical layout
     height = 30, -- default % based on available height in horizontal layout
     sidebar_header = {
       enabled = true,
@@ -209,7 +209,7 @@ local options = {
   --- @class AvanteRepoMapConfig
   repo_map = {
     ignore_patterns = { '%.git', '%.worktree', '__pycache__', 'node_modules' }, -- ignore files matching these
-    negate_patterns = {},                                                       -- negate ignore files matching these.
+    negate_patterns = {}, -- negate ignore files matching these.
   },
   --- @class AvanteFileSelectorConfig
   file_selector = {
