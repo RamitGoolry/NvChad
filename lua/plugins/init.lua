@@ -1100,6 +1100,23 @@ local default_plugins = {
     version = '^5', -- Recommended
     lazy = false, -- This plugin is already lazy
   },
+
+  -- Remote development
+  {
+    'amitds1997/remote-nvim.nvim',
+    version = '*',
+    lazy = false,
+    dependencies = {
+      'nvim-lua/plenary.nvim', -- For standard functions
+      'MunifTanjim/nui.nvim', -- To build the plugin UI
+      'nvim-telescope/telescope.nvim', -- For picking b/w different remote methods
+    },
+    config = function()
+      local remote_nvim = require 'remote-nvim'
+      local remote_nvim_conf = require 'plugins.configs.remote'
+      remote_nvim.setup(remote_nvim_conf)
+    end,
+  },
 }
 
 local config = require('core.utils').load_config()
