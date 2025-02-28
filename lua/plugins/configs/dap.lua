@@ -16,14 +16,14 @@ exports.config = function()
           'stacks',
           'watches',
         },
-        size = 35, -- 40 columns
+        size = 35,
         position = 'left',
       },
       {
         elements = {
           'scopes',
         },
-        size = 0.35,
+        size = 0.3,
         position = 'right',
       },
 
