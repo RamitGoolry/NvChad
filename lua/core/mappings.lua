@@ -514,7 +514,7 @@ exports.buffers = {
   n = {
     ['tt'] = { '<cmd>enew<CR>', 'Create new buffer' },
     ['<M-q>'] = { '<cmd>bd<CR>', 'Close buffer' },
-    ['<M-Right>'] = { '<cmd>bn<CR>', 'Next buffer' },    -- TODO: This mapping is not working
+    ['<M-Right>'] = { '<cmd>bn<CR>', 'Next buffer' }, -- TODO: This mapping is not working
     ['<M-Left>'] = { '<cmd>bp<CR>', 'Previous buffer' }, -- TODO: This mapping is not working
     ['tl'] = { '<cmd>ls<CR>', 'List buffers' },
   },
@@ -616,9 +616,7 @@ exports.dap = {
     ['<leader>bso'] = { '<cmd>lua require("dap").step_over()<CR>', 'Step Over' },
     ['<leader>bsO'] = { '<cmd>lua require("dap").step_out()<CR>', 'Step Out' },
     ['<leader>bsi'] = { '<cmd>lua require("dap").step_into()<CR>', 'Step Into' },
-    ['<leader>br'] = { '<cmd>lua require("dap").repl.toggle()<CR>', 'Toggle DAP Replay' },
-    ['<leader>bgc'] = { '<cmd>lua require("dap").run_to_cursor()<CR>', 'Run to Cursor' },
-    ['<leader>blb'] = { '<cmd>Telescope dap list_breakpoints()<CR>', 'List Breakpoints' },
+    ['<leader>bk'] = { '<cmd>lua require("dap").close()<CR>', 'Stop' },
   },
 }
 
@@ -626,21 +624,6 @@ exports.dapui = {
   n = {
     ['<leader>bu'] = { '<cmd>lua require("dapui").toggle()<CR>', 'Toggle DAP UI' },
     ['<leader>?'] = { '<cmd>lua require("dapui").eval()<CR>', 'Evaluate value' },
-  },
-}
-
--- exports.dap_python = {
--- TODO: Figure out file type specific mappings
---   n = {
---     ['<leader>bt'] = { '<cmd>lua require("dap-python").test_method()<cr>', 'Test Method (Python)' },
---   },
--- }
--- This can be done through a custom function in the keymap or ftplugins
-
-exports.dap_go = {
-  n = {
-    ['<leader>bt'] = { '<cmd>lua require("dap-go").debug_test()<cr>', 'Debug Test (Go)' },
-    ['<leader>blt'] = { '<cmd>lua require("dap-go").debug_last_test()<cr>', 'Debug Last Test (Go)' },
   },
 }
 
