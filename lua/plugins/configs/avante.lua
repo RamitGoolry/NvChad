@@ -36,7 +36,7 @@ end
 local options = {
   debug = false,
   ---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | [string]
-  provider = 'claude-3.7-sonnet',
+  provider = 'openrouter/claude-3.7-sonnet',
   auto_suggestions_provider = 'claude',
 
   tokenizer = 'tiktoken',
@@ -58,7 +58,7 @@ local options = {
   },
   vendors = {
     ---@type AvanteProvider
-    ['ollama-deepseek-r1-14b'] = {
+    ['ollama/deepseek-r1-14b'] = {
       -- __inherited_from = 'openai',
       endpoint = 'http://localhost:11434/api',
       model = 'deepseek-r1:14b',
@@ -70,7 +70,7 @@ local options = {
     },
 
     ---@type AvanteProvider
-    ['deepseek-r1'] = {
+    ['openrouter/deepseek-r1'] = {
       __inherited_from = 'openai',
       endpoint = 'https://openrouter.ai/api/v1',
       model = 'deepseek/deepseek-r1',
@@ -82,7 +82,7 @@ local options = {
     },
 
     ---@type AvanteProvider
-    ['o3-mini-high'] = {
+    ['openrouter/o3-mini-high'] = {
       __inherited_from = 'openai',
       endpoint = 'https://openrouter.ai/api/v1',
       model = 'openai/o3-mini-high',
@@ -90,11 +90,10 @@ local options = {
       timeout = 900000, -- 15 Min
       temperature = 0,
       max_tokens = 16384,
-      disable_tools = true,
     },
 
     ---@type AvanteProvider
-    ['claude-3.7-sonnet'] = {
+    ['openrouter/claude-3.7-sonnet'] = {
       __inherited_from = 'openai',
       endpoint = 'https://openrouter.ai/api/v1',
       model = 'anthropic/claude-3.7-sonnet',
@@ -105,7 +104,7 @@ local options = {
     },
 
     ---@type AvanteProvider
-    ['claude-3.7-sonnet-thinking'] = {
+    ['openrouter/claude-3.7-sonnet-thinking'] = {
       __inherited_from = 'openai',
       endpoint = 'https://openrouter.ai/api/v1',
       model = 'anthropic/claude-3.7-sonnet:thinking',
@@ -113,6 +112,28 @@ local options = {
       timeout = 900000, -- 15 Min
       temperature = 0,
       max_tokens = 32768,
+    },
+
+    ---@type AvanteProvider
+    ['openrouter/gemini-2.0-flash-lite'] = {
+      __inherited_from = 'openai',
+      endpoint = 'https://openrouter.ai/api/v1',
+      model = 'google/gemini-2.0-flash-lite-001',
+      api_key_name = 'OPENROUTER_DEEPSEEK_API_KEY',
+      timeout = 20000, -- 20 Sec
+      temperature = 0,
+      max_tokens = 8192,
+    },
+
+    ---@type AvanteProvider
+    ['openrouter/gemini-2.0-flash'] = {
+      __inherited_from = 'openai',
+      endpoint = 'https://openrouter.ai/api/v1',
+      model = 'google/gemini-2.0-flash-001',
+      api_key_name = 'OPENROUTER_DEEPSEEK_API_KEY',
+      timeout = 20000, -- 20 Sec
+      temperature = 0,
+      max_tokens = 8192,
     },
   },
   behaviour = {

@@ -621,7 +621,11 @@ local default_plugins = {
     end,
     config = function()
       local lspsaga = require 'lspsaga'
-      lspsaga.setup {}
+      lspsaga.setup {
+        outline = {
+          auto_preview = false,
+        },
+      }
     end,
   },
 
