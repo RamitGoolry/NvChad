@@ -133,7 +133,7 @@ local options = {
   highlights = {
     ---@type AvanteConflictHighlights
     diff = {
-      current = 'DiffText',
+      current = 'DiffDelete',
       incoming = 'DiffAdd',
     },
   },
@@ -185,7 +185,7 @@ local options = {
     ---@alias AvantePosition "right" | "left" | "top" | "bottom" | "smart"
     position = 'left',
     wrap = true, -- similar to vim.o.wrap
-    width = 30,  -- default % based on available width in vertical layout
+    width = 30, -- default % based on available width in vertical layout
     height = 30, -- default % based on available height in horizontal layout
     sidebar_header = {
       enabled = true,
@@ -220,7 +220,7 @@ local options = {
   --- @class AvanteRepoMapConfig
   repo_map = {
     ignore_patterns = { '%.git', '%.worktree', '__pycache__', 'node_modules' }, -- ignore files matching these
-    negate_patterns = {},                                                       -- negate ignore files matching these.
+    negate_patterns = {}, -- negate ignore files matching these.
   },
   --- @class AvanteFileSelectorConfig
   file_selector = {
