@@ -632,13 +632,15 @@ local default_plugins = {
   -- Helm LSP Server
   {
     'towolf/vim-helm',
-    lazy = false,
+    event = 'BufRead',
+    ft = { 'yaml', 'tpl', 'helm' },
   },
 
   -- GraphQL
   {
     'jparise/vim-graphql',
     event = 'BufRead',
+    ft = { 'graphql' },
   },
 
   -- Notification Plugin
@@ -722,7 +724,7 @@ local default_plugins = {
       'nvim-telescope/telescope.nvim',
       'nvim-lua/plenary.nvim',
     },
-    lazy = false, -- NOTE: For now
+    event = 'VeryLazy',
     ft = { 'objc', 'swift' },
     config = function()
       local xbase = require 'xbase'
@@ -736,7 +738,6 @@ local default_plugins = {
   },
 
   -- SchemaStore: Schema Store for JSON
-  -- TODO: Maybe we don't need this
   {
     'b0o/schemastore.nvim',
   },
@@ -920,7 +921,6 @@ local default_plugins = {
   },
 
   -- Neotest: Testing library
-  -- TODO: This needs to be better for me to actualy use it. How can I have auto testing for golang?
   {
     'nvim-neotest/neotest',
     dependencies = {
@@ -1135,10 +1135,10 @@ local default_plugins = {
         config = vim.fn.expand '~/.config/nvim/mcpservers.json',
 
         -- Optional options
-        on_ready = function(hub)
+        on_ready = function(_)
           -- Called when hub is ready
         end,
-        on_error = function(err)
+        on_error = function(_)
           -- Called on errors
         end,
         shutdown_delay = 0, -- Wait 0ms before shutting down server after last client exits

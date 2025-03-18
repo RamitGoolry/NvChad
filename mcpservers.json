@@ -1,5 +1,13 @@
 {
   "mcpServers": {
+    "fetch": {
+      "command": "python3",
+      "args": [
+        "-m",
+        "mcp_server_fetch"
+      ],
+      "disabled": true
+    },
     "wandb": {
       "command": "npx",
       "args": [
@@ -8,16 +16,9 @@
       ],
       "name": "wandb-server",
       "env": {
-        "WANDB_API_KEY": "ad6e1229fc1d6d5e304100223df1ac3c13c99408",
-        "WANDB_BASE_URL": "https://api.qa.wandb.ai"
+        "WANDB_BASE_URL": "https://api.qa.wandb.ai",
+        "WANDB_API_KEY": "ad6e1229fc1d6d5e304100223df1ac3c13c99408"
       }
-    },
-    "fetch": {
-      "command": "python3",
-      "args": [
-        "-m",
-        "mcp_server_fetch"
-      ]
     }
   }
 }
