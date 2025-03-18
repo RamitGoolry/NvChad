@@ -1,0 +1,23 @@
+{
+  "mcpServers": {
+    "wandb": {
+      "command": "npx",
+      "args": [
+        "tsx",
+        "/Users/ramit/Desktop/Weights_and_Biases/wandb_mcp_server/src/index.ts"
+      ],
+      "name": "wandb-server",
+      "env": {
+        "WANDB_API_KEY": "ad6e1229fc1d6d5e304100223df1ac3c13c99408",
+        "WANDB_BASE_URL": "https://api.qa.wandb.ai"
+      }
+    },
+    "fetch": {
+      "command": "python3",
+      "args": [
+        "-m",
+        "mcp_server_fetch"
+      ]
+    }
+  }
+}
