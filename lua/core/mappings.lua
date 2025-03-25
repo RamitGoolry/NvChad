@@ -249,7 +249,15 @@ exports.snacks = {
     ['<leader>ff'] = {
       function()
         local snacks = require 'snacks'
-        snacks.picker.files()
+        snacks.picker.files {
+          finder = 'files',
+          format = 'file',
+          show_empty = true,
+          hidden = true,
+          ignored = true,
+          follow = false,
+          supports_live = true,
+        }
       end,
       'Find files',
     },
@@ -298,7 +306,13 @@ exports.snacks = {
     ['<leader>n'] = {
       function()
         local snacks = require 'snacks'
-        snacks.explorer()
+        snacks.explorer {
+          show_empty = true,
+          hidden = true,
+          ignored = true,
+          follow = false,
+          supports_live = true,
+        }
       end,
       'File Explorer',
     },
