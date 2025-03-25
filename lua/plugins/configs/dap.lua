@@ -16,23 +16,16 @@ exports.config = function()
           'stacks',
           'watches',
         },
-        size = 35,
+        size = 40,
         position = 'left',
       },
       {
         elements = {
-          'scopes',
-        },
-        size = 0.3,
-        position = 'right',
-      },
-
-      {
-        elements = {
           'repl',
           'console',
+          'scopes',
         },
-        size = 0.25, -- 25% of total lines
+        size = 0.35, -- 25% of total lines
         position = 'bottom',
       },
     },
@@ -113,6 +106,11 @@ exports.config = function()
   vim.fn.sign_define(
     'DapBreakpoint',
     { text = '', texthl = 'DiagnosticSignError', linehl = '', numhl = '' }
+  )
+
+  vim.fn.sign_define(
+    'DapStopped',
+    { text = '', texthl = 'DiagnosticSignWarn', linehl = '', numhl = '' }
   )
 end
 

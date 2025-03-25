@@ -514,7 +514,7 @@ exports.buffers = {
   n = {
     ['tt'] = { '<cmd>enew<CR>', 'Create new buffer' },
     ['<M-q>'] = { '<cmd>bd<CR>', 'Close buffer' },
-    ['<M-Right>'] = { '<cmd>bn<CR>', 'Next buffer' }, -- TODO: This mapping is not working
+    ['<M-Right>'] = { '<cmd>bn<CR>', 'Next buffer' },    -- TODO: This mapping is not working
     ['<M-Left>'] = { '<cmd>bp<CR>', 'Previous buffer' }, -- TODO: This mapping is not working
     ['tl'] = { '<cmd>ls<CR>', 'List buffers' },
   },

@@ -96,8 +96,8 @@ autocmd('BufWritePost', {
     -- statusline
     require('plenary.reload').reload_module('nvchad.statusline.' .. config.ui.statusline.theme)
     vim.opt.statusline = '%!v:lua.require(\'nvchad.statusline.'
-      .. config.ui.statusline.theme
-      .. '\').run()'
+        .. config.ui.statusline.theme
+        .. '\').run()'
 
     -- tabufline
     if config.ui.tabufline.enabled then
@@ -115,7 +115,7 @@ autocmd('BufWritePost', {
 local new_cmd = vim.api.nvim_create_user_command
 
 new_cmd('NvChadUpdate', function()
-  require 'nvchad.updater'()
+  require 'nvchad.updater' ()
 end, {})
 
 vim.api.nvim_create_augroup('two_space_files', { clear = true })
@@ -128,4 +128,12 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.opt_local.expandtab = true
   end,
   group = 'two_space_files',
+})
+
+-------------------------------------- auto refresh ----------------------------------------
+-- Enable autoread and set up checking triggers
+vim.o.autoread = true
+vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter' }, {
+  command = 'if mode() != \'c\' | checktime | endif',
+  pattern = '*',
 })
