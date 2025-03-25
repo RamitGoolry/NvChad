@@ -339,6 +339,9 @@ local default_plugins = {
       goto_preview.setup {
         height = 20,
         width = 80,
+        references = {
+          provider = 'snacks',
+        },
       }
     end,
   },
@@ -1107,7 +1110,7 @@ local default_plugins = {
   {
     'amitds1997/remote-nvim.nvim',
     version = '*',
-    lazy = false,
+    event = 'VeryLazy',
     dependencies = {
       'nvim-lua/plenary.nvim', -- For standard functions
       'MunifTanjim/nui.nvim', -- To build the plugin UI
