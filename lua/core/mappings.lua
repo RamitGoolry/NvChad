@@ -528,7 +528,7 @@ exports.buffers = {
   n = {
     ['tt'] = { '<cmd>enew<CR>', 'Create new buffer' },
     ['<M-q>'] = { '<cmd>bd<CR>', 'Close buffer' },
-    ['<M-Right>'] = { '<cmd>bn<CR>', 'Next buffer' },    -- TODO: This mapping is not working
+    ['<M-Right>'] = { '<cmd>bn<CR>', 'Next buffer' }, -- TODO: This mapping is not working
     ['<M-Left>'] = { '<cmd>bp<CR>', 'Previous buffer' }, -- TODO: This mapping is not working
     ['tl'] = { '<cmd>ls<CR>', 'List buffers' },
   },
@@ -626,6 +626,13 @@ exports.dap = {
   n = {
     ['..'] = { '<cmd>lua require("dap").step_over()<CR>', 'Step Over (shortcut)' },
     ['<leader>bb'] = { '<cmd>lua require("dap").toggle_breakpoint()<CR>', 'Toggle Breakpoint' },
+    ['<leader>bB'] = {
+      function()
+        local dap = require 'dap'
+        dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
+      end,
+      'Toggle Conditional Breakpoint',
+    },
     ['<leader>bc'] = { '<cmd>lua require("dap").continue()<CR>', 'Continue' },
     ['<leader>bso'] = { '<cmd>lua require("dap").step_over()<CR>', 'Step Over' },
     ['<leader>bsO'] = { '<cmd>lua require("dap").step_out()<CR>', 'Step Out' },

@@ -109,6 +109,11 @@ exports.config = function()
   )
 
   vim.fn.sign_define(
+    'DapBreakpointCondition',
+    { text = '', texthl = 'DiagnosticSignError', linehl = '', numhl = '' }
+  )
+
+  vim.fn.sign_define(
     'DapStopped',
     { text = '', texthl = 'DiagnosticSignWarn', linehl = '', numhl = '' }
   )

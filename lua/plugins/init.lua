@@ -694,7 +694,9 @@ local default_plugins = {
     },
     config = function()
       local nvim_dap_virtual_text = require 'nvim-dap-virtual-text'
-      nvim_dap_virtual_text.setup()
+      nvim_dap_virtual_text.setup {
+        enabled = false,
+      }
     end,
   },
 
