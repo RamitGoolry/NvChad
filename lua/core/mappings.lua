@@ -616,9 +616,36 @@ exports.lspsaga = {
   plugin = true,
 
   n = {
-    ['<leader>ca'] = { '<cmd>Lspsaga code_action<CR>', 'Code Action' },
-    ['<leader>rn'] = { '<cmd>Lspsaga rename<CR>', 'Rename Symbol' },
-    ['<leader>so'] = { '<cmd>Lspsaga outline<CR>', 'Symbol Outline' },
+    ['<leader>ca'] = {
+      function()
+        vim.cmd [[Lspsaga code_action]]
+      end,
+      'Code Action',
+    },
+    ['<leader>rn'] = {
+      function()
+        vim.cmd [[Lspsaga rename]]
+      end,
+      'Rename Symbol',
+    },
+    ['<leader>so'] = {
+      function()
+        vim.cmd [[Lspsaga outline]]
+      end,
+      'Symbol Outline',
+    },
+    ['<leader>li'] = {
+      function()
+        vim.cmd [[Lspsaga incoming_calls]]
+      end,
+      'Incoming Calls',
+    },
+    ['<leader>lo'] = {
+      function()
+        vim.cmd [[Lspsaga outgoing_calls]]
+      end,
+      'Outgoing Calls',
+    },
   },
 }
 
