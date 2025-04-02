@@ -583,22 +583,6 @@ local default_plugins = {
     end,
   },
 
-  -- nvim-treessitter-context : Sticky Scroll
-  {
-    'nvim-treesitter/nvim-treesitter-context',
-    lazy = false,
-    init = function()
-      require('core.utils').load_mappings 'treesitter_context'
-    end,
-    config = function()
-      local treesitter_context = require 'treesitter-context'
-      treesitter_context.setup {
-        enable = false,
-      }
-      -- vim.cmd [[TSContextEnable]]
-    end,
-  },
-
   -- RapidReturn: Stack Based Jumps
   {
     'RamitGoolry/RapidReturn',
@@ -635,14 +619,12 @@ local default_plugins = {
   -- Helm LSP Server
   {
     'towolf/vim-helm',
-    event = 'BufRead',
     ft = { 'yaml', 'tpl', 'helm' },
   },
 
   -- GraphQL
   {
     'jparise/vim-graphql',
-    event = 'BufRead',
     ft = { 'graphql' },
   },
 
@@ -979,7 +961,6 @@ local default_plugins = {
     dependencies = {
       'nvim-tree/nvim-web-devicons',
     },
-    event = 'VeryLazy',
     cmd = { 'DiffviewOpen', 'DiffviewClose', 'DiffviewToggleFiles' },
     config = function()
       local diffview = require 'diffview'
@@ -991,7 +972,7 @@ local default_plugins = {
   -- nvim-ts-context-commentstring: Sets the right comment string based on where you are in a TS file
   {
     'JoosepAlviste/nvim-ts-context-commentstring',
-    event = 'VeryLazy',
+    ft = { 'typescript', 'typescriptreact', 'ts', 'tsx' },
     config = function()
       local context_commentstring = require 'ts_context_commentstring'
       context_commentstring.setup {
@@ -1003,7 +984,7 @@ local default_plugins = {
   -- TwoSlash Queries - Typescript Type queries in comments
   {
     'marilari88/twoslash-queries.nvim',
-    event = 'VeryLazy',
+    ft = { 'typescript', 'typescriptreact', 'ts', 'tsx' },
     config = function()
       local twoslash_queries = require 'twoslash-queries'
       twoslash_queries.setup {
