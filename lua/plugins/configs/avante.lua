@@ -36,7 +36,7 @@ end
 local options = {
   debug = false,
   ---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | [string]
-  provider = 'openrouter/claude-3.7-sonnet',
+  provider = 'gemini-2.5-pro',
   auto_suggestions_provider = 'claude',
 
   tokenizer = 'tiktoken',
@@ -115,7 +115,7 @@ local options = {
     },
 
     ---@type AvanteProvider
-    ['openrouter/gemini-2.0-flash-lite'] = {
+    ['gemini-2.0-flash-lite'] = {
       __inherited_from = 'openai',
       endpoint = 'https://openrouter.ai/api/v1',
       model = 'google/gemini-2.0-flash-lite-001',
@@ -126,10 +126,21 @@ local options = {
     },
 
     ---@type AvanteProvider
-    ['openrouter/gemini-2.0-flash'] = {
+    ['gemini-2.0-flash'] = {
       __inherited_from = 'openai',
       endpoint = 'https://openrouter.ai/api/v1',
       model = 'google/gemini-2.0-flash-001',
+      api_key_name = 'OPENROUTER_DEEPSEEK_API_KEY',
+      timeout = 20000, -- 20 Sec
+      temperature = 0,
+      max_tokens = 8192,
+    },
+
+    ---@type AvanteProvider
+    ['gemini-2.5-pro'] = {
+      __inherited_from = 'openai',
+      endpoint = 'https://openrouter.ai/api/v1',
+      model = 'google/gemini-2.5-pro-preview-03-25',
       api_key_name = 'OPENROUTER_DEEPSEEK_API_KEY',
       timeout = 20000, -- 20 Sec
       temperature = 0,
@@ -206,7 +217,7 @@ local options = {
     ---@alias AvantePosition "right" | "left" | "top" | "bottom" | "smart"
     position = 'right',
     wrap = true, -- similar to vim.o.wrap
-    width = 30,  -- default % based on available width in vertical layout
+    width = 30, -- default % based on available width in vertical layout
     height = 30, -- default % based on available height in horizontal layout
     sidebar_header = {
       enabled = true,
@@ -241,7 +252,7 @@ local options = {
   --- @class AvanteRepoMapConfig
   repo_map = {
     ignore_patterns = { '%.git', '%.worktree', '__pycache__', 'node_modules' }, -- ignore files matching these
-    negate_patterns = {},                                                       -- negate ignore files matching these.
+    negate_patterns = {}, -- negate ignore files matching these.
   },
   --- @class AvanteFileSelectorConfig
   file_selector = {
