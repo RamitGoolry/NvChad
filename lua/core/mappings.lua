@@ -318,7 +318,7 @@ exports.snacks = {
     },
 
     -- Terminal
-    ['<Space><Space>'] = {
+    ['<leader><leader>'] = {
       function()
         local snacks = require 'snacks'
         snacks.terminal()
@@ -328,7 +328,7 @@ exports.snacks = {
   },
 
   t = {
-    ['<Space><Space>'] = {
+    ['<leader><leader>'] = {
       function()
         local snacks = require 'snacks'
         snacks.terminal()

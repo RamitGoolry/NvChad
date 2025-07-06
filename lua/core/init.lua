@@ -131,9 +131,40 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 -------------------------------------- auto refresh ----------------------------------------
--- Enable autoread and set up checking triggers
+-- Enable autoread and set up checking triggers for external file changes
 vim.o.autoread = true
+
+-- Create an autogroup for file change detection
+local autoread_group = vim.api.nvim_create_augroup("AutoReadGroup", { clear = true })
+
+-- Check for file changes when:
+-- 1. Vim regains focus or buffer is entered
 vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter' }, {
-  command = 'if mode() != \'c\' | checktime | endif',
+  group = autoread_group,
   pattern = '*',
+  callback = function()
+    if vim.fn.mode() ~= 'c' then
+      vim.cmd('checktime')
+    end
+  end,
+})
+
+-- 2. When cursor stops moving for 'updatetime'
+vim.api.nvim_create_autocmd({ 'CursorHold' }, {
+  group = autoread_group,
+  pattern = '*',
+  callback = function()
+    if vim.fn.mode() ~= 'c' then
+      vim.cmd('checktime')
+    end
+  end,
+})
+
+-- 3. Display notification when file changes detected
+vim.api.nvim_create_autocmd('FileChangedShellPost', {
+  group = autoread_group,
+  pattern = '*',
+  callback = function()
+    vim.notify("File changed on disk. Buffer reloaded.", vim.log.levels.INFO)
+  end,
 })
