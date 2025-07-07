@@ -342,9 +342,10 @@ exports.telescope = {
   plugin = true,
 
   n = {
-    ['<leader>th'] = { -- TODO: Figure out how to make this work with snacks
+    ['<leader>th'] = {
       function()
-        vim.cmd [[Telescope themes]]
+        local snacks_config = require 'plugins.configs.snacks'
+        snacks_config.theme_picker()
       end,
       'Nvchad themes',
     },

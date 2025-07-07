@@ -63,10 +63,10 @@ exports.ui = {
     },
 
     buttons = {
-      { '  Find File', '; f f', 'Snacks find_files' },
+      { '  Find File', '; f f', 'Snacks find_files' },
       { '󰈚  Recent Files', '; f o', 'Snacks oldfiles' },
-      { '  Themes', '; t h', 'Telescope themes' },
-      { '  Mappings', '; c h', 'NvCheatsheet' },
+      { '  Themes', '; t h', 'lua require("plugins.configs.snacks").theme_picker()' },
+      { '  Mappings', '; c h', 'NvCheatsheet' },
     },
   },
 
