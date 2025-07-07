@@ -5,13 +5,13 @@ local options = {
     'bashls',
     'html',
     'jsonls',
-    'pyright',
+
     'rust-analyzer',
     'ts_ls',
     'yaml-language-server',
     'helm-ls',
     'terraform-ls',
-    'nilaway,',
+    'nilaway',
   },
 
   PATH = 'skip',
