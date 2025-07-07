@@ -35,12 +35,32 @@ opts.theme_picker = function()
   local base46 = require 'base46'
   local last_preview = nil
 
+  -- Get current buffer content for preview
+  local current_buf = vim.api.nvim_get_current_buf()
+  local preview_lines = vim.api.nvim_buf_get_lines(
+    current_buf,
+    0,
+    math.min(100, vim.api.nvim_buf_line_count(current_buf)),
+    false
+  )
+  local preview_ft = vim.bo[current_buf].filetype
+
+  if #preview_lines == 0 or (#preview_lines == 1 and preview_lines[1] == '') then
+    preview_lines = {
+      'print("Hello, world!")',
+    }
+    preview_ft = 'python'
+  end
+
   -- Create items from themes list
   local items = {}
   for _, theme in ipairs(themes) do
     table.insert(items, {
       text = theme,
       value = theme,
+      file = vim.fn.tempname() .. '_' .. theme .. '.lua', -- Create a temp file path
+      lines = preview_lines, -- Add lines for text previewer
+      ft = preview_ft,
     })
   end
 
@@ -49,66 +69,20 @@ opts.theme_picker = function()
     source = 'list',
     title = 'Select Theme',
     items = items,
+    layout = {
+      preset = 'default',
+      preview = true, -- Enable preview
+    },
     format = function(item)
       if item and item.text then
         return {
-          { '  ',     hl = 'SnacksPickerIcon' },
+          { '  ', hl = 'SnacksPickerIcon' },
           { item.text },
         }
       end
       return {}
     end,
-    preview = function(item, ctx)
-      if item and item.value then
-        -- Apply theme for preview
-        if last_preview ~= item.value then
-          last_preview = item.value
-          vim.schedule(function()
-            vim.g.nvchad_theme = item.value
-            base46.load_all_highlights()
-          end)
-        end
-
-        -- Show sample code in preview
-        local lines = {
-          '-- Theme: ' .. item.value,
-          '',
-          'local M = {}',
-          '',
-          'function M.setup()',
-          '  local config = {',
-          '                theme = \'' .. item.value .. '\',',
-          '    transparent = false,',
-          '  }',
-          '  return config',
-          'end',
-          '',
-          '-- Sample highlighting',
-          'local string = \'Hello, World!\'',
-          'local number = 42',
-          'local boolean = true',
-          'local table = { key = \'value\' }',
-          '',
-          '-- Control structures',
-          'if boolean then',
-          '  print(string)',
-          'end',
-          '',
-          'for i = 1, 10 do',
-          '  -- Loop body',
-          '  local result = i * 2',
-          'end',
-          '',
-          'return M',
-        }
-
-        -- Return preview content
-        return {
-          lines = lines,
-          ft = 'lua',
-        }
-      end
-    end,
+    preview = 'preview', -- Use built-in text previewer
     on_change = function(picker, item)
       if item and item.value and last_preview ~= item.value then
         last_preview = item.value
