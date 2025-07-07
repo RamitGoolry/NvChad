@@ -277,4 +277,6 @@ lspconfig.gleam.setup {}
 lspconfig.zls.setup {}
 lspconfig.tailwindcss.setup {}
 
+-- Note: Lean LSP is configured by the lean.nvim plugin
+
 return exports

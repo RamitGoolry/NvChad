@@ -1089,6 +1089,48 @@ local default_plugins = {
     lazy = false, -- This plugin is already lazy
   },
 
+  -- Lean.nvim: Lean 4 support
+  {
+    'Julian/lean.nvim',
+    event = { 'BufReadPre *.lean', 'BufNewFile *.lean' },
+    dependencies = {
+      'neovim/nvim-lspconfig',
+      'nvim-lua/plenary.nvim',
+      -- you also will likely want nvim-cmp setup for LSP completion
+      'hrsh7th/nvim-cmp',
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
+    },
+    opts = {
+      lsp = {
+        on_attach = function(client, bufnr)
+          -- Use the on_attach from lspconfig
+          local lspconfig = require('plugins.configs.lspconfig')
+          if lspconfig.on_attach then
+            lspconfig.on_attach(client, bufnr)
+          end
+          -- Enable inlay hints for Lean
+          vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+        end,
+        -- Configure root directory detection
+        root_dir = function(fname)
+          local util = require('lspconfig.util')
+          return util.root_pattern('lakefile.lean', 'lakefile.toml', 'lean-toolchain', '.git')(fname)
+        end,
+      },
+      mappings = true,
+      infoview = {
+        autoopen = true,
+        indicators = 'auto',
+        width = 50,
+        height = 20,
+        horizontal_position = 'bottom',
+        separate_tab = false,
+        pin_toggle_key = '<leader>p',
+      },
+    },
+  },
+
   -- Remote development
   {
     'amitds1997/remote-nvim.nvim',
