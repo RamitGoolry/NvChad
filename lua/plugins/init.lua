@@ -346,26 +346,7 @@ local default_plugins = {
     end,
   },
 
-  -- Harpoon: Fast File Navigation
-  {
-    'ThePrimeagen/harpoon',
-    branch = 'harpoon2',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    keys = { '<leader>', '<C-n>', '<C-p>' },
-    lazy = false,
-    init = function()
-      local harpoon = require 'harpoon'
-      harpoon:setup {
-        settings = {
-          save_on_toggle = true,
-          sync_on_ui_close = true,
-        },
-      }
 
-      local utils = require 'core.utils'
-      utils.load_mappings 'harpoon'
-    end,
-  },
 
   -- Fugitive: Git Functions
   {
@@ -782,59 +763,7 @@ local default_plugins = {
     event = 'BufReadPost',
   },
 
-  -- Prettier for JS/TS
-  {
-    'MunifTanjim/prettier.nvim',
-    dependencies = {
-      'neovim/nvim-lspconfig',
-      'nvimtools/none-ls.nvim',
-    },
-    lazy = false,
-    config = function()
-      local null_ls = require 'null-ls'
-      local group = vim.api.nvim_create_augroup('lsp_format_on_save', {
-        clear = false,
-      })
 
-      local event = 'BufWritePre'
-      local async = event == 'BufWritePost'
-
-      -- Setup for null ls
-      null_ls.setup {
-        on_attach = function(client, bufnr)
-          if client.supports_method 'textDocument/formatting' then
-            -- format on save
-            vim.api.nvim_clear_autocmds { buffer = bufnr, group = group }
-            vim.api.nvim_create_autocmd(event, {
-              buffer = bufnr,
-              group = group,
-              callback = function()
-                vim.lsp.buf.format { bufnr = bufnr, async = async }
-              end,
-              desc = '[prettier] format on save',
-            })
-          end
-        end,
-      }
-
-      local prettier = require 'prettier'
-      prettier.setup {
-        bin = 'prettier', -- or `'prettierd'` (v0.23.3+)
-        filetypes = {
-          'css',
-          'html',
-          'javascript',
-          'javascriptreact',
-          'json',
-          'less',
-          'markdown',
-          'scss',
-          'typescript',
-          'typescriptreact',
-        },
-      }
-    end,
-  },
 
   -- Sleuth: Auto Indent Detection
   {
@@ -995,57 +924,7 @@ local default_plugins = {
     end,
   },
 
-  -- Avante: Cursor editor for Nvim
-  {
-    'yetone/avante.nvim',
-    event = 'VeryLazy',
-    lazy = false,
-    version = false, -- set this if you want to always pull the latest change
-    opts = {
-      -- add any opts here
-    },
-    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-    build = 'make',
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter',
-      'stevearc/dressing.nvim',
-      'nvim-lua/plenary.nvim',
-      'MunifTanjim/nui.nvim',
-      'nvim-tree/nvim-web-devicons', -- or echasnovski/mini.icons
-      'ravitemer/mcphub.nvim',
-      {
-        -- support for image pasting
-        'HakonHarnes/img-clip.nvim',
-        event = 'VeryLazy',
-        opts = {
-          -- recommended settings
-          default = {
-            embed_image_as_base64 = false,
-            prompt_for_file_name = false,
-            drag_and_drop = {
-              insert_mode = true,
-            },
-            -- required for Windows users
-            use_absolute_path = true,
-          },
-        },
-      },
-      {
-        -- Make sure to set this up properly if you have lazy=true
-        'MeanderingProgrammer/render-markdown.nvim',
-        opts = {
-          file_types = { 'markdown', 'Avante' },
-        },
-        ft = { 'markdown', 'Avante' },
-      },
-    },
-    config = function()
-      vim.opt.laststatus = 3
-      local avante = require 'avante'
-      local options = require 'plugins.configs.avante'
-      avante.setup(options)
-    end,
-  },
+
 
   -- nvim-lint: Linter Plugin
   {

@@ -534,40 +534,7 @@ exports.buffers = {
   },
 }
 
-exports.harpoon = {
-  plugin = true,
 
-  n = {
-    ['<leader>\''] = { -- TODO: Better mapping
-      function()
-        local harpoon = require 'harpoon'
-        harpoon:list():add()
-      end,
-      'Add File to Harpoon',
-    },
-    ['<leader>h'] = {
-      function()
-        local harpoon = require 'harpoon'
-        harpoon.ui:toggle_quick_menu(harpoon:list())
-      end,
-      'Harpoon Quick Menu',
-    },
-    ['<C-n>'] = {
-      function()
-        local harpoon = require 'harpoon'
-        harpoon:list():next()
-      end,
-      'Harpoon to next file',
-    },
-    ['<C-p>'] = {
-      function()
-        local harpoon = require 'harpoon'
-        harpoon:list():prev()
-      end,
-      'Harpoon to previous file',
-    },
-  },
-}
 
 exports.undotree = {
   plugin = true,
