@@ -234,7 +234,7 @@ local default_plugins = {
         options = {
           custom_commentstring = function()
             return require('ts_context_commentstring').calculate_commentstring()
-              or vim.bo.commentstring
+                or vim.bo.commentstring
           end,
           ignore_blank_line = false,
           start_of_line = false,
@@ -346,8 +346,6 @@ local default_plugins = {
     end,
   },
 
-
-
   -- Fugitive: Git Functions
   {
     'tpope/vim-fugitive',
@@ -387,7 +385,7 @@ local default_plugins = {
     lazy = false,
     config = function()
       vim.o.foldcolumn = '1' -- '0' is not bad
-      vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+      vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
       vim.o.foldlevelstart = 99
       vim.o.foldenable = true
 
@@ -683,28 +681,6 @@ local default_plugins = {
     end,
   },
 
-  -- XBase: Basics for XCode Development
-  {
-    'xbase-lab/xbase',
-    build = 'make install',
-    dependencies = {
-      'neovim/nvim-lspconfig',
-      'nvim-telescope/telescope.nvim',
-      'nvim-lua/plenary.nvim',
-    },
-    event = 'VeryLazy',
-    ft = { 'objc', 'swift' },
-    config = function()
-      local xbase = require 'xbase'
-      local _ = require 'xbase.statusline'
-
-      local config = require 'plugins.configs.xbase'
-
-      xbase.setup(config)
-      -- statusline.feline()
-    end,
-  },
-
   -- SchemaStore: Schema Store for JSON
   {
     'b0o/schemastore.nvim',
@@ -763,8 +739,6 @@ local default_plugins = {
     event = 'BufReadPost',
   },
 
-
-
   -- Sleuth: Auto Indent Detection
   {
     'tpope/vim-sleuth',
@@ -808,20 +782,20 @@ local default_plugins = {
       local persisted = require 'persisted'
       persisted.setup {
         save_dir = vim.fn.expand(vim.fn.stdpath 'data' .. '/sessions/'), -- directory where session files are saved
-        silent = false, -- silent nvim message when sourcing session file
-        use_git_branch = true, -- create session files based on the branch of a git enabled repository
-        default_branch = 'master', -- the branch to load if a session file is not found for the current branch
-        autosave = true, -- automatically save session files when exiting Neovim
-        should_autosave = nil, -- function to determine if a session should be autosaved
-        autoload = true, -- automatically load the session for the cwd on Neovim startup
-        on_autoload_no_session = nil, -- function to run when `autoload = true` but there is no session to load
-        follow_cwd = true, -- change session file name to match current working directory if it changes
-        allowed_dirs = nil, -- table of dirs that the plugin will auto-save and auto-load from
-        ignored_dirs = nil, -- table of dirs that are ignored when auto-saving and auto-loading
-        ignored_branches = nil, -- table of branch patterns that are ignored for auto-saving and auto-loading
+        silent = false,                                                  -- silent nvim message when sourcing session file
+        use_git_branch = true,                                           -- create session files based on the branch of a git enabled repository
+        default_branch = 'master',                                       -- the branch to load if a session file is not found for the current branch
+        autosave = true,                                                 -- automatically save session files when exiting Neovim
+        should_autosave = nil,                                           -- function to determine if a session should be autosaved
+        autoload = true,                                                 -- automatically load the session for the cwd on Neovim startup
+        on_autoload_no_session = nil,                                    -- function to run when `autoload = true` but there is no session to load
+        follow_cwd = true,                                               -- change session file name to match current working directory if it changes
+        allowed_dirs = nil,                                              -- table of dirs that the plugin will auto-save and auto-load from
+        ignored_dirs = nil,                                              -- table of dirs that are ignored when auto-saving and auto-loading
+        ignored_branches = nil,                                          -- table of branch patterns that are ignored for auto-saving and auto-loading
         telescope = {
-          reset_prompt = true, -- Reset the Telescope prompt after an action?
-          mappings = { -- table of mappings for the Telescope extension
+          reset_prompt = true,                                           -- Reset the Telescope prompt after an action?
+          mappings = {                                                   -- table of mappings for the Telescope extension
             change_branch = '<c-b>',
             copy_session = '<c-c>',
             delete_session = '<c-d>',
@@ -924,8 +898,6 @@ local default_plugins = {
     end,
   },
 
-
-
   -- nvim-lint: Linter Plugin
   {
     'mfussenegger/nvim-lint',
@@ -965,7 +937,7 @@ local default_plugins = {
   {
     'mrcjkb/rustaceanvim',
     version = '^5', -- Recommended
-    lazy = false, -- This plugin is already lazy
+    lazy = false,   -- This plugin is already lazy
   },
 
   -- Lean.nvim: Lean 4 support
@@ -984,7 +956,7 @@ local default_plugins = {
       lsp = {
         on_attach = function(client, bufnr)
           -- Use the on_attach from lspconfig
-          local lspconfig = require('plugins.configs.lspconfig')
+          local lspconfig = require 'plugins.configs.lspconfig'
           if lspconfig.on_attach then
             lspconfig.on_attach(client, bufnr)
           end
@@ -993,8 +965,10 @@ local default_plugins = {
         end,
         -- Configure root directory detection
         root_dir = function(fname)
-          local util = require('lspconfig.util')
-          return util.root_pattern('lakefile.lean', 'lakefile.toml', 'lean-toolchain', '.git')(fname)
+          local util = require 'lspconfig.util'
+          return util.root_pattern('lakefile.lean', 'lakefile.toml', 'lean-toolchain', '.git')(
+            fname
+          )
         end,
       },
       mappings = true,
@@ -1016,8 +990,8 @@ local default_plugins = {
     version = '*',
     event = 'VeryLazy',
     dependencies = {
-      'nvim-lua/plenary.nvim', -- For standard functions
-      'MunifTanjim/nui.nvim', -- To build the plugin UI
+      'nvim-lua/plenary.nvim',         -- For standard functions
+      'MunifTanjim/nui.nvim',          -- To build the plugin UI
       'nvim-telescope/telescope.nvim', -- For picking b/w different remote methods
     },
     config = function()
@@ -1032,7 +1006,7 @@ local default_plugins = {
     'ravitemer/mcphub.nvim',
     event = 'VeryLazy',
     dependencies = {
-      'nvim-lua/plenary.nvim', -- Required for Job and HTTP requests
+      'nvim-lua/plenary.nvim',               -- Required for Job and HTTP requests
     },
     build = 'npm install -g mcp-hub@latest', -- Installs required mcp-hub npm module
     config = function()
