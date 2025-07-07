@@ -143,6 +143,49 @@ lspconfig.ts_ls.setup {
 --   },
 -- }
 
+-- Function to get pyenv python path
+local function get_python_path(workspace)
+  -- Use activated virtualenv
+  if vim.env.VIRTUAL_ENV then
+    return vim.env.VIRTUAL_ENV .. '/bin/python'
+  end
+
+  -- Find and use virtualenv in workspace directory
+  for _, pattern in ipairs({'venv', 'env', '.venv'}) do
+    local venv_path = workspace .. '/' .. pattern .. '/bin/python'
+    if vim.fn.executable(venv_path) == 1 then
+      return venv_path
+    end
+  end
+
+  -- Check for pyenv local version
+  local pyenv_local = workspace .. '/.python-version'
+  if vim.fn.filereadable(pyenv_local) == 1 then
+    local version = vim.fn.readfile(pyenv_local)[1]
+    if version then
+      -- Trim any whitespace
+      version = vim.fn.trim(version)
+      local pyenv_python = vim.fn.expand('~/.pyenv/versions/' .. version .. '/bin/python')
+      if vim.fn.executable(pyenv_python) == 1 then
+        return pyenv_python
+      end
+    end
+  end
+
+  -- Use pyenv which python in the workspace directory
+  local handle = io.popen('cd "' .. workspace .. '" && pyenv which python 2>/dev/null')
+  if handle then
+    local result = handle:read('*a')
+    handle:close()
+    if result and result ~= '' then
+      return vim.fn.trim(result)
+    end
+  end
+
+  -- Fallback to system python
+  return vim.fn.exepath('python3') or vim.fn.exepath('python') or 'python'
+end
+
 lspconfig.basedpyright.setup {
   on_attach = function(client, bufnr)
     exports.on_attach(client, bufnr)
@@ -150,8 +193,54 @@ lspconfig.basedpyright.setup {
   end,
 
   capabilities = exports.capabilities,
+  
+  root_dir = lspconfig.util.root_pattern(
+    '.python-version',
+    'pyproject.toml',
+    'setup.py',
+    'setup.cfg',
+    'requirements.txt',
+    'Pipfile',
+    'pyrightconfig.json',
+    '.git'
+  ),
+  
+  on_new_config = function(config, root_dir)
+    local python_path = get_python_path(root_dir)
+    config.settings.python = {
+      pythonPath = python_path,
+    }
+    config.settings.basedpyright = config.settings.basedpyright or {}
+    config.settings.basedpyright.pythonPath = python_path
+    -- Also set the interpreter path for the language server
+    config.cmd_env = config.cmd_env or {}
+    config.cmd_env.VIRTUAL_ENV = vim.fn.fnamemodify(python_path, ':h:h')
+  end,
+  
+  on_init = function(client)
+    -- Notify the server about the python path
+    local python_path = client.config.settings.python.pythonPath
+    vim.notify('Basedpyright initialized with Python: ' .. python_path, vim.log.levels.INFO)
+  end,
+  
   settings = {
+    python = {
+      analysis = {
+        autoSearchPaths = true,
+        useLibraryCodeForTypes = true,
+        diagnosticMode = 'workspace',
+        typeCheckingMode = 'basic',
+      },
+    },
     basedpyright = {
+      analysis = {
+        autoSearchPaths = true,
+        useLibraryCodeForTypes = true,
+        diagnosticMode = 'workspace',
+        typeCheckingMode = 'basic',
+        autoImportCompletions = true,
+        extraPaths = {},
+      },
       hints = {
         assignVariableTypes = true,
         compositeLiteralFields = true,
@@ -161,10 +250,7 @@ lspconfig.basedpyright.setup {
         parameterNames = true,
         rangeVariableTypes = true,
       },
-      analysis = {
-        autoSearchPaths = true,
-        useLibraryCodeForTypes = true,
-        diagnosticSeverityOverrides = {
+      diagnosticSeverityOverrides = {
           reportDeprecated = false,
           reportAssignmentType = false,
           reportAny = false,
@@ -191,7 +277,6 @@ lspconfig.basedpyright.setup {
           reportUnnecessaryComparison = 'information',
           reportUnnecessaryIsInstance = 'information',
         },
-      },
     },
   },
 }
@@ -278,5 +363,38 @@ lspconfig.zls.setup {}
 lspconfig.tailwindcss.setup {}
 
 -- Note: Lean LSP is configured by the lean.nvim plugin
+
+-- Command to restart Python LSP with current pyenv
+vim.api.nvim_create_user_command('PythonRestartLSP', function()
+  vim.cmd('LspRestart basedpyright')
+  vim.defer_fn(function()
+    vim.notify('Basedpyright restarted', vim.log.levels.INFO)
+  end, 500)
+end, {})
+
+-- Command to show current Python path
+vim.api.nvim_create_user_command('PythonShowPath', function()
+  local clients = vim.lsp.get_active_clients()
+  local found = false
+  for _, client in ipairs(clients) do
+    if client.name == 'basedpyright' then
+      found = true
+      local workspace = client.config.root_dir or vim.fn.getcwd()
+      local python_path = get_python_path(workspace)
+      local settings_path = client.config.settings and client.config.settings.python and client.config.settings.python.pythonPath
+      
+      vim.notify(
+        'Workspace: ' .. workspace .. 
+        '\nDetected Python: ' .. python_path ..
+        '\nConfigured Python: ' .. (settings_path or 'not set') ..
+        '\nPython version: ' .. vim.fn.system(python_path .. ' --version'),
+        vim.log.levels.INFO
+      )
+    end
+  end
+  if not found then
+    vim.notify('Basedpyright is not running. Open a Python file first.', vim.log.levels.WARN)
+  end
+end, {})
 
 return exports
