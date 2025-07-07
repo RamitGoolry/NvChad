@@ -196,7 +196,12 @@ exports.lspconfig = {
 
     ['<leader>wl'] = {
       function()
-        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+        local folders = vim.lsp.buf.list_workspace_folders()
+        if #folders == 0 then
+          vim.notify('No workspace folders', vim.log.levels.INFO)
+        else
+          vim.notify('Workspace folders:\n' .. table.concat(folders, '\n'), vim.log.levels.INFO)
+        end
       end,
       'List workspace folders',
     },

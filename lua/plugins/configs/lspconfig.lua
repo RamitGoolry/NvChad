@@ -305,22 +305,25 @@ lspconfig.jsonls.setup {
   },
 }
 
--- FIXME: YAMLLS SCREAMS SO MUCH I FORGOT
--- lspconfig.yamlls.setup {
--- 	on_attach = exports.on_attach,
--- 	capabilities = exports.capabilities,
--- 	settings = {
--- 		yaml = {
--- 			schemas = require('schemastore').yaml.schemas {
--- 				'Helm Chart.yaml',
--- 			},
--- 			schemaStore = {
--- 				enable = false,
--- 				url = '',
--- 			},
--- 		},
--- 	},
--- }
+lspconfig.yamlls.setup {
+  on_attach = exports.on_attach,
+  capabilities = exports.capabilities,
+  settings = {
+    yaml = {
+      schemas = require('schemastore').yaml.schemas(),
+      schemaStore = {
+        enable = true,
+        url = 'https://www.schemastore.org/api/json/catalog.json',
+      },
+      validate = true,
+      hover = true,
+      completion = true,
+      format = {
+        enable = true,
+      },
+    },
+  },
+}
 
 lspconfig.nil_ls.setup {
   on_attach = function(client, bufnr)

@@ -105,9 +105,10 @@ autocmd('BufWritePost', {
       vim.opt.tabline = '%!v:lua.require(\'nvchad.tabufline.modules\').run()'
     end
 
-    -- require("base46").load_all_highlights()
-    -- TODO Fix this
-    -- vim.cmd("redraw!")
+    -- Force a redraw to ensure UI updates properly
+    vim.schedule(function()
+      vim.cmd("redraw!")
+    end)
   end,
 })
 

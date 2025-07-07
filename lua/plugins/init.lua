@@ -194,7 +194,7 @@ local default_plugins = {
         },
         config = function(_, opts)
           local nvim_autopairs = require 'nvim-autopairs'
-          -- TODO:(ramit) Fix the 'require' luasnip snippet. This should have been 'autopairs', not 'nvim_autopairs'
+
           nvim_autopairs.setup(opts)
 
           -- setup cmp for autopairs
