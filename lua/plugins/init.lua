@@ -914,9 +914,7 @@ local default_plugins = {
     config = function()
       local mason_lint = require 'mason-nvim-lint'
       mason_lint.setup {
-        ensure_installed = {
-          'nilaway',
-        },
+        ensure_installed = {},
         automatic_installation = false,
       }
     end,
