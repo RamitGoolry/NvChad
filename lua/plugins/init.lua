@@ -1031,7 +1031,76 @@ local default_plugins = {
     end,
   },
 
+  -- Obsidian
+  {
+    'epwalsh/obsidian.nvim',
+    version = '*', -- recommended, use latest release instead of latest commit
+    lazy = false,
+    ft = 'markdown',
+    dependencies = {
+      -- Required.
+      'nvim-lua/plenary.nvim',
+      'hrsh7th/nvim-cmp',
+      'nvim-telescope/telescope.nvim',
+      'nvim-treesitter',
+    },
 
+    config = function()
+      -- set conceallevel=2 to hide * markups in comments
+      vim.cmd 'set conceallevel=2'
+
+      local obsidian = require 'obsidian'
+      obsidian.setup {
+        workspaces = {
+          {
+            name = 'notes',
+            path = '~/Desktop/Notes',
+          },
+        },
+        notes_subdir = 'Main Notes',
+
+        completion = {
+          nvim_cmp = true,
+          min_chars = 2,
+        },
+
+        new_notes_location = 'notes_subdir',
+        note_id_func = function(title)
+          return title
+        end,
+
+        disable_frontmatter = false,
+        note_frontmatter_func = function(note)
+          -- Add the title of the note as an alias.
+          if note.title then
+            note:add_alias(note.title)
+          end
+
+          local out = { id = note.id, aliases = note.aliases }
+
+          if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
+            for k, v in pairs(note.metadata) do
+              out[k] = v
+            end
+          end
+
+          return out
+        end,
+
+        picker = {
+          name = 'telescope.nvim',
+          note_mappings = {
+            new = '<C-x>',
+            insert_link = '<C-l>',
+          },
+          tag_mappings = {
+            tag_note = '<C-x>',
+            insert_tag = '<C-l>',
+          },
+        },
+      }
+    end,
+  },
 }
 
 local config = require('core.utils').load_config()
