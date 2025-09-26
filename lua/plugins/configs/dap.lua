@@ -5,6 +5,7 @@ exports.config = function()
   local dapui = require 'dapui'
   local dap_go = require 'dap-go'
   local dap_python = require 'dap-python'
+  local dap_vscode_js = require 'dap-vscode-js'
 
   dapui.setup {
     icons = { expanded = '▾', collapsed = '▸' },
@@ -88,6 +89,44 @@ exports.config = function()
   -- DAP Python
   dap_python.setup '/Users/ramit/.pyenv/shims/python3'
   dap_python.test_runner = 'pytest'
+
+  -- DAP VSCode JS
+  dap_vscode_js.setup {
+    debugger_path = vim.fn.stdpath 'data' .. '/mason/packages/js-debug-adapter',
+    debugger_cmd = { 'js-debug-adapter' },
+    adapters = {
+      'pwa-node',
+      'pwa-chrome',
+      'pwa-msedge',
+      'node-terminal',
+      'pwa-extensionHost',
+    },
+  }
+
+  for _, language in ipairs { 'typescript', 'javascript' } do
+    dap.configurations[language] = {
+      {
+        type = 'pwa-node',
+        request = 'launch',
+        name = 'Launch File',
+        program = '${file}',
+        cwd = '${workspaceFolder}',
+        sourceMaps = true,
+        protocol = 'inspector',
+        console = 'integratedTerminal',
+      },
+      {
+        type = 'pwa-node',
+        request = 'attach',
+        name = 'Attach to Process',
+        processId = require('dap.utils').pick_process,
+        cwd = '${workspaceFolder}',
+        sourceMaps = true,
+        protocol = 'inspector',
+        console = 'integratedTerminal',
+      },
+    }
+  end
 
   -- DAP UI Hooks: Open and Close on appropriate DAP Events
   dap.listeners.before.attach.dapui_config = function()

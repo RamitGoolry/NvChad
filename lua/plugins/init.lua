@@ -639,6 +639,7 @@ local default_plugins = {
       'nvim-neotest/nvim-nio',
       'leoluz/nvim-dap-go',
       'mfussenegger/nvim-dap-python',
+      'mxsdev/nvim-dap-vscode-js',
     },
     config = function()
       local dap = require 'plugins.configs.dap'
@@ -819,6 +820,7 @@ local default_plugins = {
       'antoinemadec/FixCursorHold.nvim',
       'nvim-treesitter/nvim-treesitter',
       'fredrikaverpil/neotest-golang',
+      'marilari88/neotest-vitest',
     },
 
     init = function()
@@ -829,6 +831,7 @@ local default_plugins = {
     config = function()
       local neotest = require 'neotest'
       local neotest_golang = require 'neotest-golang'
+      local neotest_vitest = require 'neotest-vitest'
 
       local go_test_config = {
         go_test_args = {
@@ -843,6 +846,7 @@ local default_plugins = {
       neotest.setup {
         adapters = {
           neotest_golang(go_test_config),
+          neotest_vitest,
         },
       }
     end,
@@ -1069,7 +1073,7 @@ local default_plugins = {
           return title
         end,
 
-        disable_frontmatter = false,
+        disable_frontmatter = true,
         note_frontmatter_func = function(note)
           -- Add the title of the note as an alias.
           if note.title then
